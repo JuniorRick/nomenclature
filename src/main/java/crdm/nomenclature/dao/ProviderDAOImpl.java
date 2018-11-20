@@ -25,19 +25,24 @@ public class ProviderDAOImpl implements ProviderDAO{
 
 	@Override
 	public Provider save(Provider provider) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = sessionFactory.getCurrentSession();
+		session.saveOrUpdate(provider);
+		return provider;
 	}
 
 	@Override
-	public Provider get(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Provider find(Integer id) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		return session.find(Provider.class, id);
 	}
 
 	@Override
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
+		Session session = sessionFactory.getCurrentSession();
+		Provider provider = session.find(Provider.class, id);
+		
+		session.delete(provider);
 		
 	}
 

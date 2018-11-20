@@ -13,45 +13,54 @@
 	<!-- Navigation menu -->
 	<jsp:include page="/WEB-INF/views/layouts/nav.jsp" />
 
-	<div class="generic-container">
+	<div class="generic-container sm-container">
 		<div class="card">
-			<div class="card-header">Add new Provider</div>
-			<div class="card-body">
-				<form:form action="store" modelAttribute="provider" method="POST">
-					<!-- Modal body -->
+			<button class="card-header text-left" type="button"
+				data-toggle="collapse" data-target="#collapseInput" role="button"
+				aria-expanded="false" aria-controls="collapseInput"
+				style="cursor:pointer;">${provider.id != null ? 'Update' : 'Add new' }	Provider</button>
 
-					<form:hidden path="id" />
-					<div class=" form-group row">
-						<label class="col-sm-2 col-form-label" for="">Provider</label>
-						<div class="col-sm-6">
-							<form:input path="name" class="form-control"
-								placeholder="Provider name" />
+
+			<div class="collapse ${provider.id != null ? 'show' : ''}" id="collapseInput">
+				<div class="card-body">
+					<form:form action="store" modelAttribute="provider" method="POST">
+
+
+						<form:hidden path="id" />
+						<div class=" form-group row">
+							<label class="col-sm-2 col-form-label" for="">Provider</label>
+							<div class="col-sm-6">
+								<form:input path="name" class="form-control"
+									placeholder="Provider name" />
+							</div>
 						</div>
-					</div>
 
 
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<input type="submit" class="btn btn-primary" value="Save">
-					</div>
-				</form:form>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<input type="submit" class="btn btn-primary" value="${provider.id != null ? 'Update' : 'Save' }">
+							${provider.id != null ? '<a href="list" class="btn btn-info">Cancel</a>' : '' }
+						</div>
+					</form:form>
 
+				</div>
 			</div>
 		</div>
 
 		<div class="mt-2"></div>
-		
+
 		<div class="card">
-			<div class="card-header">List of Providers</div>
+			<div class="card-header" data-toggle="collapse">List of
+				Providers</div>
 			<div class="card-body">
 
 				<div class="row">
 					<table class="table ">
-						<thead class="thead-dark col-6">
+						<thead class=" col-6">
 							<tr>
 								<th scope="col">#</th>
 								<th scope="col">Name</th>
-								<th scope="col" colspan="2">Actions</th>
+								<th class="custom-action-width" scope="col">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -70,11 +79,9 @@
 									<td>${provider.name}</td>
 
 									<td class="custom-action-width"><a href="${update}"
-										class="btn btn-warning btn-sm">Edit</a></td>
-									<td class="custom-action-width">
+										class="btn btn-warning btn-sm">Edit</a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
-											data-target="#confirmModal${provider.id}">Delete</button>
-									</td>
+											data-target="#confirmModal${provider.id}">Delete</button></td>
 								</tr>
 
 

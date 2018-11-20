@@ -12,6 +12,52 @@ body {
   box-shadow: 0 0 30px black;
 }
 
-.custom-action-width {
-	width: 10%;
+.sm-container {
+	width: 60%;
 }
+
+
+nav {
+	background-color: #679f9d;
+}
+
+a {
+	color: #fff;
+}
+.custom-action-width {
+	width: 20%;
+}
+
+@media screen and (max-width: 1000px) {
+	.sm-container {
+		width: 70%;
+	}
+}
+
+@media screen and (max-width: 600px) {
+	.sm-container {
+		width: 90%;
+	}
+}
+
+.btn-primary {
+	background-color: #137c5c;
+	border: 1px solid #137c5c;
+}
+
+.btn-warning {
+	background-color: #669fa1;
+	border: 1px solid #669fa1;
+	color: #fff
+}
+
+
+.btn-danger {
+/* 	background-color: #137c5c;
+ */	border: 1px solid #137c5c;
+}
+
+table > thead {
+	background-color: #679f9d !important;
+}
+

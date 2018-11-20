@@ -3,8 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark"
-	style="background-color: #e3f2fd;">
+<nav class="navbar navbar-expand-lg">
 	<a class="navbar-brand" href="#">
 	<img src="<c:url value="/resources/images/IMSP_CRDM.png" />"
 	style="	width: 40px; height: auto;"alt="" />

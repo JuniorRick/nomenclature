@@ -23,20 +23,21 @@ public class ProviderServiceImpl implements ProviderService {
 	}
 
 	@Override
+	@Transactional
 	public Provider save(Provider provider) {
-		// TODO Auto-generated method stub
-		return null;
+		return providerDAO.save(provider);
 	}
 
 	@Override
-	public Provider get(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	@Transactional
+	public Provider find(Integer id) {
+		return providerDAO.find(id);
 	}
 
 	@Override
+	@Transactional
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
+		providerDAO.delete(id);
 
 	}
 

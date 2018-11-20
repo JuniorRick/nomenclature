@@ -9,7 +9,7 @@ public interface ProviderService {
 
 	public Provider save(Provider provider);
 
-	public Provider get(Integer id);
+	public Provider find(Integer id);
 
 	void delete(Integer id);
 
