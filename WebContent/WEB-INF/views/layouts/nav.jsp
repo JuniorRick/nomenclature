@@ -2,6 +2,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<link href="https://fonts.googleapis.com/css?family=Niramit" rel="stylesheet"> 
 
 <nav class="navbar navbar-expand-lg">
 	<a class="navbar-brand" href="#">
@@ -20,10 +22,10 @@
 				href="${pageContext.request.contextPath}/">Home <span
 					class="sr-only">(current)</span></a></li>
 			<li class="nav-item" id="reagents-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/provider/list">Provider</a>
+				href="${pageContext.request.contextPath}/provider/list">Providers</a>
 			</li>
 			<li class="nav-item" id="lab-link"><a class="nav-link"
-				href="#">......</a>
+				href="${pageContext.request.contextPath}/section/list">Sections</a>
 			</li>
 			<li class="nav-item" id="new-release-link"><a class="nav-link"
 				href="#">......</a></li>
