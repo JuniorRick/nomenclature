@@ -18,11 +18,13 @@ public class Provider {
 	@NotNull
 	private String name;
 
-	public Provider() {
-	}
+//	@OneToMany(
+//			cascade = CascadeType.ALL,
+//			mappedBy="contract",
+//			orphanRemoval = true)
+//    private List<Contracts> contracts;
 
-	public Provider(@NotNull String name) {
-		this.name = name;
+	public Provider() {
 	}
 
 	public Integer getId() {

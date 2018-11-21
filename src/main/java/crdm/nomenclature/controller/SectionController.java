@@ -47,10 +47,9 @@ public class SectionController {
 	}
 	
 	@GetMapping("/update")
-	public String update(@RequestParam("Id") int id, Model model, final RedirectAttributes redirectAttributes) {
+	public String update(@RequestParam("Id") int id, final RedirectAttributes redirectAttributes) {
 
 		Section section= sectionService.find(id);
-		model.addAttribute("section", section);
 		redirectAttributes.addFlashAttribute("section", section);
 		
 		return "redirect:/section/list";

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import crdm.nomenclature.entity.Section;
+import crdm.nomenclature.rest.exception.NotFoundException;
 import crdm.nomenclature.service.SectionService;
 
 @RestController
@@ -33,8 +34,7 @@ public class SectionRestController {
 
 		Section section = sectionService.find(id);
 		if(section == null) {
-//			throw new SectionNotFoundException("Section id not found - " + id);
-			throw new RuntimeException();
+			throw new NotFoundException("Section id not found - " + id);
 		}
 		
 		return section;
@@ -64,8 +64,7 @@ public class SectionRestController {
 		Section section = sectionService.find(id);
 		
 		if(section == null) {
-//			throw new SectionNotFoundException("Section id not found - " + id);
-			throw new RuntimeException();
+			throw new NotFoundException("Section id not found - " + id);
 		}
 		
 		sectionService.delete(id);

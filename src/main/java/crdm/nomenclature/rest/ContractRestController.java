@@ -13,66 +13,66 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import crdm.nomenclature.entity.Provider;
+import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.rest.exception.NotFoundException;
-import crdm.nomenclature.service.ProviderService;
+import crdm.nomenclature.service.ContractService;
 
 @RestController
-@RequestMapping("/api/providers")
-public class ProviderRestController {
+@RequestMapping("/api/contracts")
+public class ContractRestController {
 
 	@Autowired
-	private ProviderService providerService;
+	private ContractService contractService;
 	
 	@CrossOrigin
 	@GetMapping("")
-	public List<Provider> all() {
+	public List<Contract> all() {
 		
-		List<Provider> providers = providerService.all();
+		List<Contract> contracts = contractService.all();
 		
-		return providers;
+		return contracts;
 	}
 	
 	
 	@GetMapping("/{id}")
-	public Provider get(@PathVariable Integer id) {
+	public Contract get(@PathVariable Integer id) {
 
-		Provider provider = providerService.find(id);
-		if(provider == null) {
-			throw new NotFoundException("Provider id not found - " + id);
+		Contract contract = contractService.find(id);
+		if(contract == null) {
+			throw new NotFoundException("Contract id not found - " + id);
 		}
 		
-		return provider;
+		return contract;
 	}
 	
 	
 	@PostMapping("")
-	public Provider save(@RequestBody Provider provider) {
+	public Contract save(@RequestBody Contract contract) {
 		
-		provider.setId(null);
-		providerService.save(provider);
+		contract.setId(null);
+		contractService.save(contract);
 		
-		return provider;
+		return contract;
 	}
 	
 	@PutMapping("")
-	public Provider update(@RequestBody Provider provider) {
+	public Contract update(@RequestBody Contract contract) {
 
-		providerService.save(provider);
+		contractService.save(contract);
 		
-		return provider;
+		return contract;
 	}
 	
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable int id) {
 
-		Provider provider = providerService.find(id);
+		Contract contract = contractService.find(id);
 		
-		if(provider == null) {
-			throw new NotFoundException("Provider id not found - " + id);
+		if(contract == null) {
+			throw new NotFoundException("Contract id not found - " + id);
 		}
 		
-		providerService.delete(id);
+		contractService.delete(id);
 		return "Deleted customer id - " + id;
 	}
 }

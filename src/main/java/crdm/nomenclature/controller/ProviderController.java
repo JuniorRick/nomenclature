@@ -47,10 +47,10 @@ public class ProviderController {
 	}
 	
 	@GetMapping("/update")
-	public String update(@RequestParam("Id") int id, Model model, final RedirectAttributes redirectAttributes) {
+	public String update(@RequestParam("Id") int id, final RedirectAttributes redirectAttributes) {
 
 		Provider provider= providerService.find(id);
-		model.addAttribute("provider", provider);
+
 		redirectAttributes.addFlashAttribute("provider", provider);
 		
 		return "redirect:/provider/list";

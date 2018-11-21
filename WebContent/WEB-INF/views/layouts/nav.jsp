@@ -28,7 +28,7 @@
 				href="${pageContext.request.contextPath}/section/list">Sections</a>
 			</li>
 			<li class="nav-item" id="new-release-link"><a class="nav-link"
-				href="#">......</a></li>
+				href="${pageContext.request.contextPath}/contract/list">Contracts</a></li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
@@ -46,8 +46,8 @@
 
 		<form class="form-inline ">
 			<input class="form-control mr-sm-2" placeholder="Search"
-				aria-label="Search" type="search">
-			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+				aria-label="Search" type="search" id="search">
+<!-- 			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button> -->
 		</form>
 
 	</div>
