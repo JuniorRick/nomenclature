@@ -1,5 +1,8 @@
 package crdm.nomenclature.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +31,16 @@ public class ContractController {
 	private ProviderService providerService;
 	
 	@GetMapping("/list")
-	public String all(@ModelAttribute("contract") Contract contract, Model model) {
+	public String all(@ModelAttribute("contract") Contract contract, Model model) throws ParseException {
 		
 		List<Contract> contracts = contractService.all();
 		
-		if(contract == null) {
+		if(contract.getExpiry_date() == null ) {
 			contract = new Contract();
+			Calendar calendar = Calendar.getInstance();
+			Integer year = calendar.get(Calendar.YEAR);
+
+			contract.setExpiry_date(Date.valueOf(year + "-12-31"));
 		}
 		
 		model.addAttribute("contracts", contracts);

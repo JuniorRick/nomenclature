@@ -73,7 +73,7 @@
 							<label class="col-sm-2 col-form-label" for="">Start Date</label>
 							<div class="col-sm-6">
 								<input type="date" id="start_date" class="form-control"
-									name="start_date" placeholder="Start Date" />
+									name="start_date" placeholder="Start Date" value="${contract.start_date}"/>
 							</div>
 						</div>
 						
@@ -81,14 +81,15 @@
 							<label class="col-sm-2 col-form-label" for="">End Date</label>
 							<div class="col-sm-6">
 								<input type="date" id="expiry_date" class="form-control"
-									name="expiry_date" placeholder="End Date" />
+									name="expiry_date" placeholder="End Date" value="${contract.expiry_date}"/>
+									<script> console.log("${contract.expiry_date}")</script>
 							</div>
 						</div>
 						<div class="clearfix">
 							<hr>
 							<input type="submit" class="btn btn-primary float-right"
 								value="${contract.id != null ? 'Update' : 'Save' }">
-							${contract.id != null ? '<a href="list" class="btn btn-info">Cancel</a>' : '' }
+							${contract.id != null ? '<a href="list" class="btn float-right mr-2 btn-info">Cancel</a>' : '' }
 						</div>
 					</form:form>
 
@@ -108,13 +109,14 @@
 						<thead class=" col-6">
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Name</th>
+								<th scope="col">Provider</th>
+								<th scope="col">Contract name</th>
 								<th scope="col">Abbr</th>
 								<th scope="col">Number</th>
 								<th scope="col">Start Date</th>
 								<th scope="col">Expiry Date</th>
 								
-								<th class="custom-action-width" scope="col">Actions</th>
+								<th class="" scope="col">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -132,12 +134,13 @@
 									<th class="" scope="row">${loop.index + 1}</th>
 									
 									<td>${contract.provider.name}</td>
+									<td>${contract.name}</td>
 									<td>${contract.abbr }</td>
 									<td>${contract.number}</td>
 									<td>${contract.start_date}</td>
 									<td>${contract.expiry_date}</td>
 									
-									<td class="custom-action-width"><a href="${update}"
+									<td class=""><a href="${update}"
 										class="btn btn-warning btn-sm">Edit</a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
 											data-target="#confirmModal${contract.id}">Delete</button></td>

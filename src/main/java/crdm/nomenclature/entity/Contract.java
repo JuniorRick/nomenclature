@@ -1,6 +1,6 @@
 package crdm.nomenclature.entity;
 
-import java.util.Date;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,12 +35,12 @@ public class Contract {
 
 	private String abbr;
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+//	@Temporal(TemporalType.DATE)
+//	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date start_date;
 
-	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
+//	@Temporal(TemporalType.DATE)
+//	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date expiry_date;
 
 	public Contract() {
