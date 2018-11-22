@@ -18,12 +18,6 @@ public class Provider {
 	@NotNull
 	private String name;
 
-//	@OneToMany(
-//			cascade = CascadeType.ALL,
-//			mappedBy="contract",
-//			orphanRemoval = true)
-//    private List<Contracts> contracts;
-
 	public Provider() {
 	}
 

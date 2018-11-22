@@ -21,23 +21,26 @@
 			<li class="nav-item" id="home-link"><a class="nav-link"
 				href="${pageContext.request.contextPath}/">Home <span
 					class="sr-only">(current)</span></a></li>
-			<li class="nav-item" id="reagents-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/provider/list">Providers</a>
-			</li>
-			<li class="nav-item" id="lab-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/section/list">Sections</a>
-			</li>
 			<li class="nav-item" id="new-release-link"><a class="nav-link"
 				href="${pageContext.request.contextPath}/contract/list">Contracts</a></li>
+			<li class="nav-item" id="reagents-link"><a class="nav-link"
+				href="${pageContext.request.contextPath}/purchase/list">Purchases</a>
+			</li>
+			<li class="nav-item" id="lab-link"><a class="nav-link"
+				href="${pageContext.request.contextPath}/order/list">Orders</a>
+			</li>
+						<li class="nav-item" id="lab-link"><a class="nav-link"
+				href="${pageContext.request.contextPath}/order/approved">Approved orders</a>
+			</li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false"> More ... </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/producer/list">Producers</a>
+						href="${pageContext.request.contextPath}/provider/list">Providers</a>
 					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/person/list">People</a>
+						href="${pageContext.request.contextPath}/section/list">Sections</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="#">Settings</a>
 				</div></li>

@@ -9,11 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "contracts")
@@ -37,11 +33,11 @@ public class Contract {
 
 //	@Temporal(TemporalType.DATE)
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date start_date;
+	private Date startDate;
 
 //	@Temporal(TemporalType.DATE)
 //	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date expiry_date;
+	private Date expiryDate;
 
 	public Contract() {
 	}
@@ -87,19 +83,19 @@ public class Contract {
 	}
 
 	public Date getStart_date() {
-		return start_date;
+		return startDate;
 	}
 
-	public void setStart_date(Date start_date) {
-		this.start_date = start_date;
+	public void setStart_date(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	public Date getExpiry_date() {
-		return expiry_date;
+		return expiryDate;
 	}
 
-	public void setExpiry_date(Date expiry_date) {
-		this.expiry_date = expiry_date;
+	public void setExpiry_date(Date expiryDate) {
+		this.expiryDate = expiryDate;
 	}
 
 }
