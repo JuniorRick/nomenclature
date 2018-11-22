@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import crdm.nomenclature.entity.Contract;
+import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.rest.exception.NotFoundException;
 import crdm.nomenclature.service.ContractService;
 
@@ -45,6 +46,18 @@ public class ContractRestController {
 		return contract;
 	}
 	
+	
+	
+	@GetMapping("/{id}/purchases")
+	public List<Purchase> getPurchases(@PathVariable Integer id) {
+
+		Contract contract = contractService.find(id);
+		if(contract == null) {
+			throw new NotFoundException("Contract id not found - " + id);
+		}
+		
+		return contract.getPurchases();
+	}
 	
 	@PostMapping("")
 	public Contract save(@RequestBody Contract contract) {

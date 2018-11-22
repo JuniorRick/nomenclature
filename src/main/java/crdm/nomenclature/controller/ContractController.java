@@ -35,12 +35,12 @@ public class ContractController {
 		
 		List<Contract> contracts = contractService.all();
 		
-		if(contract.getExpiry_date() == null ) {
+		if(contract.getExpiryDate() == null ) {
 			contract = new Contract();
 			Calendar calendar = Calendar.getInstance();
 			Integer year = calendar.get(Calendar.YEAR);
 
-			contract.setExpiry_date(Date.valueOf(year + "-12-31"));
+			contract.setExpiryDate(Date.valueOf(year + "-12-31"));
 		}
 		
 		model.addAttribute("contracts", contracts);

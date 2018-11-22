@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import crdm.nomenclature.entity.Command;
+import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Section;
+import crdm.nomenclature.service.ContractService;
 import crdm.nomenclature.service.OrderService;
 import crdm.nomenclature.service.PurchaseService;
 import crdm.nomenclature.service.SectionService;
@@ -33,6 +35,9 @@ public class OrderController {
 	@Autowired
 	private SectionService sectionService;
 	
+	@Autowired
+	private ContractService contractService;
+	
 	@GetMapping("/list")
 	public String all(@ModelAttribute("order") Command order, Model model) throws ParseException {
 		
@@ -44,6 +49,9 @@ public class OrderController {
 		List<Purchase> purchases = purchaseService.all();
 		model.addAttribute("purchases", purchases);
 
+		List<Contract> contracts = contractService.all();
+		model.addAttribute("contracts", contracts);
+		
 		List<Section> sections = sectionService.all();
 		model.addAttribute("sections", sections);
 		

@@ -72,17 +72,16 @@
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Start Date</label>
 							<div class="col-sm-6">
-								<input type="date" id="start_date" class="form-control"
-									name="start_date" placeholder="Start Date" value="${contract.start_date}"/>
+								<input type="date" id="startDate" class="form-control"
+									name="startDate" placeholder="Start Date" value="${contract.startDate}"/>
 							</div>
 						</div>
 						
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">End Date</label>
 							<div class="col-sm-6">
-								<input type="date" id="expiry_date" class="form-control"
-									name="expiry_date" placeholder="End Date" value="${contract.expiry_date}"/>
-									<script> console.log("${contract.expiry_date}")</script>
+								<input type="date" id="expiryDate" class="form-control"
+									name="expiryDate" placeholder="End Date" value="${contract.expiryDate}"/>
 							</div>
 						</div>
 						<div class="clearfix">
@@ -137,8 +136,8 @@
 									<td>${contract.name}</td>
 									<td>${contract.abbr }</td>
 									<td>${contract.number}</td>
-									<td>${contract.start_date}</td>
-									<td>${contract.expiry_date}</td>
+									<td>${contract.startDate}</td>
+									<td>${contract.expiryDate}</td>
 									
 									<td class=""><a href="${update}"
 										class="btn btn-warning btn-sm">Edit</a>

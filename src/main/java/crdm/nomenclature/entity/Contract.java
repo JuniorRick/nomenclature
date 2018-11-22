@@ -1,15 +1,21 @@
 package crdm.nomenclature.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "contracts")
@@ -20,8 +26,8 @@ public class Contract {
 	private Integer id;
 
 	@NotNull
-	@JoinColumn(name = "provider_id")
 	@ManyToOne
+	@JoinColumn(name = "provider_id")
 	private Provider provider;
 
 	@NotNull
@@ -31,19 +37,53 @@ public class Contract {
 
 	private String abbr;
 
-//	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date startDate;
 
-//	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date expiryDate;
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "contract")
+	@JsonIgnore
+	private List<Purchase> purchases;
 
 	public Contract() {
+	}
+	
+	public void add(Purchase purchase) {
+		if(purchases == null) {
+			purchases = new ArrayList<>();
+		}
+		
+		purchases.add(purchase);
+		
+		purchase.setContract(this);
 	}
 
 	public Integer getId() {
 		return id;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+
+	public List<Purchase> getPurchases() {
+		return purchases;
+	}
+
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	public void setId(Integer id) {
@@ -80,22 +120,6 @@ public class Contract {
 
 	public void setAbbr(String abbr) {
 		this.abbr = abbr;
-	}
-
-	public Date getStart_date() {
-		return startDate;
-	}
-
-	public void setStart_date(Date startDate) {
-		this.startDate = startDate;
-	}
-
-	public Date getExpiry_date() {
-		return expiryDate;
-	}
-
-	public void setExpiry_date(Date expiryDate) {
-		this.expiryDate = expiryDate;
 	}
 
 }

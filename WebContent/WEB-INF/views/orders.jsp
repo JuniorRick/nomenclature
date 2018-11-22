@@ -34,10 +34,24 @@
 							<label class="col-sm-2 col-form-label" for="">Section</label>
 							<div class="col-sm-6">
 								<select id="section_id" name="section_id" class="form-control">
-									<option value="NONE">--Select contract--</option>
+									<option value="NONE">--Select section--</option>
 									<c:forEach items="${sections}" var="section">
 									       <option value="${section.id}" ${order.section.id == section.id ? 'selected' : '' }>
 									            ${section.name}
+									        </option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						
+						<div class=" form-group row">
+							<label class="col-sm-2 col-form-label" for="">Contract</label>
+							<div class="col-sm-6">
+								<select id="" name="" class="form-control">
+									<option value="NONE">--Select contract--</option>
+									<c:forEach items="${contracts}" var="contract">
+									       <option value="${contract.id}" ${order.purchase.contract.id == contract.id ? 'selected' : '' }>
+									            ${contract.name}
 									        </option>
 									</c:forEach>
 								</select>
@@ -175,7 +189,23 @@
 		</div>
 	</div>
 
+
 	<!-- Page footer -->
 	<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
+
+<script>
+	let id = 2;
+	console.log("trying to get data ...")
+	console.log("${pageContext.request.contextPath}/api/contracts/" + id + "/purchases")
+	$.ajax({
+		method: 'get',
+		url: "${pageContext.request.contextPath}/api/contracts/" + id + "/purchases",
+		dataType: 'json'
+	}).done(function(data) {
+		console.log("got data " + data[0].id);
+	}).fail(function( jqXHR, textStatus ) {
+		  alert( "Request failed: " + textStatus );
+	});
+</script>
 </body>
 </html>

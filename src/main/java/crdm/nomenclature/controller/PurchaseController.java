@@ -49,7 +49,8 @@ public class PurchaseController {
 
 		if(purchase.getId() == null) {
 			purchase.setRemainder(purchase.getQuantity());
-			purchase.setContract(contractService.find(contract_id));						
+			Contract contract = contractService.find(contract_id);
+			contract.add(purchase);						
 		}
 		
 		purchaseService.save(purchase);
