@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Where;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -43,6 +45,7 @@ public class Contract {
 	
 	@OneToMany(fetch=FetchType.EAGER, mappedBy = "contract")
 	@JsonIgnore
+	@Where(clause="remainder > 0")
 	private List<Purchase> purchases;
 
 	public Contract() {

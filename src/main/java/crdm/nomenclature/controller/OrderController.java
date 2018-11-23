@@ -17,6 +17,7 @@ import crdm.nomenclature.entity.Command;
 import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Section;
+import crdm.nomenclature.rest.exception.NotFoundException;
 import crdm.nomenclature.service.ContractService;
 import crdm.nomenclature.service.OrderService;
 import crdm.nomenclature.service.PurchaseService;
@@ -81,9 +82,12 @@ public class OrderController {
 			@RequestParam("purchase_id") int purchase_id,
 			@RequestParam("section_id") int section_id) {
 		
-		
 		order.setSection(sectionService.find(section_id));
 		order.setPurchase(purchaseService.find(purchase_id));
+	
+		if(order.getQuantity() > order.getPurchase().getRemainder()) {
+			throw new NotFoundException("Invalid quantity " + order.getQuantity() + ". Available: " + order.getPurchase().getRemainder());
+		}
 		
 		orderService.save(order);
 		
@@ -103,8 +107,13 @@ public class OrderController {
 	
 	@GetMapping("/approve")
 	public String approve(@RequestParam("Id") int id, Model model) {
-
-
+		
+		Command order = orderService.find(id);
+		
+		if(order.getQuantity() > order.getPurchase().getRemainder()) {
+			throw new NotFoundException("Invalid quantity " + order.getQuantity() + ". Available: " + order.getPurchase().getRemainder());
+		}
+		
 		orderService.approve(id);
 		
 		return "redirect:/order/list";

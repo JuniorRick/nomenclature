@@ -47,7 +47,7 @@
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Contract</label>
 							<div class="col-sm-6">
-								<select id="" name="" class="form-control">
+								<select id="contract_id" name="" class="form-control">
 									<option value="NONE">--Select contract--</option>
 									<c:forEach items="${contracts}" var="contract">
 									       <option value="${contract.id}" ${order.purchase.contract.id == contract.id ? 'selected' : '' }>
@@ -63,12 +63,12 @@
 							<label class="col-sm-2 col-form-label" for="">Purchase</label>
 							<div class="col-sm-6">
 								<select id="purchase_id" name="purchase_id" class="form-control">
-									<option value="NONE">--Select purchase--</option>
-									<c:forEach items="${purchases}" var="purchase">
+									<option value="NONE" selected>--Select contract first--</option>
+								<%-- 	<c:forEach items="${purchases}" var="purchase">
 									       <option value="${purchase.id}" ${order.purchase.id == purchase.id ? 'selected' : '' }>
 									            ${purchase.good} [${purchase.remainder}]
 									        </option>
-									</c:forEach>
+									</c:forEach> --%>
 								</select>
 							</div>
 						</div>
@@ -194,18 +194,47 @@
 	<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
 
 <script>
-	let id = 2;
-	console.log("trying to get data ...")
-	console.log("${pageContext.request.contextPath}/api/contracts/" + id + "/purchases")
-	$.ajax({
-		method: 'get',
-		url: "${pageContext.request.contextPath}/api/contracts/" + id + "/purchases",
-		dataType: 'json'
-	}).done(function(data) {
-		console.log("got data " + data[0].id);
-	}).fail(function( jqXHR, textStatus ) {
-		  alert( "Request failed: " + textStatus );
-	});
+
+	$(document).ready(function () {
+		if($('#contract_id').val() != 'NONE') {
+			let id = $('#contract_id').val();
+			let url = "${pageContext.request.contextPath}/api/contracts/" + id + "/purchases";
+			getPurchasesRequest(id, url);
+		}
+
+		
+	})
+
+	function getPurchasesRequest(id, url) {
+
+		$.ajax({
+			method: 'get',
+			url: url,
+			dataType: 'json'
+		}).done(function(data) {
+			$('#purchase_id').empty();
+			$('#purchase_id').append('<option value="NONE">--Select purchase--</option>');
+			for(let i in data) {
+				$('#purchase_id').append('<option value=' + data[i].id + '>' 
+						+ data[i].good + ' [ ' + data[i].remainder + ' ]'); 
+			}
+		}).fail(function( jqXHR, textStatus ) {
+			  alert( "Request failed: " + textStatus );
+		});
+	}
+	
+	$('#contract_id').change( function() {
+		let id = $(this).val();
+		
+		if($(this).val() == 'NONE') {
+			$('#purchase_id').empty();
+			$('#purchase_id').append('<option value="NONE">Select contract first--</option>');
+			return;
+		}
+		
+		let url = "${pageContext.request.contextPath}/api/contracts/" + id + "/purchases";
+		getPurchasesRequest(id, url);
+	})
 </script>
 </body>
 </html>
