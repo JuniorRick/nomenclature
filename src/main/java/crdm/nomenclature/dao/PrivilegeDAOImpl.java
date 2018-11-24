@@ -1,5 +1,7 @@
 package crdm.nomenclature.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,13 @@ public class PrivilegeDAOImpl implements PrivilegeDAO {
 	@Override
 	public Privilege findByName(String name) {
 		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("from Privilege where name = :name", Privilege.class)
-				.setParameter("name", name).getSingleResult();
+		List<Privilege> privileges = session.createQuery("from Privilege where name = :name", Privilege.class)
+				.setParameter("name", name).getResultList();
+		
+		if(privileges == null || privileges.isEmpty()) {
+			return null;
+		}
+		return privileges.get(0);
 	}
 
 	@Override

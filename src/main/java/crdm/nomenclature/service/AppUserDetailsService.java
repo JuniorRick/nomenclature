@@ -16,9 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import crdm.nomenclature.entity.Privilege;
 import crdm.nomenclature.entity.Role;
-import crdm.nomenclature.entity.RoleService;
 import crdm.nomenclature.entity.User;
-import crdm.nomenclature.entity.UserService;
 
 @Service("userDetailsService")
 @Transactional

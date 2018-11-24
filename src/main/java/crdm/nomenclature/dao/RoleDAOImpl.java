@@ -1,11 +1,15 @@
 package crdm.nomenclature.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import crdm.nomenclature.entity.Role;
 
+@Repository
 public class RoleDAOImpl implements RoleDAO {
 
 	@Autowired
@@ -14,8 +18,13 @@ public class RoleDAOImpl implements RoleDAO {
 	@Override
 	public Role findByName(String name) {
 		Session session = sessionFactory.getCurrentSession();
-		return session.createQuery("from Role where name = :name", Role.class)
-				.setParameter("name", name).getSingleResult();
+		List<Role> roles = session.createQuery("from Role where name = :name", Role.class)
+				.setParameter("name", name).getResultList();
+		
+		if(roles == null || roles.isEmpty()) {
+			return null;
+		}
+		return roles.get(0);
 	}
 
 	@Override

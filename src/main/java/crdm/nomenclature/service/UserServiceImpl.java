@@ -1,27 +1,33 @@
 package crdm.nomenclature.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import crdm.nomenclature.dao.UserDAO;
 import crdm.nomenclature.entity.User;
-import crdm.nomenclature.entity.UserService;
 
-public class UserServiceImpl implements UserService{
-
+@Service
+public class UserServiceImpl implements UserService {
+	
 	@Autowired
 	private UserDAO userDAO;
 	
 	@Override
+	@Transactional
 	public User findByEmail(String email) {
 		return userDAO.findByEmail(email);
 	}
 
 	@Override
+	@Transactional
 	public void delete(User user) {
 		userDAO.delete(user);
+
 	}
 
 	@Override
+	@Transactional
 	public User save(User user) {
 		return userDAO.save(user);
 	}

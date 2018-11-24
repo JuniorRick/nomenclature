@@ -1,4 +1,6 @@
-package crdm.nomenclature.entity;
+package crdm.nomenclature.service;
+
+import crdm.nomenclature.entity.Role;
 
 public interface RoleService {
 	Role findByName(String name);

@@ -1,11 +1,15 @@
 package crdm.nomenclature.dao;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import crdm.nomenclature.entity.User;
 
+@Repository
 public class UserDAOImpl implements UserDAO {
 
 	@Autowired
@@ -14,9 +18,13 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User findByEmail(String email) {
 		Session session = sessionFactory.getCurrentSession();
+		List<User> users = session.createQuery("from User u where u.email = :email", User.class)
+				.setParameter("email", email).getResultList();
+		if(users == null || users.isEmpty()) {
+			return null;
+		}
 		
-		return session.createQuery("from User u where u.email = :email", User.class)
-				.setParameter("email", email).getSingleResult();
+		return users.get(0);
 	}
 
 	@Override
