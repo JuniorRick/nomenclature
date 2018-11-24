@@ -27,6 +27,7 @@ public class ContractDAOImpl implements ContractDAO{
 	public Contract save(Contract contract) {
 		Session session = sessionFactory.getCurrentSession();
 		session.saveOrUpdate(contract);
+		
 		return contract;
 	}
 

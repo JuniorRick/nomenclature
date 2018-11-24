@@ -23,6 +23,11 @@ public class Privilege {
 	public Privilege() {
 	}
 
+	public Privilege(String name) {
+		this.name = name;
+	}
+
+
 	public Long getId() {
 		return id;
 	}
