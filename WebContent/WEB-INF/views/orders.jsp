@@ -141,7 +141,7 @@
 									<td>${order.purchase.remainder} (${order.purchase.unit})</td>
 									<td>${order.quantity} (${order.purchase.unit})</td>
 									<td>
-										<a href="${approve}" class="btn btn-warning btn-sm">Approve</a>
+										<a href="${approve}" class="btn btn-primary btn-sm">Approve</a>
 									</td>
 									
 									<td class="">
