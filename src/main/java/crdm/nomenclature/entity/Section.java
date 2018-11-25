@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "sections")
 public class Section {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

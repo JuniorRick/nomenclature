@@ -2,7 +2,9 @@ package crdm.nomenclature.entity;
 
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,8 +18,9 @@ import javax.persistence.Table;
 public class User {
   
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @Column(unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
  
     private String firstName;
     private String lastName;
@@ -26,7 +29,7 @@ public class User {
     private boolean enabled;
     private boolean tokenExpired;
  
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable( 
         name = "users_roles", 
         joinColumns = @JoinColumn(
@@ -35,11 +38,17 @@ public class User {
           name = "role_id", referencedColumnName = "id")) 
     private Collection<Role> roles;
 
-	public Long getId() {
+    
+    
+	public User() {
+		this.enabled = false;
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
