@@ -37,6 +37,7 @@ public class Role {
 	}
 
 	public Role(final String name) {
+		this.name = name;
 	}
 
 	public Integer getId() {

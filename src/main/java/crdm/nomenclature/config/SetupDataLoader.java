@@ -49,22 +49,22 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
 		createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
 		createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
-//
-//		final Role adminRole = roleService.findByName("ROLE_ADMIN");
-//		User user = userService.findByEmail("admin@admin.com");
-//		if(user == null) {
-//			user = new User();
-//			user.setFirstName("admin");
-//			user.setLastName("admin");
-//			user.setPassword(passwordEncoder.encode("nomenCRDM"));
-//			user.setEmail("admin@admin.com");
-//			user.setEnabled(true);
-//		}
-//
-//		user.setRoles(Arrays.asList(adminRole));
-//		userService.save(user);
-//		
-//		alreadySetup = true;
+
+		final Role adminRole = roleService.findByName("ROLE_ADMIN");
+		User user = userService.findByEmail("admin@admin.com");
+		if(user == null) {
+			user = new User();
+			user.setFirstName("admin");
+			user.setLastName("admin");
+			user.setPassword(passwordEncoder.encode("nomenCRDM"));
+			user.setEmail("admin@admin.com");
+			user.setEnabled(true);
+		}
+
+		user.setRoles(Arrays.asList(adminRole));
+		userService.save(user);
+		
+		alreadySetup = true;
 	}
 
 	@Transactional
