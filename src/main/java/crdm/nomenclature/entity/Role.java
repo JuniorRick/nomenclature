@@ -72,5 +72,4 @@ public class Role {
 		this.privileges = privileges;
 	}  
     
-    
 }

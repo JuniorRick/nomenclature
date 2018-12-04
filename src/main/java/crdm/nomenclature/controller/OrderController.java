@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,24 +41,57 @@ public class OrderController {
 	private ContractService contractService;
 	
 	@GetMapping("/list")
-	public String all(@ModelAttribute("order") Command order, Model model) throws ParseException {
+	public String all(Model model) throws ParseException {
 		
-		List<Command> orders = orderService.all();
-		
-		model.addAttribute("orders", orders);
-		model.addAttribute("order", order);
-		
-		List<Purchase> purchases = purchaseService.all();
-		model.addAttribute("purchases", purchases);
 
 		List<Contract> contracts = contractService.all();
 		model.addAttribute("contracts", contracts);
-		
+	
+		List<Purchase> purchases = purchaseService.all();	
+		model.addAttribute("purchases", purchases);
+
 		List<Section> sections = sectionService.all();
 		model.addAttribute("sections", sections);
 		
 		return "orders";
 	}
+	
+	@GetMapping("/list/{contract_id}/{section_id}")
+	public String contractPurchases(@PathVariable("contract_id") Integer contract_id,
+			@PathVariable("section_id") Integer section_id
+			, Model model) throws ParseException {
+		
+		String section_name = sectionService.find(section_id).getName();
+		
+		model.addAttribute("section_name", section_name);
+		
+		List<Contract> contracts = contractService.all();
+		model.addAttribute("contracts", contracts);
+	
+		List<Purchase> purchases = null;
+		if(contract_id == null || contract_id == 0) {
+			purchases = purchaseService.all();
+		} else {
+			purchases = contractService.find(contract_id).getPurchases();
+		}
+
+		model.addAttribute("purchases", purchases);
+
+		List<Section> sections = sectionService.all();
+		model.addAttribute("sections", sections);
+		
+		return "orders";
+	}
+	
+	@GetMapping("/filter")
+	public String filter( @RequestParam("section_id") Integer section_id,
+			@RequestParam("contract_id") Integer contract_id, final RedirectAttributes redirectAttributes) {
+	
+		return "redirect:/order/list/" + contract_id + "/" + section_id;
+		
+	}
+	
+	
 	
 	@GetMapping("/approved")
 	public String approvedList(@ModelAttribute("order") Command order, Model model) throws ParseException {

@@ -56,9 +56,10 @@ public class Contract {
 			purchases = new ArrayList<>();
 		}
 		
-		purchases.add(purchase);
-		
+		this.purchases.add(purchase);
+
 		purchase.setContract(this);
+		
 	}
 
 	public Integer getId() {

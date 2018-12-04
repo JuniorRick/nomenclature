@@ -46,14 +46,15 @@ public class PurchaseController {
 	@PostMapping("/store")
 	public String save(@ModelAttribute("purchase") Purchase purchase, @RequestParam("contract_id") int contract_id) {
 		
+		Contract contract = contractService.find(contract_id);
 
 		if(purchase.getId() == null) {
 			purchase.setRemainder(purchase.getQuantity());
-			Contract contract = contractService.find(contract_id);
-			contract.add(purchase);						
-		}
+		}	
+		contract.add(purchase);									
 		
 		purchaseService.save(purchase);
+		
 		
 		return "redirect:/purchase/list";
 	}
