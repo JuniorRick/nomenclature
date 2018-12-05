@@ -23,10 +23,10 @@
 				style="cursor: pointer;">Order Filter</button>
 
 
-			<div class="collapse show"
-				id="collapseInput">
+			<div class="collapse show" id="collapseInput">
 				<div class="card-body">
-					<form action="${pageContext.request.contextPath}/order/filter" method="GET">
+					<form action="${pageContext.request.contextPath}/order/filter"
+						method="GET">
 
 
 
@@ -36,8 +36,7 @@
 								<select id="section_id" name="section_id" class="form-control">
 									<option value="NONE">--Select section--</option>
 									<c:forEach items="${sections}" var="section">
-										<option value="${section.id}">
-											${section.name}</option>
+										<option value="${section.id}">${section.name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -49,8 +48,7 @@
 								<select id="contract_id" name="contract_id" class="form-control">
 									<option value="NONE">--Select contract--</option>
 									<c:forEach items="${contracts}" var="contract">
-										<option value="${contract.id}">
-											${contract.name}</option>
+										<option value="${contract.id}">${contract.name}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -60,7 +58,9 @@
 						<div class="clearfix">
 							<hr>
 							<input type="submit" class="btn btn-primary float-right"
-								value="Filter"> ${contract.id != null ? '<a href="list" class="btn float-right mr-2 btn-info">Cancel</a>' : '' }
+								value="Filter"> <a
+								href="${pageContext.request.contextPath}/order/list"
+								class="btn float-right mr-2 btn-info">Cancel</a>
 						</div>
 					</form>
 				</div>
@@ -70,8 +70,12 @@
 		<div class="mt-2"></div>
 
 		<div class="card">
-			<div class="card-header" data-toggle="collapse">List of Orders:  
-			<%-- ${section_name != null ? section_name + " | " + purchases[0].contract.name : "All orders"}</div> --%>
+			<div class="card-header" data-toggle="collapse">
+				Create order: <span style="font-size: 1.2em; font-style: italic; color: #03f">
+					${section_name != null ? section_name : ""} | ${section_name != null ? purchases[0].contract.name : "All orders"}
+				</span>
+
+			</div>
 			<div class="card-body">
 
 				<div class="row">
@@ -79,12 +83,10 @@
 						<thead class=" col-6">
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Section</th>
-								<th scope="col">Contract</th>
 								<th scope="col">Good</th>
 								<th scope="col">Remaining Quantity</th>
 								<th scope="col">Request Quantity</th>
-							<!-- 	<th scope="col">Approval</th> -->
+								<!-- 	<th scope="col">Approval</th> -->
 
 							</tr>
 						</thead>
@@ -98,9 +100,6 @@
 
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
-
-									<td>${section_name != null ? section_name : "-"}</td>
-									<td>${purchase.contract.name}</td>
 									<td>${purchase.good}</td>
 									<td>${purchase.remainder}(${purchase.unit})</td>
 									<td><input type="text" /> (${purchase.unit})</td>
@@ -136,12 +135,17 @@
 					</table>
 
 				</div>
-				<!-- <div class="card-footer text-muted">2 days ago</div> -->
+				<div class="clearfix">
+					<hr>
+					<input type="submit" class="btn btn-primary float-right"
+						value="Send Order"> <a
+						href="${pageContext.request.contextPath}/order/list"
+						class="btn float-right mr-2 btn-info">Cancel</a>
+				</div>
 			</div>
 
 		</div>
 	</div>
-
 
 
 	<!-- Page footer -->

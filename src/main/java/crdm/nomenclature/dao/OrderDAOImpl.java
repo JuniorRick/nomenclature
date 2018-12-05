@@ -52,6 +52,18 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public Command save(Command order) {
 		Session session = sessionFactory.getCurrentSession();
+		
+		Purchase purchase = order.getPurchase();
+		
+		float remainder = purchase.getRemainder() - order.getQuantity();
+		if(remainder < 0.0f) {
+			throw new RuntimeException();
+		}
+		
+		purchase.setRemainder(remainder);
+		
+		session.update(purchase);
+		
 		session.saveOrUpdate(order);
 		return order;
 	}
@@ -69,13 +81,11 @@ public class OrderDAOImpl implements OrderDAO{
 		
 		Command order = session.find(Command.class, id);
 		
-		if(order.isApproved() == true) {
 			Purchase purchase = order.getPurchase();
 			float remainder = order.getQuantity() + purchase.getRemainder();
 			purchase.setRemainder(remainder);
 			
 			session.update(purchase);
-		}
 		
 		session.delete(order);
 		

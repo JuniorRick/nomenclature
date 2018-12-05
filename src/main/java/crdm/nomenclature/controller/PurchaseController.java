@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.entity.Purchase;
+import crdm.nomenclature.rest.exception.NotFoundException;
 import crdm.nomenclature.service.ContractService;
 import crdm.nomenclature.service.PurchaseService;
 
@@ -44,13 +45,24 @@ public class PurchaseController {
 	
 	
 	@PostMapping("/store")
-	public String save(@ModelAttribute("purchase") Purchase purchase, @RequestParam("contract_id") int contract_id) {
+	public String save(@ModelAttribute("purchase") Purchase purchase, 
+			@RequestParam("contract_id") int contract_id) {
 		
 		Contract contract = contractService.find(contract_id);
 
 		if(purchase.getId() == null) {
+			purchase.setOld_quantity(purchase.getQuantity());
 			purchase.setRemainder(purchase.getQuantity());
-		}	
+		}else {
+			Float remainder = purchase.getOld_quantity() - purchase.getQuantity();
+			if(purchase.getRemainder() - remainder < 0) {
+				throw new NotFoundException("Invalid update:  " 
+						+ (purchase.getOld_quantity() - purchase.getRemainder()) + " already ordered. "
+						+ "Set quantity at least " + purchase.getRemainder());
+			}
+			purchase.setRemainder(purchase.getRemainder() - remainder);
+			purchase.setOld_quantity(purchase.getQuantity());
+		}
 		contract.add(purchase);									
 		
 		purchaseService.save(purchase);

@@ -28,7 +28,17 @@ public class Purchase {
 
 	private String unit;
 
+	private Float old_quantity;
+
 	public Purchase() {
+	}
+
+	public Float getOld_quantity() {
+		return old_quantity;
+	}
+
+	public void setOld_quantity(Float old_quantity) {
+		this.old_quantity = old_quantity;
 	}
 
 	public Integer getId() {

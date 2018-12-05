@@ -29,6 +29,8 @@
 
 
 						<form:hidden path="id" />	
+						<form:hidden path="old_quantity" />
+						<form:hidden path="remainder" />
 						
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Contract</label>
@@ -143,7 +145,7 @@
 												</button>
 											</div>
 											<div class="modal-body">
-												Delete purchase from<span class="text-danger font-weight-bold">${purchase.contract.name}</span>
+												Delete purchase from <span class="text-danger font-weight-bold">${purchase.contract.name}</span>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
