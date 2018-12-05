@@ -12,3 +12,8 @@ $("input#search").on("keydown keyup", function() {
   $('tfoot tr').show();
   $("tr:contains('" + $(this).val() + "')").show();
 });
+
+
+$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+})

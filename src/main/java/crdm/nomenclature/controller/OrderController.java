@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import crdm.nomenclature.entity.Command;
@@ -64,6 +65,7 @@ public class OrderController {
 		String section_name = sectionService.find(section_id).getName();
 		
 		model.addAttribute("section_name", section_name);
+		model.addAttribute("section_id", section_id);
 		
 		List<Contract> contracts = contractService.all();
 		model.addAttribute("contracts", contracts);
@@ -128,6 +130,30 @@ public class OrderController {
 		
 		return "redirect:/order/list";
 	}
+	
+	
+	@PostMapping("/send/{ids}/{quantities}/{section_id}")
+	public @ResponseBody String send(	
+			@RequestParam("ids") String[] ids,
+			@RequestParam("quantities") String[] quantities,
+			@RequestParam("section_id") String section_id) {
+		
+		Section section = sectionService.find(Integer.parseInt(section_id));
+		
+		for(int ii = 0; ii < ids.length; ii++) {
+			Command order = new Command();
+			order.setQuantity(Float.parseFloat(quantities[ii]));
+			Purchase purchase = purchaseService.find(Integer.parseInt(ids[ii]));
+			order.setPurchase(purchase);
+			order.setSection(section);
+			
+		}
+		
+		
+		return "redirect:/order/list";
+	}
+	
+	
 	
 	@GetMapping("/update")
 	public String update(@RequestParam("Id") int id, final RedirectAttributes redirectAttributes) {

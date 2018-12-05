@@ -28,8 +28,6 @@
 					<form action="${pageContext.request.contextPath}/order/filter"
 						method="GET">
 
-
-
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Section</label>
 							<div class="col-sm-6">
@@ -71,8 +69,9 @@
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">
-				Create order: <span style="font-size: 1.2em; font-style: italic; color: #03f">
-					${section_name != null ? section_name : ""} | ${section_name != null ? purchases[0].contract.name : "All orders"}
+				Create order: <span
+					style="font-size: 1.2em; font-style: italic; color: #03f">
+					${section_name != null ? section_name : " "} | ${section_name != null ? purchases[0].contract.name : "All orders"}
 				</span>
 
 			</div>
@@ -86,7 +85,6 @@
 								<th scope="col">Good</th>
 								<th scope="col">Remaining Quantity</th>
 								<th scope="col">Request Quantity</th>
-								<!-- 	<th scope="col">Approval</th> -->
 
 							</tr>
 						</thead>
@@ -102,7 +100,8 @@
 									<th class="" scope="row">${loop.index + 1}</th>
 									<td>${purchase.good}</td>
 									<td>${purchase.remainder}(${purchase.unit})</td>
-									<td><input type="text" /> (${purchase.unit})</td>
+									<td><input type="text" ${section_id != null ? '' : 'disabled' } name="${purchase.id}" />
+										(${purchase.unit})</td>
 
 								</tr>
 
@@ -137,9 +136,10 @@
 				</div>
 				<div class="clearfix">
 					<hr>
-					<input type="submit" class="btn btn-primary float-right"
-						value="Send Order"> <a
-						href="${pageContext.request.contextPath}/order/list"
+					<button type="submit" class="btn btn-primary float-right"
+						${section_id != null ? '' : 'disabled' } id="send-order"> Send Order</button>
+
+					<a href="${pageContext.request.contextPath}/order/list"
 						class="btn float-right mr-2 btn-info">Cancel</a>
 				</div>
 			</div>
@@ -150,6 +150,36 @@
 
 	<!-- Page footer -->
 	<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
+
+
+	<script>
+		$('#send-order')
+			.click(
+				function() {
+					let request_quantities = [];
+					let purchase_ids = [];
+					$('input[type="text"]').each(function(index) {
+						request_quantities[index] = $(this).val();
+						purchase_ids[index] = $(this).attr('name');
+	
+					});
+					
+					$.ajax({
+						type: 'POST',
+						/* url: '${pageContext.request.contextPath}/api/orders/send/${section_id}', */
+						url: 'http://localhost:8080/nomenclature/api/orders/send/1',
+						data: {	
+							
+								"ids": ["2", "9"],
+								"quantities": ["10", "20"]
+
+						}
+					}).fail(function( jqXHR, textStatus ) {
+						  alert( "Request failed: " + textStatus );
+					}); 
+				});
+	</script>
+
 
 </body>
 </html>

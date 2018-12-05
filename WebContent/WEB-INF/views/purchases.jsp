@@ -27,7 +27,6 @@
 				<div class="card-body">
 					<form:form action="store" modelAttribute="purchase" method="POST">
 
-
 						<form:hidden path="id" />	
 						<form:hidden path="old_quantity" />
 						<form:hidden path="remainder" />
@@ -101,7 +100,6 @@
 								<th scope="col">Good</th>
 								<th scope="col">Quantity</th>
 								<th scope="col">Remainder</th>
-								<th scope="col">Empty</th>
 								
 								<th class="" scope="col">Actions</th>
 							</tr>
@@ -120,11 +118,12 @@
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
 									
-									<td>${purchase.contract.abbr} [ ${purchase.contract.number} ]</td>
+									<td data-toggle="tooltip" data-placement="top" title="${purchase.contract.name}">
+										${purchase.contract.abbr} [ ${purchase.contract.number} ]
+									</td>
 									<td>${purchase.good}</td>
 									<td>${purchase.quantity } (${purchase.unit})</td>
 									<td>${purchase.remainder} (${purchase.unit})</td>
-									<td></td>
 									
 									<td class=""><a href="${update}"
 										class="btn btn-warning btn-sm">Edit</a>
