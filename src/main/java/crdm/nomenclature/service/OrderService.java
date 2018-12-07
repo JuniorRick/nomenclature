@@ -18,4 +18,6 @@ public interface OrderService {
 
 	void delete(Integer id);
 
+	public List<Command> requests();
+
 }

@@ -29,7 +29,10 @@
 			<li class="nav-item" id="lab-link"><a class="nav-link"
 				href="${pageContext.request.contextPath}/order/list">Orders</a>
 			</li>
-						<li class="nav-item" id="lab-link"><a class="nav-link"
+			<li class="nav-item" id="lab-link"><a class="nav-link"
+				href="${pageContext.request.contextPath}/order/request">Order requests</a>
+			</li>
+			<li class="nav-item" id="lab-link"><a class="nav-link"
 				href="${pageContext.request.contextPath}/order/approved">Approved orders</a>
 			</li>
 			<li class="nav-item dropdown"><a

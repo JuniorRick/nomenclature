@@ -42,7 +42,6 @@ public class OrderRestController {
 			throw new NotFoundException("Section id not found - " + id);
 		}
 		
-		
 		List<Command> orders = new ArrayList<>();
 		
 		for(int ii = 0; ii < wrapper.getIds().size(); ii++) {
@@ -52,29 +51,10 @@ public class OrderRestController {
 			order.setPurchase(purchase);
 			order.setSection(section);
 			
-			orders.add(order);
+			orderService.save(order);
 		}
 		
 		return orders;
-	}
-	
-	
-	@PostMapping("wrapper")
-	public OrderWrapper wrapper(@RequestBody OrderWrapper wrapper){
-		
-		
-//		for(int ii = 0; ii < wrapper.getIds().size(); ii++) {
-//			Command order = new Command();
-//			order.setQuantity(Float.parseFloat(wrapper.getQuantities().get(ii)));
-//			Purchase purchase = purchaseService.find(Integer.parseInt(wrapper.getIds().get(ii)));
-//			order.setPurchase(purchase);
-//			order.setSection(section);
-//			
-////			orders.add(orderService.save(order));
-//		}
-		
-	
-		return wrapper;
 	}
 	
 

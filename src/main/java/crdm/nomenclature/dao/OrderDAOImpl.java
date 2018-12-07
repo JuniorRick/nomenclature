@@ -91,4 +91,11 @@ public class OrderDAOImpl implements OrderDAO{
 		
 	}
 
+	@Override
+	public List<Command> requests() {
+		Session session = sessionFactory.getCurrentSession();
+		
+		return session.createQuery("from Command where approved != true", Command.class).getResultList();
+	}
+
 }

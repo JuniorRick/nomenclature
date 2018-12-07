@@ -93,6 +93,17 @@ public class OrderController {
 		
 	}
 	
+	@GetMapping("/request")
+	public String requestList(@ModelAttribute("order") Command order, Model model) throws ParseException {
+		
+		List<Command> orders = orderService.requests();
+		
+		model.addAttribute("orders", orders);
+		model.addAttribute("order", order);
+		
+		return "requests";
+	}
+	
 	
 	
 	@GetMapping("/approved")
@@ -132,26 +143,26 @@ public class OrderController {
 	}
 	
 	
-	@PostMapping("/send/{ids}/{quantities}/{section_id}")
-	public @ResponseBody String send(	
-			@RequestParam("ids") String[] ids,
-			@RequestParam("quantities") String[] quantities,
-			@RequestParam("section_id") String section_id) {
-		
-		Section section = sectionService.find(Integer.parseInt(section_id));
-		
-		for(int ii = 0; ii < ids.length; ii++) {
-			Command order = new Command();
-			order.setQuantity(Float.parseFloat(quantities[ii]));
-			Purchase purchase = purchaseService.find(Integer.parseInt(ids[ii]));
-			order.setPurchase(purchase);
-			order.setSection(section);
-			
-		}
-		
-		
-		return "redirect:/order/list";
-	}
+//	@PostMapping("/send/{ids}/{quantities}/{section_id}")
+//	public @ResponseBody String send(	
+//			@RequestParam("ids") String[] ids,
+//			@RequestParam("quantities") String[] quantities,
+//			@RequestParam("section_id") String section_id) {
+//		
+//		Section section = sectionService.find(Integer.parseInt(section_id));
+//		
+//		for(int ii = 0; ii < ids.length; ii++) {
+//			Command order = new Command();
+//			order.setQuantity(Float.parseFloat(quantities[ii]));
+//			Purchase purchase = purchaseService.find(Integer.parseInt(ids[ii]));
+//			order.setPurchase(purchase);
+//			order.setSection(section);
+//			
+//		}
+//		
+//		
+//		return "redirect:/order/list";
+//	}
 	
 	
 	
@@ -162,7 +173,7 @@ public class OrderController {
 
 		redirectAttributes.addFlashAttribute("order", order);
 		
-		return "redirect:/order/list";
+		return "redirect:/order/request";
 	}
 	
 	@GetMapping("/approve")
@@ -176,7 +187,7 @@ public class OrderController {
 		
 		orderService.approve(id);
 		
-		return "redirect:/order/list";
+		return "redirect:/order/approved";
 	}
 	
 	
@@ -185,7 +196,7 @@ public class OrderController {
 
 		orderService.delete(id);
 		
-		return "redirect:/order/list";
+		return "redirect:/order/request";
 	}
 	
 }

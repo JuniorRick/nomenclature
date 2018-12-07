@@ -146,7 +146,11 @@
 
 		</div>
 	</div>
-
+	
+	
+	<div class="loading">
+		Sending data...
+	</div>
 
 	<!-- Page footer -->
 	<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
@@ -156,6 +160,7 @@
 		$('#send-order')
 			.click(
 				function() {
+					$('.loading').show();
 					let request_quantities = [];
 					let purchase_ids = [];
 					$('input[type="text"]').each(function(index) {
@@ -164,19 +169,25 @@
 	
 					});
 					
+					var wrapper = {
+						ids : purchase_ids,
+						quantities: request_quantities
+					}
+					
 					$.ajax({
 						type: 'POST',
 						/* url: '${pageContext.request.contextPath}/api/orders/send/${section_id}', */
 						url: 'http://localhost:8080/nomenclature/api/orders/send/1',
-						data: {	
-							
-								"ids": ["2", "9"],
-								"quantities": ["10", "20"]
+						data: JSON.stringify(wrapper),
+				        contentType: "application/json; charset=utf-8",
+				        dataType: "json",
+				        success: function(data){$('.loading').hide();},
+				        failure: function(errMsg) {
+				            $('.loading').hide();
+				            alert(errMsg);
+				        }
+					})
 
-						}
-					}).fail(function( jqXHR, textStatus ) {
-						  alert( "Request failed: " + textStatus );
-					}); 
 				});
 	</script>
 

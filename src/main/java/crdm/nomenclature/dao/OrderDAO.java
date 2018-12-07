@@ -17,4 +17,6 @@ public interface OrderDAO {
 	public Command find(Integer id);
 	
 	void delete(Integer id);
+
+	public List<Command> requests();
 }

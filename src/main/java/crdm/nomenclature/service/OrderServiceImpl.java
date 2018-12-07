@@ -53,4 +53,11 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	@Override
+	@Transactional
+	public List<Command> requests() {
+		// TODO Auto-generated method stub
+		return orderDAO.requests();
+	}
+
 }
