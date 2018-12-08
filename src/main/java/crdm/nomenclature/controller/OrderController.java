@@ -92,20 +92,7 @@ public class OrderController {
 		return "redirect:/order/list/" + contract_id + "/" + section_id;
 		
 	}
-	
-	@GetMapping("/request")
-	public String requestList(@ModelAttribute("order") Command order, Model model) throws ParseException {
 		
-		List<Command> orders = orderService.requests();
-		
-		model.addAttribute("orders", orders);
-		model.addAttribute("order", order);
-		
-		return "requests";
-	}
-	
-	
-	
 	@GetMapping("/approved")
 	public String approvedList(@ModelAttribute("order") Command order, Model model) throws ParseException {
 		
@@ -124,47 +111,23 @@ public class OrderController {
 	}
 	
 	
-	@PostMapping("/store")
-	public String save(@ModelAttribute("order") Command order, 
-			@RequestParam("purchase_id") int purchase_id,
-			@RequestParam("section_id") int section_id) {
-		
-		order.setSection(sectionService.find(section_id));
-		order.setPurchase(purchaseService.find(purchase_id));
-	
-		if(order.getQuantity() > order.getPurchase().getRemainder()) {
-			throw new NotFoundException("Invalid quantity " + order.getQuantity() + ". Available: " + order.getPurchase().getRemainder());
-		}
-		
-		orderService.save(order);
-		
-		
-		return "redirect:/order/list";
-	}
-	
-	
-//	@PostMapping("/send/{ids}/{quantities}/{section_id}")
-//	public @ResponseBody String send(	
-//			@RequestParam("ids") String[] ids,
-//			@RequestParam("quantities") String[] quantities,
-//			@RequestParam("section_id") String section_id) {
+//	@PostMapping("/store")
+//	public String save(@ModelAttribute("order") Command order, 
+//			@RequestParam("purchase_id") int purchase_id,
+//			@RequestParam("section_id") int section_id) {
 //		
-//		Section section = sectionService.find(Integer.parseInt(section_id));
-//		
-//		for(int ii = 0; ii < ids.length; ii++) {
-//			Command order = new Command();
-//			order.setQuantity(Float.parseFloat(quantities[ii]));
-//			Purchase purchase = purchaseService.find(Integer.parseInt(ids[ii]));
-//			order.setPurchase(purchase);
-//			order.setSection(section);
-//			
+//		order.setSection(sectionService.find(section_id));
+//		order.setPurchase(purchaseService.find(purchase_id));
+//	
+//		if(order.getQuantity() > order.getPurchase().getRemainder()) {
+//			throw new NotFoundException("Invalid quantity " + order.getQuantity() + ". Available: " + order.getPurchase().getRemainder());
 //		}
+//		
+//		orderService.save(order);
 //		
 //		
 //		return "redirect:/order/list";
 //	}
-	
-	
 	
 	@GetMapping("/update")
 	public String update(@RequestParam("Id") int id, final RedirectAttributes redirectAttributes) {

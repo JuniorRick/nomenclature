@@ -27,13 +27,13 @@
 				href="${pageContext.request.contextPath}/purchase/list">Purchases</a>
 			</li>
 			<li class="nav-item" id="lab-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/order/list">Orders</a>
+				href="${pageContext.request.contextPath}/order/list">Goods ordering</a>
 			</li>
 			<li class="nav-item" id="lab-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/order/request">Order requests</a>
+				href="${pageContext.request.contextPath}/request/list">Order requests</a>
 			</li>
 			<li class="nav-item" id="lab-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/order/approved">Approved orders</a>
+				href="${pageContext.request.contextPath}/request/approved">Approved orders</a>
 			</li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"

@@ -19,4 +19,6 @@ public interface OrderDAO {
 	void delete(Integer id);
 
 	public List<Command> requests();
+
+	public void bulkSave(List<Command> orders);
 }

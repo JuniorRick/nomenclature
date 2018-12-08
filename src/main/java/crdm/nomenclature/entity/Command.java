@@ -1,5 +1,6 @@
 package crdm.nomenclature.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,18 +18,33 @@ public class Command {
 	private Integer id;
 
 	@ManyToOne
-	@JoinColumn(name = "section_id")
-	private Section section;
+	@JoinColumn(name = "request_id")
+	private Request request;
 
 	@ManyToOne
 	@JoinColumn(name = "purchase_id")
 	private Purchase purchase;
 
+	public Request getRequest() {
+		return request;
+	}
+
+	public void setRequest(Request request) {
+		this.request = request;
+	}
+
 	private Float quantity;
-	
+
 	private boolean approved = false;
-	
-	
+
+	public Purchase getPurchase() {
+		return purchase;
+	}
+
+	public void setPurchase(Purchase purchase) {
+		this.purchase = purchase;
+	}
+
 	public boolean isApproved() {
 		return approved;
 	}
@@ -55,22 +71,5 @@ public class Command {
 	public void setQuantity(Float quantity) {
 		this.quantity = quantity;
 	}
-
-	public Purchase getPurchase() {
-		return purchase;
-	}
-
-	public void setPurchase(Purchase purchase) {
-		this.purchase = purchase;
-	}
-
-	public Section getSection() {
-		return section;
-	}
-
-	public void setSection(Section section) {
-		this.section = section;
-	}
-
 
 }

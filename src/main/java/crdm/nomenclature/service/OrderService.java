@@ -20,4 +20,6 @@ public interface OrderService {
 
 	public List<Command> requests();
 
+	public void bulkSave(List<Command> orders);
+
 }

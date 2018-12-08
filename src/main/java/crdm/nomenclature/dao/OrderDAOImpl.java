@@ -98,4 +98,18 @@ public class OrderDAOImpl implements OrderDAO{
 		return session.createQuery("from Command where approved != true", Command.class).getResultList();
 	}
 
+	@Override
+	public void bulkSave(List<Command> orders) {
+		Session session = sessionFactory.getCurrentSession();
+		
+		for(int i = 0; i < orders.size(); i++) {
+			save(orders.get(i));
+			
+			if(i % 20 == 0) {
+				session.flush();
+				session.clear();
+			}
+		}
+	}
+
 }

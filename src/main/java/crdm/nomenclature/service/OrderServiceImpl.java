@@ -60,4 +60,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderDAO.requests();
 	}
 
+	@Override
+	@Transactional
+	public void bulkSave(List<Command> orders) {
+		orderDAO.bulkSave(orders);
+		
+	}
+
 }
