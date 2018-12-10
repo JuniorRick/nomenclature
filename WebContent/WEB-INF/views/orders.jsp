@@ -136,7 +136,7 @@
 				</div>
 				<div class="clearfix">
 					<hr>
-					<button type="submit" class="btn btn-primary float-right"
+					<button class="btn btn-primary float-right"
 						${section_id != null ? '' : 'disabled' } id="send-order"> Send Order</button>
 
 					<a href="${pageContext.request.contextPath}/order/list"
@@ -185,7 +185,7 @@
 				            $('.loading').hide();
 				            alert(errMsg);
 				        }
-					})
+					});
 
 				});
 	</script>

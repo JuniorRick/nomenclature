@@ -7,10 +7,6 @@ import crdm.nomenclature.entity.Command;
 public interface OrderService {
 	
 	public List<Command> all();
-
-	public void approve(Integer id); 
-	
-	public List<Command> approvedList();
 	
 	public Command save(Command order);
 
@@ -20,6 +16,5 @@ public interface OrderService {
 
 	public List<Command> requests();
 
-	public void bulkSave(List<Command> orders);
 
 }

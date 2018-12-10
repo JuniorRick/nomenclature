@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import crdm.nomenclature.dao.RequestDAO;
-import crdm.nomenclature.entity.Command;
 import crdm.nomenclature.entity.Request;
 
 
@@ -19,8 +18,8 @@ public class RequestServiceImpl implements RequestService {
 	
 	@Override
 	@Transactional
-	public List<Request> all() {
-		return requestDAO.all();
+	public List<Request> requestList() {
+		return requestDAO.requestList();
 	}
 
 	@Override
@@ -38,17 +37,13 @@ public class RequestServiceImpl implements RequestService {
 	@Override
 	@Transactional
 	public void delete(Integer id) {
-		Request request = requestDAO.find(id);
-		List<Command> orders = request.getOrders();
-		
-		for(Command order: orders) {
-			Float remainder = order.getQuantity() + 
-			order.getPurchase().getRemainder();
-			
-			order.getPurchase().setRemainder(remainder);
-		}
-
 		requestDAO.delete(id);
+	}
+
+	@Override
+	@Transactional
+	public List<Request> approvedList() {
+		return requestDAO.approvedList();
 	}
 
 }

@@ -42,29 +42,9 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	@Transactional
-	public List<Command> approvedList() {
-		return orderDAO.approvedList();
-	}
-
-	@Override
-	@Transactional
-	public void approve(Integer id) {
-		orderDAO.approve(id);
-		
-	}
-
-	@Override
-	@Transactional
 	public List<Command> requests() {
 		// TODO Auto-generated method stub
 		return orderDAO.requests();
-	}
-
-	@Override
-	@Transactional
-	public void bulkSave(List<Command> orders) {
-		orderDAO.bulkSave(orders);
-		
 	}
 
 }

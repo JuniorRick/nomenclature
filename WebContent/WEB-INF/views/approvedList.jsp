@@ -6,7 +6,7 @@
 <html>
 <head>
 <jsp:include page="/WEB-INF/views/layouts/header.jsp" />
-<title>orders</title>
+<title>requests</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">List of
-				Approved Orders</div>
+				Order Requests</div>
 			<div class="card-body">
 
 				<div class="row">
@@ -28,39 +28,32 @@
 								<th scope="col">#</th>
 								<th scope="col">Contract name</th>
 								<th scope="col">Section</th>
-								<th scope="col">Good</th>
-								<th scope="col">Requested Quantity</th>
 								
 								<th class="" scope="col">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="order" items="${orders}" varStatus="loop">
+							<c:forEach var="request" items="${requests}" varStatus="loop">
 
-								<c:url var="update" value="/order/update">
-									<c:param name="Id" value="${order.id}" />
-								</c:url>
-
-								<c:url var="delete" value="/order/delete">
-									<c:param name="Id" value="${order.id}" />
+								<c:url var="delete" value="/request/delete">
+									<c:param name="Id" value="${request.id}" />
 								</c:url>
 
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
 									
-									<td>${order.purchase.contract.name}</td>
-									<td>${order.section.name }</td>
-									<td>${order.purchase.good}</td>
-									<td>${order.quantity} (${order.purchase.unit})</td>
+									<td>${request.contract.name}</td>
+									<td>${request.section.name }</td>
 									
-									<td class=""><a href="${update}"
-										class="btn btn-warning btn-sm">Edit</a>
+									<td class="">
+										<a class="btn btn-primary btn-sm" 
+											href="${pageContext.request.contextPath}/request/view/${request.id}"> View</a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
-											data-target="#confirmModal${order.id}">Delete</button></td>
+											data-target="#confirmModal${request.id}">Delete</button></td>
 								</tr>
 
 
-								<div class="modal fade" id="confirmModal${order.id}">
+								<div class="modal fade" id="confirmModal${request.id}">
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
@@ -72,7 +65,7 @@
 												</button>
 											</div>
 											<div class="modal-body">
-												Delete order from<span class="text-danger font-weight-bold">${order.purchase.contract.name}</span>
+												Delete request from<span class="text-danger font-weight-bold">${request.contract.name}</span>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"

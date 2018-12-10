@@ -1,6 +1,7 @@
 package crdm.nomenclature.rest;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,16 +21,18 @@ import javax.validation.constraints.NotNull;
 	public OrderWrapper() {
 	}
 
-	public List<String> getIds() {
-		return ids;
+	public List<Integer> getIds() {
+		return ids.stream().map(Integer::parseInt)
+	            .collect(Collectors.toList());
 	}
 
 	public void setIds(List<String> ids) {
 		this.ids = ids;
 	}
 
-	public List<String> getQuantities() {
-		return quantities;
+	public List<Float> getQuantities() {
+		return quantities.stream().map(Float::parseFloat)
+	            .collect(Collectors.toList());
 	}
 
 	public void setQuantities(List<String> quantities) {

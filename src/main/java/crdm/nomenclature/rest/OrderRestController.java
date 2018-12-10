@@ -48,25 +48,60 @@ public class OrderRestController {
 		List<Command> orders = new ArrayList<>();
 		Request request = new Request();
 		request.setSection(section);
+		request.setApproved(false);
 		
-		Purchase purchase = purchaseService.find(Integer.parseInt(wrapper.getIds().get(0)));
+		Purchase purchase = purchaseService.find(wrapper.getIds().get(0));
 		request.setContract(purchase.getContract());
-		requestService.save(request);
 		
 		for(int ii = 0; ii < wrapper.getIds().size(); ii++) {
 			Command order = new Command();
-			order.setQuantity(Float.parseFloat(wrapper.getQuantities().get(ii)));
 			
-			purchase = purchaseService.find(Integer.parseInt(wrapper.getIds().get(ii)));
+			Float quantity = wrapper.getQuantities().get(ii);
+
+			order.setQuantity(quantity);
+			
+			purchase = purchaseService.find(wrapper.getIds().get(ii));
 			order.setPurchase(purchase);
 			order.setRequest(request);
 			
 			orders.add(order);
 		}
-		orderService.bulkSave(orders);
+		request.setOrders(orders);
+		requestService.save(request);
 		
 		return orders;
 	}
 	
+	@PostMapping("approve/{id}")
+	public List<Command> approve(@PathVariable("id") Integer id,
+			@RequestBody OrderWrapper wrapper){
 
+		Request request = requestService.find(id);
+		if(request == null) {
+			throw new NotFoundException("Request not found - " + id);
+		}
+		
+		List<Command> orders = request.getOrders();
+
+		
+//		for(int ii = 0; ii < orders.size(); ii++) {
+//			Command order = orders.get(ii);
+//			int index = wrapper.getIds().indexOf(order.getId());
+//			
+//			Float quantity = wrapper.getQuantities().get(index);
+//			order.setQuantity(quantity);
+//	
+//			Float remainder = order.getPurchase().getRemainder() - quantity;			
+//			order.getPurchase().setRemainder(remainder);
+//			
+//			
+//			orderService.save(order);
+//		}
+
+//		request.setApproved(true);
+//		requestService.save(request);
+		
+		return orders;
+	}
+	
 }

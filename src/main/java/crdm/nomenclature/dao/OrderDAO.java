@@ -8,10 +8,6 @@ public interface OrderDAO {
 	
 	public List<Command> all();
 	
-	public List<Command> approvedList(); 
-	
-	public void approve(Integer id); 
-	
 	public Command save(Command order);
 	
 	public Command find(Integer id);
@@ -20,5 +16,4 @@ public interface OrderDAO {
 
 	public List<Command> requests();
 
-	public void bulkSave(List<Command> orders);
 }

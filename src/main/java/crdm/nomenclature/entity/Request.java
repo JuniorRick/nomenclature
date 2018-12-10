@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "requests")
@@ -31,11 +34,13 @@ public class Request {
 	private Contract contract;
 
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "request", fetch = FetchType.EAGER,
 			cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Command> orders;
 
-	private boolean approved = false;
+	@Column(nullable = false, columnDefinition = "boolean default false")
+	private Boolean approved;
 
 	private Date created_at;
 
@@ -58,11 +63,11 @@ public class Request {
 		this.created_at = created_at;
 	}
 
-	public boolean isApproved() {
+	public Boolean getApproved() {
 		return approved;
 	}
 
-	public void setApproved(boolean approved) {
+	public void setApproved(Boolean approved) {
 		this.approved = approved;
 	}
 

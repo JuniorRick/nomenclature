@@ -92,42 +92,6 @@ public class OrderController {
 		return "redirect:/order/list/" + contract_id + "/" + section_id;
 		
 	}
-		
-	@GetMapping("/approved")
-	public String approvedList(@ModelAttribute("order") Command order, Model model) throws ParseException {
-		
-		List<Command> orders = orderService.approvedList();
-		
-		model.addAttribute("orders", orders);
-		model.addAttribute("order", order);
-		
-		List<Purchase> purchases = purchaseService.all();
-		model.addAttribute("purchases", purchases);
-
-		List<Section> sections = sectionService.all();
-		model.addAttribute("sections", sections);
-		
-		return "approvedOrders";
-	}
-	
-	
-//	@PostMapping("/store")
-//	public String save(@ModelAttribute("order") Command order, 
-//			@RequestParam("purchase_id") int purchase_id,
-//			@RequestParam("section_id") int section_id) {
-//		
-//		order.setSection(sectionService.find(section_id));
-//		order.setPurchase(purchaseService.find(purchase_id));
-//	
-//		if(order.getQuantity() > order.getPurchase().getRemainder()) {
-//			throw new NotFoundException("Invalid quantity " + order.getQuantity() + ". Available: " + order.getPurchase().getRemainder());
-//		}
-//		
-//		orderService.save(order);
-//		
-//		
-//		return "redirect:/order/list";
-//	}
 	
 	@GetMapping("/update")
 	public String update(@RequestParam("Id") int id, final RedirectAttributes redirectAttributes) {
@@ -137,20 +101,6 @@ public class OrderController {
 		redirectAttributes.addFlashAttribute("order", order);
 		
 		return "redirect:/order/request";
-	}
-	
-	@GetMapping("/approve")
-	public String approve(@RequestParam("Id") int id, Model model) {
-		
-		Command order = orderService.find(id);
-		
-		if(order.getQuantity() > order.getPurchase().getRemainder()) {
-			throw new NotFoundException("Invalid quantity " + order.getQuantity() + ". Available: " + order.getPurchase().getRemainder());
-		}
-		
-		orderService.approve(id);
-		
-		return "redirect:/order/approved";
 	}
 	
 	

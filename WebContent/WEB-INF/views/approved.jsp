@@ -49,12 +49,10 @@
 
 									<td>${order.purchase.good}</td>
 									<td>${order.purchase.remainder}(${order.purchase.unit})</td>
-									<td><input type="text" name="${order.id}"
-										value="${order.quantity}" /> (${order.purchase.unit})</td>
+									<td>${order.quantity} (${order.purchase.unit})</td>
 
 									<td class="">
-										<button class="btn btn-danger btn-sm"
-											onclick="clearQuantity('${order.id}')">Clear</button>
+										Placeholder
 									</td>
 								</tr>
 
@@ -78,48 +76,6 @@
 
 	<!-- Page footer -->
 	<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
-
-	<script>
-		$('#approve')
-				.click(
-						function() {
-							$('.loading').show();
-							let request_quantities = [];
-							let purchase_ids = [];
-							$('input[type="text"]').each(function(index) {
-								request_quantities[index] = $(this).val();
-								purchase_ids[index] = $(this).attr('name');
-
-							});
-
-							var wrapper = {
-								ids : purchase_ids,
-								quantities : request_quantities
-							}
-
-							$
-									.ajax({
-										type : 'POST',
-										url : '${pageContext.request.contextPath}/api/orders/approve/${request.id}',
-										data : JSON.stringify(wrapper),
-										contentType : "application/json; charset=utf-8",
-										dataType : "json",
-										success : function(data) {
-											$('.loading').hide();
-										},
-										failure : function(errMsg) {
-											$('.loading').hide();
-											alert(errMsg);
-										}
-									});
-
-						});
-		
-		
-		function clearQuantity(id) {
-			$('input[name="'+ id + '"]').val('0.0');
-		}
-	</script>
 
 </body>
 </html>

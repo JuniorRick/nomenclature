@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import crdm.nomenclature.entity.Command;
-import crdm.nomenclature.entity.Purchase;
 
 
 @Repository
@@ -21,48 +20,12 @@ public class OrderDAOImpl implements OrderDAO{
 	public List<Command> all() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Command where approved != true", Command.class).getResultList();
-	}
-
-	public List<Command> approvedList() {
-		Session session = sessionFactory.getCurrentSession();
-		
-		return session.createQuery("from Command where approved = true", Command.class).getResultList();
-	}
-	
-	public void approve(Integer id) {
-		Session session = sessionFactory.getCurrentSession();
-		
-		Command order = find(id);
-		order.setApproved(true);
-		Purchase purchase = order.getPurchase();
-		
-		float remainder = purchase.getRemainder() - order.getQuantity();
-		if(remainder < 0.0f) {
-			throw new RuntimeException();
-		}
-		
-		purchase.setRemainder(remainder);
-		
-		session.update(purchase);
-		session.update(order);
-		
+		return session.createQuery("from Command", Command.class).getResultList();
 	}
 	
 	@Override
 	public Command save(Command order) {
 		Session session = sessionFactory.getCurrentSession();
-		
-		Purchase purchase = order.getPurchase();
-		
-		float remainder = purchase.getRemainder() - order.getQuantity();
-		if(remainder < 0.0f) {
-			throw new RuntimeException();
-		}
-		
-		purchase.setRemainder(remainder);
-		
-		session.update(purchase);
 		
 		session.saveOrUpdate(order);
 		return order;
@@ -81,14 +44,7 @@ public class OrderDAOImpl implements OrderDAO{
 		
 		Command order = session.find(Command.class, id);
 		
-			Purchase purchase = order.getPurchase();
-			float remainder = order.getQuantity() + purchase.getRemainder();
-			purchase.setRemainder(remainder);
-			
-			session.update(purchase);
-		
 		session.delete(order);
-		
 	}
 
 	@Override
@@ -98,18 +54,5 @@ public class OrderDAOImpl implements OrderDAO{
 		return session.createQuery("from Command where approved != true", Command.class).getResultList();
 	}
 
-	@Override
-	public void bulkSave(List<Command> orders) {
-		Session session = sessionFactory.getCurrentSession();
-		
-		for(int i = 0; i < orders.size(); i++) {
-			save(orders.get(i));
-			
-			if(i % 20 == 0) {
-				session.flush();
-				session.clear();
-			}
-		}
-	}
 
 }

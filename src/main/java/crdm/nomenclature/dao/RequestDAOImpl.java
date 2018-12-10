@@ -17,10 +17,10 @@ public class RequestDAOImpl implements RequestDAO {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public List<Request> all() {
+	public List<Request> requestList() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Request", Request.class).getResultList();
+		return session.createQuery("from Request where approved = false", Request.class).getResultList();
 	}
 
 	@Override
@@ -44,6 +44,13 @@ public class RequestDAOImpl implements RequestDAO {
 		
 		session.delete(request);
 		
+	}
+
+	@Override
+	public List<Request> approvedList() {
+		Session session = sessionFactory.getCurrentSession();
+		
+		return session.createQuery("from Request where approved = true", Request.class).getResultList();
 	}
 
 }

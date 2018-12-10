@@ -1,6 +1,5 @@
 package crdm.nomenclature.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +34,6 @@ public class Command {
 
 	private Float quantity;
 
-	private boolean approved = false;
 
 	public Purchase getPurchase() {
 		return purchase;
@@ -43,14 +41,6 @@ public class Command {
 
 	public void setPurchase(Purchase purchase) {
 		this.purchase = purchase;
-	}
-
-	public boolean isApproved() {
-		return approved;
-	}
-
-	public void setApproved(boolean approved) {
-		this.approved = approved;
 	}
 
 	public Command() {
