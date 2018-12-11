@@ -1,6 +1,7 @@
 package crdm.nomenclature.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -47,6 +48,14 @@ public class Request {
 	public Request() {
 	}
 
+	public void add(Command order) {
+		if(orders == null) {
+			orders = new ArrayList<>();
+		}
+		orders.add(order);
+		order.setRequest(this);
+	}
+	
 	public List<Command> getOrders() {
 		return orders;
 	}

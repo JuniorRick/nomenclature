@@ -106,13 +106,14 @@
 										dataType : "json",
 										success : function(data) {
 											$('.loading').hide();
+											window.location.href = '${pageContext.request.contextPath}/request/approved';	
 										},
 										failure : function(errMsg) {
 											$('.loading').hide();
 											alert(errMsg);
 										}
-									});
-
+										
+									});	
 						});
 		
 		

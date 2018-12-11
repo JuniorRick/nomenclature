@@ -164,7 +164,7 @@
 					let request_quantities = [];
 					let purchase_ids = [];
 					$('input[type="text"]').each(function(index) {
-						request_quantities[index] = $(this).val();
+						request_quantities[index] = $(this).val() != "" ? $(this).value : "0";
 						purchase_ids[index] = $(this).attr('name');
 	
 					});
@@ -180,13 +180,16 @@
 						data: JSON.stringify(wrapper),
 				        contentType: "application/json; charset=utf-8",
 				        dataType: "json",
-				        success: function(data){$('.loading').hide();},
+				        success: function(data){
+				        	$('.loading').hide();
+				        	window.location.href = '${pageContext.request.contextPath}/request/list';	
+				        },
 				        failure: function(errMsg) {
 				            $('.loading').hide();
 				            alert(errMsg);
 				        }
 					});
-
+					
 				});
 	</script>
 

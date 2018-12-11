@@ -26,82 +26,76 @@ public class OrderRestController {
 
 	@Autowired
 	private SectionService sectionService;
-	
-	@Autowired 
-	private PurchaseService purchaseService;
-	
+
 	@Autowired
-	private OrderService orderService;
-	
+	private PurchaseService purchaseService;
+
 	@Autowired
 	private RequestService requestService;
-	
+
 	@PostMapping("send/{id}")
-	public List<Command> send(@PathVariable("id") Integer id,
-			@RequestBody OrderWrapper wrapper){
+	public List<Command> send(@PathVariable("id") Integer id, @RequestBody OrderWrapper wrapper) {
 
 		Section section = sectionService.find(id);
-		if(section == null) {
+		if (section == null) {
 			throw new NotFoundException("Section id not found - " + id);
 		}
-		
+
 		List<Command> orders = new ArrayList<>();
 		Request request = new Request();
 		request.setSection(section);
 		request.setApproved(false);
-		
+
 		Purchase purchase = purchaseService.find(wrapper.getIds().get(0));
 		request.setContract(purchase.getContract());
-		
-		for(int ii = 0; ii < wrapper.getIds().size(); ii++) {
+
+		for (int ii = 0; ii < wrapper.getIds().size(); ii++) {
 			Command order = new Command();
-			
+
 			Float quantity = wrapper.getQuantities().get(ii);
 
 			order.setQuantity(quantity);
-			
+
 			purchase = purchaseService.find(wrapper.getIds().get(ii));
 			order.setPurchase(purchase);
 			order.setRequest(request);
 			
-			orders.add(order);
+			request.add(order);
 		}
-		request.setOrders(orders);
+
 		requestService.save(request);
-		
+
 		return orders;
 	}
-	
+
 	@PostMapping("approve/{id}")
-	public List<Command> approve(@PathVariable("id") Integer id,
-			@RequestBody OrderWrapper wrapper){
+	public List<Command> approve(@PathVariable("id") Integer id, @RequestBody OrderWrapper wrapper) {
 
 		Request request = requestService.find(id);
-		if(request == null) {
+		if (request == null) {
 			throw new NotFoundException("Request not found - " + id);
 		}
-		
+
 		List<Command> orders = request.getOrders();
 
-		
-//		for(int ii = 0; ii < orders.size(); ii++) {
-//			Command order = orders.get(ii);
-//			int index = wrapper.getIds().indexOf(order.getId());
-//			
-//			Float quantity = wrapper.getQuantities().get(index);
-//			order.setQuantity(quantity);
-//	
-//			Float remainder = order.getPurchase().getRemainder() - quantity;			
-//			order.getPurchase().setRemainder(remainder);
-//			
-//			
-//			orderService.save(order);
-//		}
+		for (int ii = 0; ii < orders.size(); ii++) {
+			Command order = orders.get(ii);
+			int index = wrapper.getIds().indexOf(order.getId());
 
-//		request.setApproved(true);
-//		requestService.save(request);
-		
+			Float quantity = wrapper.getQuantities().get(index);
+			order.setQuantity(quantity);
+
+			Float remainder = order.getPurchase().getRemainder() - quantity;			
+			Purchase purchase = order.getPurchase();
+			purchase.setRemainder(remainder);
+			purchaseService.save(purchase);
+			order.setPurchase(purchase);
+			
+		}
+
+		request.setApproved(true);
+		requestService.save(request);
+
 		return orders;
 	}
-	
 }
