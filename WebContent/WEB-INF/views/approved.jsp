@@ -18,7 +18,10 @@
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">Request from
-				${request.contract.name} | ${request.section.name }</div>
+				${request.contract.name} | ${request.section.name }
+				<a href="${pageContext.request.contextPath}/request/pdf/${request.id}" 
+					class="btn btn-primary btn-sm float-right pl-3 pr-3">PDF</a>		
+			</div>
 			<div class="card-body">
 
 				<div class="row">
