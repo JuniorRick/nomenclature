@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -58,7 +59,8 @@ public class RequestController {
 			throws ParseException, DocumentException, URISyntaxException, IOException {
 
 		
-		PdfGenerator pdfGenerator = new PdfGenerator(requestService.find(id).getOrders());
+		PdfGenerator pdfGenerator = new PdfGenerator(requestService.find(id).getOrders()
+				.stream().filter(o -> o.getQuantity() > 0.0f).collect(Collectors.toList()));
 		
 		
 		JFrame parentFrame = new JFrame();
@@ -70,8 +72,9 @@ public class RequestController {
 		 
 		if (userSelection == JFileChooser.APPROVE_OPTION) {
 		    File fileToSave = fileChooser.getSelectedFile();
-		    
-		    pdfGenerator.generatePDF(fileToSave.getAbsolutePath());
+		    if(!fileToSave.getAbsolutePath().endsWith(".pdf"))
+		    	pdfGenerator.generatePDF(fileToSave.getAbsolutePath() + ".pdf");
+		    else pdfGenerator.generatePDF(fileToSave.getAbsolutePath());
 		}
 		
 		return "redirect:/request/approved";
