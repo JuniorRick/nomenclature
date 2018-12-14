@@ -56,8 +56,8 @@
 						<div class="clearfix">
 							<hr>
 							<input type="submit" class="btn btn-primary float-right"
-								value="Filter"> <a
-								href="${pageContext.request.contextPath}/order/list"
+								value="Filter"> 
+							<a href="${pageContext.request.contextPath}/order/list"
 								class="btn float-right mr-2 btn-info">Cancel</a>
 						</div>
 					</form>
@@ -91,11 +91,6 @@
 						<tbody>
 							<c:forEach var="purchase" items="${purchases}" varStatus="loop">
 
-
-								<c:url var="delete" value="/purchase/delete">
-									<c:param name="Id" value="${purchase.id}" />
-								</c:url>
-
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
 									<td>${purchase.good}</td>
@@ -104,30 +99,6 @@
 										(${purchase.unit})</td>
 
 								</tr>
-
-
-								<div class="modal fade" id="confirmModal${purchase.id}">
-									<div class="modal-dialog" role="document">
-										<div class="modal-content">
-											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Modal
-													title</h5>
-												<button type="button" class="close" data-dismiss="modal"
-													aria-label="Close">
-													<span aria-hidden="true">&times;</span>
-												</button>
-											</div>
-											<div class="modal-body">
-												Delete order from<span class="text-danger font-weight-bold">${purchase.contract.name}</span>
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Cancel</button>
-												<a href="${delete}" class="btn btn-danger">Confirm</a>
-											</div>
-										</div>
-									</div>
-								</div>
 
 							</c:forEach>
 						</tbody>

@@ -49,7 +49,7 @@
 							<label class="col-sm-2 col-form-label" for="">Number</label>
 							<div class="col-sm-6">
 								<form:input path="number" class="form-control"
-									placeholder="Number" />
+									placeholder="Number" required="required" />
 							</div>
 						</div>
 						
@@ -57,7 +57,7 @@
 							<label class="col-sm-2 col-form-label" for="">Name</label>
 							<div class="col-sm-6">
 								<form:input path="name" class="form-control"
-									placeholder="Contract name" />
+									placeholder="Contract name" required="required"/>
 							</div>
 						</div>
 						
@@ -65,14 +65,14 @@
 							<label class="col-sm-2 col-form-label" for="">Abbr</label>
 							<div class="col-sm-6">
 								<form:input path="abbr" class="form-control"
-									placeholder="Abbr" />
+									placeholder="Abbreviation" required="required"/>
 							</div>
 						</div>
 						
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Start Date</label>
 							<div class="col-sm-6">
-								<input type="date" id="startDate" class="form-control"
+								<input type="date" id="startDate" class="form-control" required="required"
 									name="startDate" placeholder="Start Date" value="${contract.startDate}"/>
 							</div>
 						</div>
@@ -80,7 +80,7 @@
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">End Date</label>
 							<div class="col-sm-6">
-								<input type="date" id="expiryDate" class="form-control"
+								<input type="date" id="expiryDate" class="form-control" required="required"
 									name="expiryDate" placeholder="End Date" value="${contract.expiryDate}"/>
 							</div>
 						</div>

@@ -33,7 +33,7 @@
 							<label class="col-sm-2 col-form-label" for="">Section</label>
 							<div class="col-sm-6">
 								<form:input path="name" class="form-control"
-									placeholder="Section name" />
+									placeholder="Section name" required="required"/>
 							</div>
 						</div>
 

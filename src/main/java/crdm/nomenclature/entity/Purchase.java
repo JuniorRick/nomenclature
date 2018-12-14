@@ -26,19 +26,11 @@ public class Purchase {
 
 	private Float remainder;
 
-	private String unit;
-
 	private Float old_quantity;
 
+	private String unit;
+
 	public Purchase() {
-	}
-
-	public Float getOld_quantity() {
-		return old_quantity;
-	}
-
-	public void setOld_quantity(Float old_quantity) {
-		this.old_quantity = old_quantity;
 	}
 
 	public Integer getId() {
@@ -71,6 +63,14 @@ public class Purchase {
 
 	public void setQuantity(Float quantity) {
 		this.quantity = quantity;
+	}
+	
+	public Float getOld_quantity() {
+		return old_quantity;
+	}
+
+	public void setOld_quantity(Float old_quantity) {
+		this.old_quantity = old_quantity;
 	}
 
 	public Float getRemainder() {

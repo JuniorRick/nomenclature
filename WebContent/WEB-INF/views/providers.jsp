@@ -34,7 +34,7 @@
 							<label class="col-sm-2 col-form-label" for="">Provider</label>
 							<div class="col-sm-6">
 								<form:input path="name" class="form-control"
-									placeholder="Provider name" />
+									placeholder="Provider name" required="required"/>
 							</div>
 						</div>
 

@@ -22,13 +22,12 @@
 				Purchase</button>
 
 
-			<div class="collapse ${purchase.id != null ? 'show' : ''}"
+			<div class="collapse show"
 				id="collapseInput">
 				<div class="card-body">
 					<form:form action="store" modelAttribute="purchase" method="POST">
 
 						<form:hidden path="id" />	
-						<form:hidden path="old_quantity" />
 						<form:hidden path="remainder" />
 						
 						<div class=" form-group row">
@@ -50,7 +49,7 @@
 							<label class="col-sm-2 col-form-label" for="">Good</label>
 							<div class="col-sm-6">
 								<form:input path="good" class="form-control"
-									placeholder="Good" />
+									placeholder="Good" required="required"/>
 							</div>
 						</div>
 						
@@ -58,7 +57,7 @@
 							<label class="col-sm-2 col-form-label" for="">Quantity</label>
 							<div class="col-sm-6">
 								<form:input path="quantity" class="form-control"
-									placeholder="Quantity" />
+									placeholder="Quantity" required="required" pattern="\d+\.?\d*"/>
 							</div>
 						</div>
 						
@@ -67,7 +66,7 @@
 							<label class="col-sm-2 col-form-label" for="">Unit</label>
 							<div class="col-sm-6">
 								<form:input path="unit" class="form-control"
-									placeholder="unit" />
+									placeholder="unit" required="required"/>
 							</div>
 						</div>
 						
