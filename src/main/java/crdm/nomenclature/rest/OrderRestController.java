@@ -15,7 +15,6 @@ import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Request;
 import crdm.nomenclature.entity.Section;
 import crdm.nomenclature.rest.exception.NotFoundException;
-import crdm.nomenclature.service.OrderService;
 import crdm.nomenclature.service.PurchaseService;
 import crdm.nomenclature.service.RequestService;
 import crdm.nomenclature.service.SectionService;
@@ -34,14 +33,13 @@ public class OrderRestController {
 	private RequestService requestService;
 
 	@PostMapping("send/{id}")
-	public List<Command> send(@PathVariable("id") Integer id, @RequestBody OrderWrapper wrapper) {
+	public Request send(@PathVariable("id") Integer id, @RequestBody OrderWrapper wrapper) {
 
 		Section section = sectionService.find(id);
 		if (section == null) {
 			throw new NotFoundException("Section id not found - " + id);
 		}
 
-		List<Command> orders = new ArrayList<>();
 		Request request = new Request();
 		request.setSection(section);
 		request.setApproved(false);
@@ -65,7 +63,7 @@ public class OrderRestController {
 
 		requestService.save(request);
 
-		return orders;
+		return request;
 	}
 
 	@PostMapping("approve/{id}")

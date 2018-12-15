@@ -135,7 +135,7 @@
 					let request_quantities = [];
 					let purchase_ids = [];
 					$('input[type="text"]').each(function(index) {
-						request_quantities[index] = $(this).val() != "" ? $(this).value : "0";
+						request_quantities[index] = $(this).val() != "" ? $(this).val() : "0";
 						purchase_ids[index] = $(this).attr('name');
 	
 					});

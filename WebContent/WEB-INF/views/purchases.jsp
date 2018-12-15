@@ -28,6 +28,7 @@
 					<form:form action="store" modelAttribute="purchase" method="POST">
 
 						<form:hidden path="id" />	
+						<form:hidden path="old_quantity" />	
 						<form:hidden path="remainder" />
 						
 						<div class=" form-group row">

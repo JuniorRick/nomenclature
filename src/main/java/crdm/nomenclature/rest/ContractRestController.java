@@ -40,7 +40,7 @@ public class ContractRestController {
 
 		Contract contract = contractService.find(id);
 		if(contract == null) {
-			throw new NotFoundException("Contract id not found - " + id);
+//			throw new NotFoundException("Contract id not found - " + id);
 		}
 		
 		return contract;

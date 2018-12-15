@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itextpdf.text.DocumentException;
 
@@ -101,4 +102,11 @@ public class RequestController {
 		return "approvedList";
 	}
 
+	@GetMapping("/delete")
+	public String delete(@RequestParam("Id") Integer id, Model model) {
+
+		requestService.delete(id);
+		
+		return "redirect:/request/list";
+	}
 }
