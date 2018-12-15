@@ -46,4 +46,10 @@ public class RequestServiceImpl implements RequestService {
 		return requestDAO.approvedList();
 	}
 
+	@Override
+	@Transactional
+	public Integer count(Boolean approved) {
+		return requestDAO.count(approved);
+	}
+
 }

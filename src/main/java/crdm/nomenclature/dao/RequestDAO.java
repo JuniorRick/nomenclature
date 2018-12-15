@@ -15,4 +15,6 @@ public interface RequestDAO {
 	void delete(Integer id);
 
 	public List<Request> approvedList();
+	
+	public Integer count(Boolean approved);
 }

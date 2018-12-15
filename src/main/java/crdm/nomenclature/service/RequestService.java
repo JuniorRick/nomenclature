@@ -15,4 +15,5 @@ public interface RequestService {
 
 	public List<Request> approvedList();
 
+	public Integer count(Boolean approved);
 }

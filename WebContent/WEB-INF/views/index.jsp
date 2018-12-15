@@ -12,10 +12,18 @@
 
 	<!-- Navigation menu -->
 	<jsp:include page="/WEB-INF/views/layouts/nav.jsp" />
-	
-	
-	
-	
+
+	<div class="container mt-3 ">
+		<a href="${pageContext.request.contextPath}/request/list" class="alert alert-info d-block">
+			<strong>${requestsCount}</strong> order requests waiting for approval.
+		</a>
+		<a href="${pageContext.request.contextPath}/request/approved" class="alert alert-success d-block">
+			<strong>${approvedCount}</strong> order requests approved.
+		</a>
+	</div>
+
+
+
 	<!-- Page footer -->
 	<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
 </body>
