@@ -31,14 +31,24 @@ public class PurchaseController {
 
 	
 	@GetMapping("/list")
-	public String all(@ModelAttribute("purchase") Purchase purchase, Model model) throws ParseException {
+	public String all(@ModelAttribute("purchase") Purchase purchase,
+			@ModelAttribute("contract") Contract contract, Model model) throws ParseException {
 		
-		List<Purchase> purchases = purchaseService.all();
+		List<Purchase> purchases =null;
+		
+		if(contract.getId() != null) {
+			purchases = contract.getPurchases();
+		}
+		else {
+			purchases = purchaseService.all();
+		}
 		model.addAttribute("purchases", purchases);
 		model.addAttribute("purchase", purchase);
 		
+
 		List<Contract> contracts = contractService.all();
 		model.addAttribute("contracts", contracts);
+		model.addAttribute("contract", contract);
 
 		return "purchases";
 	}
@@ -46,7 +56,8 @@ public class PurchaseController {
 	
 	@PostMapping("/store")
 	public String save(@ModelAttribute("purchase") Purchase purchase, 
-			@RequestParam("contract_id") int contract_id) {
+			@RequestParam("contract_id") int contract_id,
+			final RedirectAttributes redirectAttributes) {
 		
 		Contract contract = contractService.find(contract_id);
 
@@ -64,6 +75,7 @@ public class PurchaseController {
 			purchase.setOld_quantity(purchase.getQuantity());
 		}
 		contract.add(purchase);									
+		redirectAttributes.addFlashAttribute("contract", contract);
 		
 		purchaseService.save(purchase);
 		

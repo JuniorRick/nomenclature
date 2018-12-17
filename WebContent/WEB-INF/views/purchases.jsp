@@ -36,9 +36,10 @@
 							<div class="col-sm-6">
 								<select id="contract_id" name="contract_id" class="form-control">
 									<option value="NONE">--Select contract--</option>
-									<c:forEach items="${contracts}" var="contract">
-									       <option value="${contract.id}" ${purchase.contract.id == contract.id ? 'selected' : '' }>
-									            ${contract.name} [${contract.number}]
+									<c:forEach items="${contracts}" var="c">
+									       <option value="${c.id}" 
+									       ${contract.id != null && contract.id == c.id ? 'selected' : purchase.contract.id == c.id ? 'selected' : '' }>
+									            ${c.name} [${c.number}]
 									        </option>
 									</c:forEach>
 								</select>
@@ -105,8 +106,9 @@
 							</tr>
 						</thead>
 						<tbody>
+							
 							<c:forEach var="purchase" items="${purchases}" varStatus="loop">
-
+								
 								<c:url var="update" value="/purchase/update">
 									<c:param name="Id" value="${purchase.id}" />
 								</c:url>

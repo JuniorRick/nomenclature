@@ -41,7 +41,7 @@ public class RequestController {
 
 		model.addAttribute("requests", requests);
 
-		return "requestsList";
+		return "requestList";
 	}
 
 	@GetMapping("/view/{id}")
