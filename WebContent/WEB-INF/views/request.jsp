@@ -100,7 +100,7 @@
 							$
 									.ajax({
 										type : 'POST',
-										url : '${pageContext.request.contextPath}/api/orders/approve/${request.id}',
+										url : '${pageContext.request.contextPath}/request/approve/${request.id}',
 										data : JSON.stringify(wrapper),
 										contentType : "application/json; charset=utf-8",
 										dataType : "json",

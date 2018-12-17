@@ -147,7 +147,7 @@
 					
 					$.ajax({
 						type: 'POST',
-						url: '${pageContext.request.contextPath}/api/orders/send/${section_id}', 
+						url: '${pageContext.request.contextPath}/request/send/${section_id}', 
 						data: JSON.stringify(wrapper),
 				        contentType: "application/json; charset=utf-8",
 				        dataType: "json",

@@ -57,6 +57,7 @@ public class OrderController {
 		return "orders";
 	}
 	
+	
 	@GetMapping("/list/{contract_id}/{section_id}")
 	public String contractPurchases(@PathVariable("contract_id") Integer contract_id,
 			@PathVariable("section_id") Integer section_id
