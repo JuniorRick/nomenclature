@@ -31,7 +31,6 @@ import crdm.nomenclature.entity.Command;
 import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Request;
 import crdm.nomenclature.entity.Section;
-import crdm.nomenclature.rest.OrderWrapper;
 import crdm.nomenclature.rest.exception.NotFoundException;
 import crdm.nomenclature.service.PurchaseService;
 import crdm.nomenclature.service.RequestService;

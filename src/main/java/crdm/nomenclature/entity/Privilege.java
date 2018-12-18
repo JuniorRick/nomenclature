@@ -53,6 +53,11 @@ public class Privilege {
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
+
+	@Override
+	public String toString() {
+		return "name=" + name + " ";
+	}
     
     
 }

@@ -11,6 +11,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name="roles")
 public class Role {
@@ -24,6 +27,7 @@ public class Role {
     @ManyToMany(mappedBy = "roles")
     private Collection<User> users;
  
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ManyToMany
     @JoinTable(
         name = "roles_privileges", 
@@ -70,6 +74,13 @@ public class Role {
 
 	public void setPrivileges(Collection<Privilege> privileges) {
 		this.privileges = privileges;
-	}  
+	}
+
+	@Override
+	public String toString() {
+		return name + ", privileges=" + privileges + " ";
+	} 
+	
+	
     
 }

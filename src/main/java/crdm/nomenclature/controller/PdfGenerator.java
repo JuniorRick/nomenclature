@@ -2,18 +2,20 @@ package crdm.nomenclature.controller;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.BaseColor;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -22,63 +24,85 @@ import com.itextpdf.text.pdf.PdfWriter;
 import crdm.nomenclature.entity.Command;
 
 public class PdfGenerator {
-	
+
 	private List<Command> orders;
-	
+
 	public PdfGenerator(List<Command> orders) {
 		this.orders = orders;
 	}
 	
+
 	public void generatePDF(String filePath) throws DocumentException, URISyntaxException, IOException {
-			
-		Document document = new Document();
+
+        float left = 20;
+        float right = 20;
+        float top = 20;
+        float bottom = 20;
+        Document document = new Document(PageSize.A4, left, right, top, bottom);
+        
 		PdfWriter.getInstance(document, new FileOutputStream(filePath));
 
-		document.open();
 
-		PdfPTable table = new PdfPTable(3);
+		document.open();
+		addPageHeader(document);
+		document.add( new Paragraph("\n\n") );
+
+		Paragraph paragraph1 = new Paragraph(new Phrase(orders.get(0).getPurchase().getContract().getProvider().getName()));
+		paragraph1.setAlignment(Element.ALIGN_RIGHT);
+	    document.add(paragraph1);
+		document.add( new Paragraph("\n\n") );
+		
+	    final String title = "IMSP Centrul Republican de Diagnosticare "
+	    		+ "Medicala solicita livrearea urmatoarelor comsumabile, "
+	    		+ "conform contractului " + orders.get(0).getPurchase().getContract().getNumber();
+	    		
+	    Phrase phrase = new Phrase(title);
+	    Paragraph paragraph2 = new Paragraph(phrase);
+	    paragraph1.setAlignment(Element.ALIGN_CENTER);
+	    document.add(paragraph2);
+	    document.add( new Paragraph("\n") );
+	    
+		PdfPTable table = new PdfPTable(4);
+		table.setWidthPercentage(100);
 		addTableHeader(table);
 		addRows(table);
-//		addCustomRows(table);
-
 		document.add(table);
+		document.add( new Paragraph("\n\n") );
+		
 		document.close();
 	}
 
+	private void addPageHeader(Document document)
+			throws MalformedURLException, IOException, DocumentException, URISyntaxException {
+		
+		Resource resource = new ClassPathResource("pdf-images/Antet-CRDM.png");
+		
+		Image image = Image.getInstance(resource.getURL().getPath());
+		float docW = PageSize.A4.getWidth() - 2 * PageSize.A4.getBorder();
+		float docH = PageSize.A4.getHeight() - 2 * PageSize.A4.getBorder();
+		image.scaleToFit(docW - 30, docH - 30);
+		document.add(image);
+
+	}
+
 	private void addTableHeader(PdfPTable table) {
-		Stream.of("column header 1", "column header 2", "column header 3").forEach(columnTitle -> {
+		Stream.of("Nr.", "Denumirea Bunurilor (Serviciilor)", "Cantitate", "Unitate de masura").forEach(columnTitle -> {
 			PdfPCell header = new PdfPCell();
-			header.setBackgroundColor(BaseColor.LIGHT_GRAY);
-			header.setBorderWidth(2);
+			header.setBorderWidth(1);
 			header.setPhrase(new Phrase(columnTitle));
 			table.addCell(header);
 		});
 	}
 
 	private void addRows(PdfPTable table) {
-		for(Command order: orders) {
+		Integer count = 1;
+		for (Command order : orders) {
+			table.addCell((count++).toString());
 			table.addCell(order.getPurchase().getGood());
 			table.addCell(order.getQuantity().toString());
 			table.addCell(order.getPurchase().getUnit());
 		}
-		
-	}
 
-	private void addCustomRows(PdfPTable table) throws URISyntaxException, BadElementException, IOException {
-		Path path = Paths.get(ClassLoader.getSystemResource("Java_logo.png").toURI());
-		Image img = Image.getInstance(path.toAbsolutePath().toString());
-		img.scalePercent(10);
-
-		PdfPCell imageCell = new PdfPCell(img);
-		table.addCell(imageCell);
-
-		PdfPCell horizontalAlignCell = new PdfPCell(new Phrase("row 2, col 2"));
-		horizontalAlignCell.setHorizontalAlignment(Element.ALIGN_CENTER);
-		table.addCell(horizontalAlignCell);
-
-		PdfPCell verticalAlignCell = new PdfPCell(new Phrase("row 2, col 3"));
-		verticalAlignCell.setVerticalAlignment(Element.ALIGN_BOTTOM);
-		table.addCell(verticalAlignCell);
 	}
 
 }
