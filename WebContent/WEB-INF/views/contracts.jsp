@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +19,17 @@
 			<button class="card-header text-left" type="button"
 				data-toggle="collapse" data-target="#collapseInput" role="button"
 				aria-expanded="false" aria-controls="collapseInput"
-				style="cursor: pointer;">${contract.id != null ? 'Update' : 'Add new' }
-				Contract</button>
+				style="cursor: pointer;">
+				<c:choose>
+					<c:when test="contract.id != null ">
+						<spring:message code="contract.update" />
+					</c:when>
+					<c:otherwise>
+						<spring:message code="contract.add.new" />
+					</c:otherwise>
+				</c:choose>
+
+			</button>
 
 
 			<div class="collapse ${contract.id != null ? 'show' : ''}"
@@ -28,60 +38,62 @@
 					<form:form action="store" modelAttribute="contract" method="POST">
 
 
-						<form:hidden path="id" />	
-						
+						<form:hidden path="id" />
+
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Provider</label>
 							<div class="col-sm-6">
 								<select id="provider_id" name="provider_id" class="form-control">
 									<option value="NONE">--Select provider--</option>
 									<c:forEach items="${providers}" var="provider">
-									       <option value="${provider.id}" ${contract.provider.id == provider.id ? 'selected' : '' }>
-									            ${provider.name}
-									        </option>
+										<option value="${provider.id}"
+											${contract.provider.id == provider.id ? 'selected' : '' }>
+											${provider.name}</option>
 									</c:forEach>
 								</select>
 							</div>
 						</div>
-						
+
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">Number</label>
+							<label class="col-sm-2 col-form-label" for=""><spring:message code="number" /></label>
 							<div class="col-sm-6">
 								<form:input path="number" class="form-control"
 									placeholder="Number" required="required" />
 							</div>
 						</div>
-						
+
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Name</label>
 							<div class="col-sm-6">
 								<form:input path="name" class="form-control"
-									placeholder="Contract name" required="required"/>
+									placeholder="Contract name" required="required" />
 							</div>
 						</div>
-						
+
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Abbr</label>
 							<div class="col-sm-6">
 								<form:input path="abbr" class="form-control"
-									placeholder="Abbreviation" required="required"/>
+									placeholder="Abbreviation" required="required" />
 							</div>
 						</div>
-						
+
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">Start Date</label>
 							<div class="col-sm-6">
-								<input type="date" id="startDate" class="form-control" required="required"
-									name="startDate" placeholder="Start Date" value="${contract.startDate}"/>
+								<input type="date" id="startDate" class="form-control"
+									required="required" name="startDate" placeholder="Start Date"
+									value="${contract.startDate}" />
 							</div>
 						</div>
-						
+
 						<div class=" form-group row">
 							<label class="col-sm-2 col-form-label" for="">End Date</label>
 							<div class="col-sm-6">
-								<input type="date" id="expiryDate" class="form-control" required="required"
-									name="expiryDate" placeholder="End Date" value="${contract.expiryDate}"/>
+								<input type="date" id="expiryDate" class="form-control"
+									required="required" name="expiryDate" placeholder="End Date"
+									value="${contract.expiryDate}" />
 							</div>
 						</div>
 						<div class="clearfix">
@@ -114,7 +126,7 @@
 								<th scope="col">Number</th>
 								<th scope="col">Start Date</th>
 								<th scope="col">Expiry Date</th>
-								
+
 								<th class="" scope="col">Actions</th>
 							</tr>
 						</thead>
@@ -131,14 +143,14 @@
 
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
-									
+
 									<td>${contract.provider.name}</td>
 									<td>${contract.name}</td>
 									<td>${contract.abbr }</td>
 									<td>${contract.number}</td>
 									<td>${contract.startDate}</td>
 									<td>${contract.expiryDate}</td>
-									
+
 									<td class=""><a href="${update}"
 										class="btn btn-warning btn-sm">Edit</a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
