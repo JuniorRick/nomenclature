@@ -19,8 +19,10 @@
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">Request from
 				${request.contract.name} | ${request.section.name }
+				<a href="${pageContext.request.contextPath}/request/cancel/${request.id}" 
+					class="btn btn-info btn-sm float-right pl-3 pr-3 mr-3">Cancel Approval</a>		
 				<a href="${pageContext.request.contextPath}/request/pdf/${request.id}" 
-					class="btn btn-primary btn-sm float-right pl-3 pr-3">PDF</a>		
+					class="btn btn-primary btn-sm float-right pl-3 pr-3 mr-3">PDF</a>
 			</div>
 			<div class="card-body">
 

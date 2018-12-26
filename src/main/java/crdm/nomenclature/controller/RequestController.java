@@ -32,6 +32,7 @@ import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Request;
 import crdm.nomenclature.entity.Section;
 import crdm.nomenclature.rest.exception.NotFoundException;
+import crdm.nomenclature.service.OrderService;
 import crdm.nomenclature.service.PurchaseService;
 import crdm.nomenclature.service.RequestService;
 import crdm.nomenclature.service.SectionService;
@@ -49,6 +50,8 @@ public class RequestController {
 	@Autowired 
 	private PurchaseService purchaseService;
 
+	@Autowired OrderService orderService;
+	
 	@GetMapping("list")
 	public String list(@ModelAttribute("request") Command order, Model model) throws ParseException {
 
@@ -68,7 +71,39 @@ public class RequestController {
 
 		return "approved";
 	}
+	
+	@GetMapping("/cancel/{id}")
+	public String cancel(@PathVariable("id") Integer id, Model model) throws ParseException {
 
+		Request request = requestService.find(id);
+
+		request.setApproved(false);
+
+		
+		List<Command> orders = request.getOrders();
+		
+
+		for (Command order: orders) {
+
+			
+			Purchase purchase = order.getPurchase();
+			Float quantity = order.getQuantity();
+
+			purchase.setRemainder(quantity + purchase.getRemainder());
+			
+			purchaseService.save(purchase);
+			
+			order.setPurchase(purchase);
+//			orderService.save(order);
+			
+		}
+
+		requestService.save(request);
+		
+
+		return "redirect:/request/approved";
+	
+	}
 
 	@GetMapping("/pdf/{id}")
 	public String pdf(@PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response)
@@ -192,6 +227,6 @@ public class RequestController {
 
 		requestService.delete(id);
 		
-		return "redirect:/request/list";
+		return "redirect:/request/approved";
 	}
 }

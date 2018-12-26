@@ -53,7 +53,7 @@ public class PdfGenerator {
 		document.add( new Paragraph("\n\n") );
 		
 	    final String title = "IMSP Centrul Republican de Diagnosticare "
-	    		+ "Medicala solicita livrearea urmatoarelor comsumabile, "
+	    		+ "Medicala solicita livrearea urmatoarelor consumabile, "
 	    		+ "conform contractului " + orders.get(0).getPurchase().getContract().getNumber();
 	    		
 	    Phrase phrase = new Phrase(title);
