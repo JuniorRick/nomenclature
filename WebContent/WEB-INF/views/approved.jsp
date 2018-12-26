@@ -39,14 +39,14 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="order" items="${request.orders}" varStatus="loop">
-								<c:if test="${order.quantity != 0.0}">
+							<c:forEach var="purchase" items="${request.purchases}" varStatus="loop">
+								<c:if test="${purchase.quantity != 0.0}">
 									<tr>
 										<th class="" scope="row">${loop.index + 1}</th>
 
-										<td>${order.purchase.good}</td>
-										<td>${order.purchase.remainder}(${order.purchase.unit})</td>
-										<td>${order.quantity}(${order.purchase.unit})</td>
+										<td>${purchase.good.good}</td>
+										<td>${purchase.good.remainder}(${purchase.good.unit})</td>
+										<td>${purchase.quantity}(${purchase.good.unit})</td>
 
 										<td class="">Placeholder</td>
 									</tr>

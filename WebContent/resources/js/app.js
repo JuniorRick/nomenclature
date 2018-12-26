@@ -23,10 +23,10 @@ $(document).ready(function() {
 
 		if($('select').val() == "NONE") {
 			e.preventDefault();
-			$('select').css('border-color', '#dc3545')
+			$('select').css('bpurchase-color', '#dc3545')
 			.css('box-shadow', '0px 0px 1px 1px #dc3545');
 		}else {
-			$('select').css('border-color', '#ced4da')
+			$('select').css('bpurchase-color', '#ced4da')
 			.css('box-shadow', 'none');
 		}
 	})

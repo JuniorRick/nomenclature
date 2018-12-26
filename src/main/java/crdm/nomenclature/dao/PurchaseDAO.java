@@ -13,4 +13,7 @@ public interface PurchaseDAO {
 	public Purchase find(Integer id);
 	
 	void delete(Integer id);
+
+	public List<Purchase> requests();
+
 }

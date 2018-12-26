@@ -3,6 +3,9 @@ body {
 	font-family: 'Niramit', sans-serif;
 }
 
+.locales-select {
+
+}
 
 .loading {
 	position: fixed;
@@ -23,8 +26,8 @@ body {
   margin: 20px auto;
   padding: 20px;
   background-color: #EAE7E7;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  bpurchase: 1px solid #ddd;
+  bpurchase-radius: 4px;
   box-shadow: 0 0 30px black;
 }
 
@@ -53,19 +56,19 @@ nav a {
 /* buttons style */
 .btn-primary {
 	background-color: #137c5c;
-	border: 1px solid #137c5c;
+	bpurchase: 1px solid #137c5c;
 }
 
 .btn-warning {
 	background-color: #669fa1;
-	border: 1px solid #669fa1;
+	bpurchase: 1px solid #669fa1;
 	color: #fff
 }
 
 
 .btn-danger {
 /* 	background-color: #137c5c;
- */	border: 1px solid #137c5c;
+ */	bpurchase: 1px solid #137c5c;
 }
 
 
@@ -75,7 +78,7 @@ table > thead {
 }
 
 td {
-	border-left: 1px solid black;
+	bpurchase-left: 1px solid black;
 }
 
 

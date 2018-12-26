@@ -27,7 +27,7 @@ public class PurchaseServiceImpl implements PurchaseService {
 	public Purchase save(Purchase purchase) {
 		return purchaseDAO.save(purchase);
 	}
-
+	
 	@Override
 	@Transactional
 	public Purchase find(Integer id) {
@@ -38,7 +38,13 @@ public class PurchaseServiceImpl implements PurchaseService {
 	@Transactional
 	public void delete(Integer id) {
 		purchaseDAO.delete(id);
+	}
 
+	@Override
+	@Transactional
+	public List<Purchase> requests() {
+		// TODO Auto-generated method stub
+		return purchaseDAO.requests();
 	}
 
 }

@@ -21,14 +21,14 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import crdm.nomenclature.entity.Command;
+import crdm.nomenclature.entity.Purchase;
 
 public class PdfGenerator {
 
-	private List<Command> orders;
+	private List<Purchase> purchases;
 
-	public PdfGenerator(List<Command> orders) {
-		this.orders = orders;
+	public PdfGenerator(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 	
 
@@ -47,14 +47,14 @@ public class PdfGenerator {
 		addPageHeader(document);
 		document.add( new Paragraph("\n\n") );
 
-		Paragraph paragraph1 = new Paragraph(new Phrase(orders.get(0).getPurchase().getContract().getProvider().getName()));
+		Paragraph paragraph1 = new Paragraph(new Phrase(purchases.get(0).getGood().getContract().getProvider().getName()));
 		paragraph1.setAlignment(Element.ALIGN_RIGHT);
 	    document.add(paragraph1);
 		document.add( new Paragraph("\n\n") );
 		
 	    final String title = "IMSP Centrul Republican de Diagnosticare "
 	    		+ "Medicala solicita livrearea urmatoarelor consumabile, "
-	    		+ "conform contractului " + orders.get(0).getPurchase().getContract().getNumber();
+	    		+ "conform contractului " + purchases.get(0).getGood().getContract().getNumber();
 	    		
 	    Phrase phrase = new Phrase(title);
 	    Paragraph paragraph2 = new Paragraph(phrase);
@@ -96,11 +96,11 @@ public class PdfGenerator {
 
 	private void addRows(PdfPTable table) {
 		Integer count = 1;
-		for (Command order : orders) {
+		for (Purchase purchase : purchases) {
 			table.addCell((count++).toString());
-			table.addCell(order.getPurchase().getGood());
-			table.addCell(order.getQuantity().toString());
-			table.addCell(order.getPurchase().getUnit());
+			table.addCell(purchase.getGood().getGood());
+			table.addCell(purchase.getQuantity().toString());
+			table.addCell(purchase.getGood().getUnit());
 		}
 
 	}

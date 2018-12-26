@@ -48,19 +48,19 @@ public class Contract {
 	@OneToMany( mappedBy = "contract")
 	@JsonIgnore
 	@Where(clause="remainder > 0")
-	private List<Purchase> purchases;
+	private List<Good> goods;
 
 	public Contract() {
 	}
 	
-	public void add(Purchase purchase) {
-		if(purchases == null) {
-			purchases = new ArrayList<>();
+	public void add(Good good) {
+		if(goods == null) {
+			goods = new ArrayList<>();
 		}
 		
-		this.purchases.add(purchase);
+		this.goods.add(good);
 
-		purchase.setContract(this);
+		good.setContract(this);
 		
 	}
 
@@ -84,12 +84,12 @@ public class Contract {
 		this.expiryDate = expiryDate;
 	}
 
-	public List<Purchase> getPurchases() {
-		return purchases;
+	public List<Good> getGoods() {
+		return goods;
 	}
 
-	public void setPurchases(List<Purchase> purchases) {
-		this.purchases = purchases;
+	public void setGoods(List<Good> goods) {
+		this.goods = goods;
 	}
 
 	public void setId(Integer id) {

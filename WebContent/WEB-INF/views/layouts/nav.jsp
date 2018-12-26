@@ -2,7 +2,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <link href="https://fonts.googleapis.com/css?family=Niramit" rel="stylesheet"> 
 
 <nav class="navbar navbar-expand-lg">
@@ -19,39 +20,39 @@
 	<div class="collapse navbar-collapse" id="navbarColor03">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item" id="home-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/">Home <span
-					class="sr-only">(current)</span></a></li>
+				href="${pageContext.request.contextPath}/"><spring:message code="nav.home" />
+				<span class="sr-only">(current)</span></a></li>
 			<li class="nav-item" id="new-release-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/contract/list">Contracts</a></li>
+				href="${pageContext.request.contextPath}/contract/list"><spring:message code="nav.contracts" /></a></li>
 			<li class="nav-item" id="reagents-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/purchase/list">Purchases</a>
+				href="${pageContext.request.contextPath}/good/list"><spring:message code="nav.goods" /></a>
 			</li>
 			<li class="nav-item" id="lab-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/order/list">Goods ordering</a>
+				href="${pageContext.request.contextPath}/purchase/list"><spring:message code="nav.purchases" /></a>
 			</li>
 			<li class="nav-item" id="lab-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/request/list">Order requests</a>
+				href="${pageContext.request.contextPath}/request/list"><spring:message code="nav.purchases.requests" /></a>
 			</li>
 			<li class="nav-item" id="lab-link"><a class="nav-link"
-				href="${pageContext.request.contextPath}/request/approved">Approved orders</a>
+				href="${pageContext.request.contextPath}/request/approved"><spring:message code="nav.purchases.approved" /></a>
 			</li>
 			<li class="nav-item dropdown"><a
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> More ... </a>
+				aria-expanded="false"> <spring:message code="nav.more" /> ... </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/provider/list">Providers</a>
+						href="${pageContext.request.contextPath}/provider/list"><spring:message code="nav.providers" /></a>
 					<a class="dropdown-item"
-						href="${pageContext.request.contextPath}/section/list">Sections</a>
+						href="${pageContext.request.contextPath}/section/list"><spring:message code="nav.sections" /></a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Settings</a>
+					<a class="dropdown-item" href="#"><spring:message code="nav.settings" /></a>
 				</div></li>
 
 		</ul>
 
 		<form class="form-inline ">
-			<input class="form-control mr-sm-2" placeholder="Search"
+			<input class="form-control mr-sm-2" placeholder="<spring:message code="nav.search" />"
 				aria-label="Search" type="search" id="search">
 <!-- 			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button> -->
 		</form>

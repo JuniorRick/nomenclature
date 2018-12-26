@@ -38,7 +38,7 @@ public class Request {
 	@JsonIgnore
 	@OneToMany(mappedBy = "request", fetch = FetchType.EAGER,
 			cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Command> orders;
+	private List<Purchase> purchases;
 
 	@Column(nullable = false, columnDefinition = "boolean default false")
 	private Boolean approved;
@@ -48,20 +48,20 @@ public class Request {
 	public Request() {
 	}
 
-	public void add(Command order) {
-		if(orders == null) {
-			orders = new ArrayList<>();
+	public void add(Purchase purchase) {
+		if(purchases == null) {
+			purchases = new ArrayList<>();
 		}
-		orders.add(order);
-		order.setRequest(this);
+		purchases.add(purchase);
+		purchase.setRequest(this);
 	}
 	
-	public List<Command> getOrders() {
-		return orders;
+	public List<Purchase> getPurchases() {
+		return purchases;
 	}
 
-	public void setOrders(List<Command> orders) {
-		this.orders = orders;
+	public void setPurchases(List<Purchase> purchases) {
+		this.purchases = purchases;
 	}
 
 	public Date getCreated_at() {

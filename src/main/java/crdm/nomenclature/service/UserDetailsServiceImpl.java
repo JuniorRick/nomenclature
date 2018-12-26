@@ -1,4 +1,4 @@
-package crdm.nomenclature.security;
+package crdm.nomenclature.service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,8 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 import crdm.nomenclature.entity.Privilege;
 import crdm.nomenclature.entity.Role;
 import crdm.nomenclature.entity.User;
-import crdm.nomenclature.service.RoleService;
-import crdm.nomenclature.service.UserService;
 
 @Service
 @Transactional

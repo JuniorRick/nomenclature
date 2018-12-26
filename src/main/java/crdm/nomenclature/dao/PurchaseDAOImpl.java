@@ -20,12 +20,13 @@ public class PurchaseDAOImpl implements PurchaseDAO{
 	public List<Purchase> all() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Purchase order by good", Purchase.class).getResultList();
+		return session.createQuery("from Command", Purchase.class).getResultList();
 	}
-
+	
 	@Override
 	public Purchase save(Purchase purchase) {
 		Session session = sessionFactory.getCurrentSession();
+		
 		session.saveOrUpdate(purchase);
 		return purchase;
 	}
@@ -40,10 +41,18 @@ public class PurchaseDAOImpl implements PurchaseDAO{
 	@Override
 	public void delete(Integer id) {
 		Session session = sessionFactory.getCurrentSession();
+		
 		Purchase purchase = session.find(Purchase.class, id);
 		
 		session.delete(purchase);
-		
 	}
+
+	@Override
+	public List<Purchase> requests() {
+		Session session = sessionFactory.getCurrentSession();
+		
+		return session.createQuery("from Command where approved != true", Purchase.class).getResultList();
+	}
+
 
 }

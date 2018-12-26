@@ -27,13 +27,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itextpdf.text.DocumentException;
 
-import crdm.nomenclature.entity.Command;
 import crdm.nomenclature.entity.Purchase;
+import crdm.nomenclature.entity.Good;
 import crdm.nomenclature.entity.Request;
 import crdm.nomenclature.entity.Section;
 import crdm.nomenclature.rest.exception.NotFoundException;
-import crdm.nomenclature.service.OrderService;
 import crdm.nomenclature.service.PurchaseService;
+import crdm.nomenclature.service.GoodService;
 import crdm.nomenclature.service.RequestService;
 import crdm.nomenclature.service.SectionService;
 
@@ -48,12 +48,12 @@ public class RequestController {
 	private SectionService sectionService;
 	
 	@Autowired 
-	private PurchaseService purchaseService;
+	private GoodService goodService;
 
-	@Autowired OrderService orderService;
+	@Autowired PurchaseService purchaseService;
 	
 	@GetMapping("list")
-	public String list(@ModelAttribute("request") Command order, Model model) throws ParseException {
+	public String list(@ModelAttribute("request") Purchase purchase, Model model) throws ParseException {
 
 		List<Request> requests = requestService.requestList();
 
@@ -80,21 +80,21 @@ public class RequestController {
 		request.setApproved(false);
 
 		
-		List<Command> orders = request.getOrders();
+		List<Purchase> purchases = request.getPurchases();
 		
 
-		for (Command order: orders) {
+		for (Purchase purchase: purchases) {
 
 			
-			Purchase purchase = order.getPurchase();
-			Float quantity = order.getQuantity();
+			Good good = purchase.getGood();
+			Float quantity = purchase.getQuantity();
 
-			purchase.setRemainder(quantity + purchase.getRemainder());
+			good.setRemainder(quantity + good.getRemainder());
 			
-			purchaseService.save(purchase);
+			goodService.save(good);
 			
-			order.setPurchase(purchase);
-//			orderService.save(order);
+			purchase.setGood(good);
+//			purchaseService.save(purchase);
 			
 		}
 
@@ -110,7 +110,7 @@ public class RequestController {
 			throws ParseException, DocumentException, URISyntaxException, IOException {
 
 		
-		PdfGenerator pdfGenerator = new PdfGenerator(requestService.find(id).getOrders()
+		PdfGenerator pdfGenerator = new PdfGenerator(requestService.find(id).getPurchases()
 				.stream().filter(o -> o.getQuantity() > 0.0f).collect(Collectors.toList()));
 		
 		
@@ -143,7 +143,7 @@ public class RequestController {
 	}
 
 	@GetMapping("/approved")
-	public String approvedList(@ModelAttribute("order") Command order, Model model) throws ParseException {
+	public String approvedList(@ModelAttribute("purchase") Purchase purchase, Model model) throws ParseException {
 
 		List<Request> requests = requestService.approvedList();
 
@@ -155,7 +155,7 @@ public class RequestController {
 	@CrossOrigin
 	@ResponseBody
 	@PostMapping("send/{id}")
-	public Request send(@PathVariable("id") Integer id, @RequestBody OrderWrapper wrapper) {
+	public Request send(@PathVariable("id") Integer id, @RequestBody PurchaseWrapper wrapper) {
 
 		Section section = sectionService.find(id);
 		if (section == null) {
@@ -166,21 +166,21 @@ public class RequestController {
 		request.setSection(section);
 		request.setApproved(false);
 
-		Purchase purchase = purchaseService.find(wrapper.getIds().get(0));
-		request.setContract(purchase.getContract());
+		Good good = goodService.find(wrapper.getIds().get(0));
+		request.setContract(good.getContract());
 
 		for (int ii = 0; ii < wrapper.getIds().size(); ii++) {
-			Command order = new Command();
+			Purchase purchase = new Purchase();
 
 			Float quantity = wrapper.getQuantities().get(ii);
 
-			order.setQuantity(quantity);
+			purchase.setQuantity(quantity);
 
-			purchase = purchaseService.find(wrapper.getIds().get(ii));
-			order.setPurchase(purchase);
-			order.setRequest(request);
+			good = goodService.find(wrapper.getIds().get(ii));
+			purchase.setGood(good);
+			purchase.setRequest(request);
 			
-			request.add(order);
+			request.add(purchase);
 		}
 
 		requestService.save(request);
@@ -191,34 +191,34 @@ public class RequestController {
 	@CrossOrigin
 	@ResponseBody
 	@PostMapping("approve/{id}")
-	public List<Command> approve(@PathVariable("id") Integer id, @RequestBody OrderWrapper wrapper) {
+	public List<Purchase> approve(@PathVariable("id") Integer id, @RequestBody PurchaseWrapper wrapper) {
 
 		Request request = requestService.find(id);
 		if (request == null) {
 			throw new NotFoundException("Request not found - " + id);
 		}
 
-		List<Command> orders = request.getOrders();
+		List<Purchase> purchases = request.getPurchases();
 
-		for (int ii = 0; ii < orders.size(); ii++) {
-			Command order = orders.get(ii);
-			int index = wrapper.getIds().indexOf(order.getId());
+		for (int ii = 0; ii < purchases.size(); ii++) {
+			Purchase purchase = purchases.get(ii);
+			int index = wrapper.getIds().indexOf(purchase.getId());
 
 			Float quantity = wrapper.getQuantities().get(index);
-			order.setQuantity(quantity);
+			purchase.setQuantity(quantity);
 
-			Float remainder = order.getPurchase().getRemainder() - quantity;			
-			Purchase purchase = order.getPurchase();
-			purchase.setRemainder(remainder);
-			purchaseService.save(purchase);
-			order.setPurchase(purchase);
+			Float remainder = purchase.getGood().getRemainder() - quantity;			
+			Good good = purchase.getGood();
+			good.setRemainder(remainder);
+			goodService.save(good);
+			purchase.setGood(good);
 			
 		}
 
 		request.setApproved(true);
 		requestService.save(request);
 
-		return orders;
+		return purchases;
 	}
 	
 	

@@ -18,7 +18,7 @@
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">List of
-				Order Requests</div>
+				Purchase Requests</div>
 			<div class="card-body">
 
 				<div class="row">

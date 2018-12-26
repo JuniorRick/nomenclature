@@ -34,27 +34,27 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="order" items="${request.orders}" varStatus="loop">
+							<c:forEach var="purchase" items="${request.purchases}" varStatus="loop">
 
-								<c:url var="update" value="/order/update">
-									<c:param name="Id" value="${order.id}" />
+								<c:url var="update" value="/purchase/update">
+									<c:param name="Id" value="${purchase.id}" />
 								</c:url>
 
-								<c:url var="delete" value="/order/delete">
-									<c:param name="Id" value="${order.id}" />
+								<c:url var="delete" value="/purchase/delete">
+									<c:param name="Id" value="${purchase.id}" />
 								</c:url>
 
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
 
-									<td>${order.purchase.good}</td>
-									<td>${order.purchase.remainder}(${order.purchase.unit})</td>
-									<td><input type="text" name="${order.id}"
-										value="${order.quantity}" /> (${order.purchase.unit})</td>
+									<td>${purchase.good.good}</td>
+									<td>${purchase.good.remainder}(${purchase.good.unit})</td>
+									<td><input type="text" name="${purchase.id}"
+										value="${purchase.quantity}" /> (${purchase.good.unit})</td>
 
 									<td class="">
 										<button class="btn btn-danger btn-sm"
-											onclick="clearQuantity('${order.id}')">Clear</button>
+											onclick="clearQuantity('${purchase.id}')">Clear</button>
 									</td>
 								</tr>
 
@@ -85,15 +85,15 @@
 						function() {
 							$('.loading').show();
 							let request_quantities = [];
-							let purchase_ids = [];
+							let good_ids = [];
 							$('input[type="text"]').each(function(index) {
 								request_quantities[index] = $(this).val();
-								purchase_ids[index] = $(this).attr('name');
+								good_ids[index] = $(this).attr('name');
 
 							});
 
 							var wrapper = {
-								ids : purchase_ids,
+								ids : good_ids,
 								quantities : request_quantities
 							}
 

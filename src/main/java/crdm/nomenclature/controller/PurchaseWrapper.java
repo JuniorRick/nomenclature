@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 
- public class OrderWrapper {
+ public class PurchaseWrapper {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 	@NotNull
 	private List<String> quantities;
 
-	public OrderWrapper() {
+	public PurchaseWrapper() {
 	}
 
 	public List<Integer> getIds() {
