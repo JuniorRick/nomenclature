@@ -41,10 +41,10 @@
 						<form:hidden path="id" />
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">Provider</label>
+							<label class="col-sm-2 col-form-label" for=""><spring:message code="provider" /></label>
 							<div class="col-sm-6">
 								<select id="provider_id" name="provider_id" class="form-control">
-									<option value="NONE">--Select provider--</option>
+									<option value="NONE"><spring:message code="provider.select" /></option>
 									<c:forEach items="${providers}" var="provider">
 										<option value="${provider.id}"
 											${contract.provider.id == provider.id ? 'selected' : '' }>
@@ -56,50 +56,66 @@
 
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for=""><spring:message code="number" /></label>
+							<label class="col-sm-2 col-form-label" for="">
+							<spring:message code="contract.number" var="contractNumber"/>
+							${contractNumber}
+							</label>
 							<div class="col-sm-6">
 								<form:input path="number" class="form-control"
-									placeholder="Number" required="required" />
+									placeholder="${contractNumber}" required="required" />
 							</div>
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">Name</label>
+							<label class="col-sm-2 col-form-label" for="">
+							<spring:message code="contract.name" var="contractName"/>
+							${contractName}
+							</label>
 							<div class="col-sm-6">
 								<form:input path="name" class="form-control"
-									placeholder="Contract name" required="required" />
+									placeholder="${contractName}" required="required" />
 							</div>
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">Abbr</label>
+							<label class="col-sm-2 col-form-label" for="">
+								<spring:message code="contract.abbr" var="contractAbbr"/> 
+								${contractAbbr}
+							</label>
 							<div class="col-sm-6">
 								<form:input path="abbr" class="form-control"
-									placeholder="Abbreviation" required="required" />
+									placeholder="${contractAbbr}" required="required" />
 							</div>
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">Start Date</label>
+							<label class="col-sm-2 col-form-label" for="">
+							<spring:message code="date.start" />
+							</label>
 							<div class="col-sm-6">
 								<input type="date" id="startDate" class="form-control"
-									required="required" name="startDate" placeholder="Start Date"
+									required="required" name="startDate"
 									value="${contract.startDate}" />
 							</div>
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">End Date</label>
+							<label class="col-sm-2 col-form-label" for="">
+							<spring:message code="date.end" />
+							</label>
 							<div class="col-sm-6">
 								<input type="date" id="expiryDate" class="form-control"
-									required="required" name="expiryDate" placeholder="End Date"
+									required="required" name="expiryDate"
 									value="${contract.expiryDate}" />
 							</div>
 						</div>
 						<div class="clearfix">
 							<hr>
+							<spring:message code="update" var="btnUpdate"/>
+							<spring:message code="save" var="btnSave"/>
+							
 							<input type="submit" class="btn btn-primary float-right"
-								value="${contract.id != null ? 'Update' : 'Save' }">
+								value="${contract.id != null ? btnUpdate : btnSave }">
 							${contract.id != null ? '<a href="list" class="btn float-right mr-2 btn-info">Cancel</a>' : '' }
 						</div>
 					</form:form>
@@ -111,8 +127,9 @@
 		<div class="mt-2"></div>
 
 		<div class="card">
-			<div class="card-header" data-toggle="collapse">List of
-				Contracts</div>
+			<div class="card-header" data-toggle="collapse">
+				<spring:message code="contract.table.header" />
+			</div>
 			<div class="card-body">
 
 				<div class="row">
@@ -120,14 +137,14 @@
 						<thead class=" col-6">
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Provider</th>
-								<th scope="col">Contract name</th>
-								<th scope="col">Abbr</th>
-								<th scope="col">Number</th>
-								<th scope="col">Start Date</th>
-								<th scope="col">Expiry Date</th>
+								<th scope="col"><spring:message code="provider"></spring:message></th>
+								<th scope="col">${contractName}</th>
+								<th scope="col">${contractAbbr}</th>
+								<th scope="col">${contractNumber}</th>
+								<th scope="col"><spring:message code="date.start" /></th>
+								<th scope="col"><spring:message code="date.end" /></th>
 
-								<th class="" scope="col">Actions</th>
+								<th class="" scope="col"><spring:message code="actions" /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -152,9 +169,9 @@
 									<td>${contract.expiryDate}</td>
 
 									<td class=""><a href="${update}"
-										class="btn btn-warning btn-sm">Edit</a>
+										class="btn btn-warning btn-sm"><spring:message code="edit" /></a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
-											data-target="#confirmModal${contract.id}">Delete</button></td>
+											data-target="#confirmModal${contract.id}"><spring:message code="delete" /></button></td>
 								</tr>
 
 
@@ -162,20 +179,24 @@
 									<div class="modal-dialog" role="document">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title" id="exampleModalLabel">Modal
-													title</h5>
+												<h5 class="modal-title" id="exampleModalLabel">
+													<spring:message code="delete" />
+												</h5>
 												<button type="button" class="close" data-dismiss="modal"
 													aria-label="Close">
 													<span aria-hidden="true">&times;</span>
 												</button>
 											</div>
 											<div class="modal-body">
-												Delete <span class="text-danger font-weight-bold">${contract.name}</span>
+												<spring:message code="delete" /> 
+												<span class="text-danger font-weight-bold">${contract.name}</span>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Cancel</button>
-												<a href="${delete}" class="btn btn-danger">Confirm</a>
+													data-dismiss="modal">
+													<spring:message code="cancel" />
+												</button>
+												<a href="${delete}" class="btn btn-danger"><spring:message code="confirm" /></a>
 											</div>
 										</div>
 									</div>
