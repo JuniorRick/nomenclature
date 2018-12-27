@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,8 @@
 	<!-- Navigation menu -->
 	<jsp:include page="/WEB-INF/views/layouts/nav.jsp" />
 
+
+
 	<div class="generic-container">
 		<div class="card">
 			<button class="card-header text-left" type="button"
@@ -21,7 +24,7 @@
 				aria-expanded="false" aria-controls="collapseInput"
 				style="cursor: pointer;">
 				<c:choose>
-					<c:when test="contract.id != null ">
+					<c:when test="${contract.id != null}">
 						<spring:message code="contract.update" />
 					</c:when>
 					<c:otherwise>
@@ -41,10 +44,12 @@
 						<form:hidden path="id" />
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for=""><spring:message code="provider" /></label>
+							<label class="col-sm-2 col-form-label" for=""><spring:message
+									code="provider" /></label>
 							<div class="col-sm-6">
 								<select id="provider_id" name="provider_id" class="form-control">
-									<option value="NONE"><spring:message code="provider.select" /></option>
+									<option value="NONE"><spring:message
+											code="provider.select" /></option>
 									<c:forEach items="${providers}" var="provider">
 										<option value="${provider.id}"
 											${contract.provider.id == provider.id ? 'selected' : '' }>
@@ -56,9 +61,9 @@
 
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">
-							<spring:message code="contract.number" var="contractNumber"/>
-							${contractNumber}
+							<label class="col-sm-2 col-form-label" for=""> <spring:message
+									code="contract.number" var="contractNumber" />
+								${contractNumber}
 							</label>
 							<div class="col-sm-6">
 								<form:input path="number" class="form-control"
@@ -67,9 +72,8 @@
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">
-							<spring:message code="contract.name" var="contractName"/>
-							${contractName}
+							<label class="col-sm-2 col-form-label" for=""> <spring:message
+									code="contract.name" var="contractName" /> ${contractName}
 							</label>
 							<div class="col-sm-6">
 								<form:input path="name" class="form-control"
@@ -78,9 +82,8 @@
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">
-								<spring:message code="contract.abbr" var="contractAbbr"/> 
-								${contractAbbr}
+							<label class="col-sm-2 col-form-label" for=""> <spring:message
+									code="contract.abbr" var="contractAbbr" /> ${contractAbbr}
 							</label>
 							<div class="col-sm-6">
 								<form:input path="abbr" class="form-control"
@@ -89,8 +92,8 @@
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">
-							<spring:message code="date.start" />
+							<label class="col-sm-2 col-form-label" for=""> <spring:message
+									code="date.start" />
 							</label>
 							<div class="col-sm-6">
 								<input type="date" id="startDate" class="form-control"
@@ -100,8 +103,8 @@
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">
-							<spring:message code="date.end" />
+							<label class="col-sm-2 col-form-label" for=""> <spring:message
+									code="date.end" />
 							</label>
 							<div class="col-sm-6">
 								<input type="date" id="expiryDate" class="form-control"
@@ -111,12 +114,16 @@
 						</div>
 						<div class="clearfix">
 							<hr>
-							<spring:message code="update" var="btnUpdate"/>
-							<spring:message code="save" var="btnSave"/>
-							
+							<spring:message code="update" var="btnUpdate" />
+							<spring:message code="save" var="btnSave" />
+
 							<input type="submit" class="btn btn-primary float-right"
 								value="${contract.id != null ? btnUpdate : btnSave }">
-							${contract.id != null ? '<a href="list" class="btn float-right mr-2 btn-info">Cancel</a>' : '' }
+							<c:if test="${contract.id != null}">
+								<a href="list" class="btn float-right mr-2 btn-info"> <spring:message
+										code="cancel" />
+								</a>
+							</c:if>
 						</div>
 					</form:form>
 
@@ -171,7 +178,9 @@
 									<td class=""><a href="${update}"
 										class="btn btn-warning btn-sm"><spring:message code="edit" /></a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
-											data-target="#confirmModal${contract.id}"><spring:message code="delete" /></button></td>
+											data-target="#confirmModal${contract.id}">
+											<spring:message code="delete" />
+										</button></td>
 								</tr>
 
 
@@ -188,7 +197,7 @@
 												</button>
 											</div>
 											<div class="modal-body">
-												<spring:message code="delete" /> 
+												<spring:message code="delete" />
 												<span class="text-danger font-weight-bold">${contract.name}</span>
 											</div>
 											<div class="modal-footer">
@@ -196,7 +205,8 @@
 													data-dismiss="modal">
 													<spring:message code="cancel" />
 												</button>
-												<a href="${delete}" class="btn btn-danger"><spring:message code="confirm" /></a>
+												<a href="${delete}" class="btn btn-danger"><spring:message
+														code="confirm" /></a>
 											</div>
 										</div>
 									</div>

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +22,9 @@
 			<button class="card-header text-left" type="button"
 				data-toggle="collapse" data-target="#collapseInput" role="button"
 				aria-expanded="false" aria-controls="collapseInput"
-				style="cursor: pointer;">Purchase Filter</button>
+				style="cursor: pointer;">
+				<spring:message code="purchase.filter" />
+			</button>
 
 
 			<div class="collapse show" id="collapseInput">
@@ -29,10 +33,12 @@
 						method="GET">
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">Section</label>
+							<label class="col-sm-2 col-form-label" for=""><spring:message
+									code="section" /></label>
 							<div class="col-sm-6">
 								<select id="section_id" name="section_id" class="form-control">
-									<option value="NONE">--Select section--</option>
+									<option value="NONE"><spring:message
+											code="section.select" /></option>
 									<c:forEach items="${sections}" var="section">
 										<option value="${section.id}">${section.name}</option>
 									</c:forEach>
@@ -41,10 +47,12 @@
 						</div>
 
 						<div class=" form-group row">
-							<label class="col-sm-2 col-form-label" for="">Contract</label>
+							<label class="col-sm-2 col-form-label" for=""><spring:message
+									code="contract" /></label>
 							<div class="col-sm-6">
 								<select id="contract_id" name="contract_id" class="form-control">
-									<option value="NONE">--Select contract--</option>
+									<option value="NONE"><spring:message
+											code="contract.select" /></option>
 									<c:forEach items="${contracts}" var="contract">
 										<option value="${contract.id}">${contract.name}</option>
 									</c:forEach>
@@ -55,10 +63,12 @@
 
 						<div class="clearfix">
 							<hr>
+							<spring:message code="filter" var="filter"></spring:message>
 							<input type="submit" class="btn btn-primary float-right"
-								value="Filter"> 
-							<a href="${pageContext.request.contextPath}/purchase/list"
-								class="btn float-right mr-2 btn-info">Cancel</a>
+								value="${filter}"> <a
+								href="${pageContext.request.contextPath}/purchase/list"
+								class="btn float-right mr-2 btn-info"><spring:message
+									code="cancel" /></a>
 						</div>
 					</form>
 				</div>
@@ -69,9 +79,16 @@
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">
-				Create purchase: <span
-					style="font-size: 1.2em; font-style: italic; color: #03f">
-					${section_name != null ? section_name : " "} | ${section_name != null ? goods[0].contract.name : "All purchases"}
+				<span style="font-size: 1.2em; font-style: italic; color: #03f">
+					<c:choose>
+						<c:when test="${section_name != null}">
+							${section_name}  |  ${goods[0].contract.name }
+						</c:when>
+						<c:otherwise>
+							<spring:message code="purchase.table.header" />
+						</c:otherwise>
+					</c:choose>
+
 				</span>
 
 			</div>
@@ -82,9 +99,9 @@
 						<thead class=" col-6">
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Good</th>
-								<th scope="col">Remaining Quantity</th>
-								<th scope="col">Request Quantity</th>
+								<th scope="col"><spring:message code="good" /></th>
+								<th scope="col"><spring:message code="quantity.remaining" /></th>
+								<th scope="col"><spring:message code="quantity.request" /></th>
 
 							</tr>
 						</thead>
@@ -95,7 +112,8 @@
 									<th class="" scope="row">${loop.index + 1}</th>
 									<td>${good.good}</td>
 									<td>${good.remainder}(${good.unit})</td>
-									<td><input type="text" ${section_id != null ? '' : 'disabled' } name="${good.id}" />
+									<td><input type="text"
+										${section_id != null ? '' : 'disabled' } name="${good.id}" />
 										(${good.unit})</td>
 
 								</tr>
@@ -108,19 +126,22 @@
 				<div class="clearfix">
 					<hr>
 					<button class="btn btn-primary float-right"
-						${section_id != null ? '' : 'disabled' } id="send-purchase"> Send Purchase</button>
+						${section_id != null ? '' : 'disabled' } id="send-purchase">
+						<spring:message code="purchase.button.send" />
+					</button>
 
 					<a href="${pageContext.request.contextPath}/purchase/list"
-						class="btn float-right mr-2 btn-info">Cancel</a>
+						class="btn float-right mr-2 btn-info"><spring:message
+							code="cancel" /></a>
 				</div>
 			</div>
 
 		</div>
 	</div>
-	
-	
+
+
 	<div class="loading">
-		Sending data...
+		<spring:message code="purchase.message.send" />
 	</div>
 
 	<!-- Page footer -->
@@ -129,39 +150,43 @@
 
 	<script>
 		$('#send-purchase')
-			.click(
-				function() {
-					$('.loading').show();
-					let request_quantities = [];
-					let good_ids = [];
-					$('input[type="text"]').each(function(index) {
-						request_quantities[index] = $(this).val() != "" ? $(this).val() : "0";
-						good_ids[index] = $(this).attr('name');
-	
-					});
-					
-					var wrapper = {
-						ids : good_ids,
-						quantities: request_quantities
-					}
-					
-					$.ajax({
-						type: 'POST',
-						url: '${pageContext.request.contextPath}/request/send/${section_id}', 
-						data: JSON.stringify(wrapper),
-				        contentType: "application/json; charset=utf-8",
-				        dataType: "json",
-				        success: function(data){
-				        	$('.loading').hide();
-				        	window.location.href = '${pageContext.request.contextPath}/request/list';	
-				        },
-				        failure: function(errMsg) {
-				            $('.loading').hide();
-				            alert(errMsg);
-				        }
-					});
-					
-				});
+				.click(
+						function() {
+							$('.loading').show();
+							let request_quantities = [];
+							let good_ids = [];
+							$('input[type="text"]').each(
+									function(index) {
+										request_quantities[index] = $(this)
+												.val() != "" ? $(this).val()
+												: "0";
+										good_ids[index] = $(this).attr('name');
+
+									});
+
+							var wrapper = {
+								ids : good_ids,
+								quantities : request_quantities
+							}
+
+							$
+									.ajax({
+										type : 'POST',
+										url : '${pageContext.request.contextPath}/request/send/${section_id}',
+										data : JSON.stringify(wrapper),
+										contentType : "application/json; charset=utf-8",
+										dataType : "json",
+										success : function(data) {
+											$('.loading').hide();
+											window.location.href = '${pageContext.request.contextPath}/request/list';
+										},
+										failure : function(errMsg) {
+											$('.loading').hide();
+											alert(errMsg);
+										}
+									});
+
+						});
 	</script>
 
 
