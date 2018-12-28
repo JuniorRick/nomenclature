@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +19,9 @@
 	
 
 		<div class="card">
-			<div class="card-header" data-toggle="collapse">List of
-				Approved Requests</div>
+			<div class="card-header" data-toggle="collapse">
+				<spring:message code="requests.approved.table.header" />
+			</div>
 			<div class="card-body">
 
 				<div class="row">
@@ -26,8 +29,9 @@
 						<thead class=" col-6">
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Contract name</th>
-								<th scope="col">Section</th>
+								<th scope="col"><spring:message code="contract" /></th>
+								<th scope="col"><spring:message code="section" /></th>
+								<th scope="col"><spring:message code="date" /></th>
 								
 								<th class="" scope="col">Actions</th>
 							</tr>
@@ -44,12 +48,12 @@
 									
 									<td>${request.contract.name}</td>
 									<td>${request.section.name }</td>
-									
+									<td><spring:message code="date" /></td>
 									<td class="">
 										<a class="btn btn-primary btn-sm" 
-											href="${pageContext.request.contextPath}/request/view/${request.id}"> View</a>
+											href="${pageContext.request.contextPath}/request/view/${request.id}"> <spring:message code="view" /></a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
-											data-target="#confirmModal${request.id}">Delete</button></td>
+											data-target="#confirmModal${request.id}"><spring:message code="delete" /></button></td>
 								</tr>
 
 
@@ -65,12 +69,12 @@
 												</button>
 											</div>
 											<div class="modal-body">
-												Delete request from<span class="text-danger font-weight-bold">${request.contract.name}</span>
+												<spring:message code="requests.modal.text" /><span class="text-danger font-weight-bold">${request.contract.name}</span>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal">Cancel</button>
-												<a href="${delete}" class="btn btn-danger">Confirm</a>
+													data-dismiss="modal"><spring:message code="cancel" /></button>
+												<a href="${delete}" class="btn btn-danger"><spring:message code="confirm" /></a>
 											</div>
 										</div>
 									</div>

@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +19,8 @@
 
 
 		<div class="card">
-			<div class="card-header" data-toggle="collapse">Request from
+			<div class="card-header" data-toggle="collapse">
+			<spring:message code="request.table.header" />
 				${request.contract.name} | ${request.section.name }</div>
 			<div class="card-body">
 
@@ -26,11 +29,11 @@
 						<thead class=" col-6">
 							<tr>
 								<th scope="col">#</th>
-								<th scope="col">Good</th>
-								<th scope="col">Remaining Quantity</th>
-								<th scope="col">Requested Quantity</th>
+								<th scope="col"><spring:message code="good" /></th>
+								<th scope="col"><spring:message code="quantity.remaining" /></th>
+								<th scope="col"><spring:message code="quantity.request" /></th>
 
-								<th class="" scope="col">Actions</th>
+								<th class="" scope="col"><spring:message code="actions" /></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -54,7 +57,7 @@
 
 									<td class="">
 										<button class="btn btn-danger btn-sm"
-											onclick="clearQuantity('${purchase.id}')">Clear</button>
+											onclick="clearQuantity('${purchase.id}')"><spring:message code="clear" /></button>
 									</td>
 								</tr>
 
@@ -64,7 +67,7 @@
 
 				</div>
 				<div class="card-footer text-muted clearfix">
-					<button class="btn btn-primary float-right" id="approve">Approve</button>
+					<button class="btn btn-primary float-right" id="approve"><spring:message code="approve" /></button>
 				</div>
 			</div>
 

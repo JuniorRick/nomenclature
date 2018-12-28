@@ -119,11 +119,9 @@
 
 							<input type="submit" class="btn btn-primary float-right"
 								value="${contract.id != null ? btnUpdate : btnSave }">
-							<c:if test="${contract.id != null}">
 								<a href="list" class="btn float-right mr-2 btn-info"> <spring:message
 										code="cancel" />
 								</a>
-							</c:if>
 						</div>
 					</form:form>
 

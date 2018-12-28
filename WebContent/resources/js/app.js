@@ -21,13 +21,15 @@ $(function () {
 $(document).ready(function() {
 	$('input[type="submit"]').click(function(e) {
 
-		if($('select').val() == "NONE") {
-			e.preventDefault();
-			$('select').css('bpurchase-color', '#dc3545')
-			.css('box-shadow', '0px 0px 1px 1px #dc3545');
-		}else {
-			$('select').css('bpurchase-color', '#ced4da')
-			.css('box-shadow', 'none');
-		}
+			if($('select').val() == "NONE") {
+				$('select').css('border-color', '#dc3545')
+				.css('box-shadow', '0px 0px 1px 1px #dc3545');
+				e.preventDefault();
+				return false;
+			}else {
+				$('select').css('border-color', '#ced4da')
+				.css('box-shadow', 'none');
+			
+			}
 	})
 })

@@ -20,7 +20,7 @@
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">
-				<spring:message code="request.table.header" />
+				<spring:message code="requests.table.header" />
 			</div>
 			<div class="card-body">
 
@@ -31,6 +31,7 @@
 								<th scope="col">#</th>
 								<th scope="col"><spring:message code="contract.name" /></th>
 								<th scope="col"><spring:message code="section" /></th>
+								<th scope="col"><spring:message code="date" /></th>
 								
 								<th class="" scope="col"><spring:message code="actions" /></th>
 							</tr>
@@ -47,6 +48,7 @@
 									
 									<td>${request.contract.name}</td>
 									<td>${request.section.name }</td>
+									<td><spring:message code="date" /></td>
 									
 									<td class="">
 										<a class="btn btn-primary btn-sm" 
@@ -68,7 +70,7 @@
 												</button>
 											</div>
 											<div class="modal-body">
-												<spring:message code="request.modal.text" /><span class="text-danger font-weight-bold">${request.contract.name}</span>
+												<spring:message code="requests.modal.text" /><span class="text-danger font-weight-bold">${request.contract.name}</span>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
