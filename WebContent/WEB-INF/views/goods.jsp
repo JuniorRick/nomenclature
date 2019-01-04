@@ -145,11 +145,11 @@
 									<th class="" scope="row">${loop.index + 1}</th>
 
 									<td data-toggle="tooltip" data-placement="top"
-										title="${good.contract.name}">${good.contract.abbr}[
-										${good.contract.number} ]</td>
+										title="${good.contract.name}">${good.contract.abbr} 
+										[${good.contract.number} ]</td>
 									<td>${good.good}</td>
-									<td>${good.quantity }(${good.unit})</td>
-									<td>${good.remainder}(${good.unit})</td>
+									<td>${good.quantity } (${good.unit})</td>
+									<td>${good.remainder} (${good.unit})</td>
 
 									<td class=""><a href="${update}"
 										class="btn btn-warning btn-sm"><spring:message code="edit" /></a>
@@ -174,7 +174,8 @@
 											</div>
 											<div class="modal-body">
 												<spring:message code="delete" />
-												<spna class="text-danger font-weight-bold">${good.good}</spna> <spring:message code="from" />
+												<span class="text-danger font-weight-bold">${good.good}</span>
+												<spring:message code="from" />
 												<span class="text-danger font-weight-bold">${good.contract.name}</span>
 											</div>
 											<div class="modal-footer">

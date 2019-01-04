@@ -21,7 +21,6 @@
 				data-toggle="collapse" data-target="#collapseInput" role="button"
 				aria-expanded="false" aria-controls="collapseInput"
 				style="cursor: pointer;">
-				$
 				<c:choose>
 					<c:when test="${section.id != null}">
 						<spring:message code="section.update" />

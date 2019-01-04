@@ -46,6 +46,9 @@
 								<option value="ro">Română</option>
 							</select>
 						</div>
+						<div class="mt-3">
+						<a href="logout" class="btn btn-primary float-right">Logout</a>
+						</div>
 					</div>
 				</div>
 

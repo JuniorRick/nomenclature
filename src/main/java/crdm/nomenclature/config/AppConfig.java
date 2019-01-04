@@ -27,6 +27,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
@@ -62,11 +63,18 @@ public class AppConfig implements WebMvcConfigurer {
 		messageResource.setDefaultEncoding("UTF-8");
 		return messageResource;
 	}
-
+	
+	
+   @Override
+   public void addViewControllers(ViewControllerRegistry registry) {
+      registry.addViewController("/login").setViewName("login");
+  
+   }
+	
 	@Bean
 	public LocaleResolver localeResolver() {
 	    SessionLocaleResolver slr = new SessionLocaleResolver();
-	    slr.setDefaultLocale(Locale.UK);
+	    slr.setDefaultLocale(new Locale("ro", "RO"));
 	    return slr;
 	}
 	

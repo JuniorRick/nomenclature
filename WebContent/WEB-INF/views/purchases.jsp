@@ -111,7 +111,7 @@
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
 									<td>${good.good}</td>
-									<td>${good.remainder}(${good.unit})</td>
+									<td>${good.remainder} (${good.unit})</td>
 									<td><input type="text"
 										${section_id != null ? '' : 'disabled' } name="${good.id}" />
 										(${good.unit})</td>

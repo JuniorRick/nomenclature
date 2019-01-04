@@ -50,8 +50,8 @@
 										<th class="" scope="row">${loop.index + 1}</th>
 
 										<td>${purchase.good.good}</td>
-										<td>${purchase.good.remainder}(${purchase.good.unit})</td>
-										<td>${purchase.quantity}(${purchase.good.unit})</td>
+										<td>${purchase.good.remainder} (${purchase.good.unit})</td>
+										<td>${purchase.quantity} (${purchase.good.unit})</td>
 
 										<td class="">Placeholder</td>
 									</tr>
