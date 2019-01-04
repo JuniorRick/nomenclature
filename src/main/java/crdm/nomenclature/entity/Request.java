@@ -34,28 +34,26 @@ public class Request {
 	@JoinColumn(name = "contract_id")
 	private Contract contract;
 
-	
 	@JsonIgnore
-	@OneToMany(mappedBy = "request", fetch = FetchType.EAGER,
-			cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "request", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Purchase> purchases;
 
 	@Column(nullable = false, columnDefinition = "boolean default false")
 	private Boolean approved;
 
-	private Date created_at;
+	private Date date;
 
 	public Request() {
 	}
 
 	public void add(Purchase purchase) {
-		if(purchases == null) {
+		if (purchases == null) {
 			purchases = new ArrayList<>();
 		}
 		purchases.add(purchase);
 		purchase.setRequest(this);
 	}
-	
+
 	public List<Purchase> getPurchases() {
 		return purchases;
 	}
@@ -64,12 +62,12 @@ public class Request {
 		this.purchases = purchases;
 	}
 
-	public Date getCreated_at() {
-		return created_at;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setCreated_at(Date created_at) {
-		this.created_at = created_at;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Boolean getApproved() {

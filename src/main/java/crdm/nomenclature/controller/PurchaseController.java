@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.entity.Good;
-import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Section;
 import crdm.nomenclature.service.ContractService;
 import crdm.nomenclature.service.GoodService;
@@ -88,16 +87,6 @@ public class PurchaseController {
 	
 		return "redirect:/purchase/list/" + contract_id + "/" + section_id;
 		
-	}
-	
-	@GetMapping("/update")
-	public String update(@RequestParam("Id") int id, final RedirectAttributes redirectAttributes) {
-
-		Purchase purchase = purchaseService.find(id);
-
-		redirectAttributes.addFlashAttribute("purchase", purchase);
-		
-		return "redirect:/purchase/request";
 	}
 	
 	

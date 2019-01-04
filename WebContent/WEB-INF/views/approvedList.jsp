@@ -48,7 +48,7 @@
 									
 									<td>${request.contract.name}</td>
 									<td>${request.section.name }</td>
-									<td><spring:message code="date" /></td>
+									<td>${request.date}</td>
 									<td class="">
 										<a class="btn btn-primary btn-sm" 
 											href="${pageContext.request.contextPath}/request/view/${request.id}"> <spring:message code="view" /></a>

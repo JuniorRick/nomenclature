@@ -3,6 +3,7 @@ package crdm.nomenclature.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,13 +28,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itextpdf.text.DocumentException;
 
-import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Good;
+import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Request;
 import crdm.nomenclature.entity.Section;
 import crdm.nomenclature.rest.exception.NotFoundException;
-import crdm.nomenclature.service.PurchaseService;
 import crdm.nomenclature.service.GoodService;
+import crdm.nomenclature.service.PurchaseService;
 import crdm.nomenclature.service.RequestService;
 import crdm.nomenclature.service.SectionService;
 
@@ -164,8 +165,11 @@ public class RequestController {
 
 		Request request = new Request();
 		request.setSection(section);
+		
+		java.util.Date curDate = new java.util.Date();
+		request.setDate(new Date(curDate.getTime()));
 		request.setApproved(false);
-
+		
 		Good good = goodService.find(wrapper.getIds().get(0));
 		request.setContract(good.getContract());
 

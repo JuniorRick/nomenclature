@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name = "purchases")
 public class Purchase {
 
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -24,6 +25,8 @@ public class Purchase {
 	@JoinColumn(name = "good_id")
 	private Good good;
 
+	private Float quantity;
+
 	public Request getRequest() {
 		return request;
 	}
@@ -31,9 +34,6 @@ public class Purchase {
 	public void setRequest(Request request) {
 		this.request = request;
 	}
-
-	private Float quantity;
-
 
 	public Good getGood() {
 		return good;
