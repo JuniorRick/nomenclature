@@ -1,12 +1,16 @@
 package crdm.nomenclature.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import crdm.nomenclature.dao.UserDAO;
+import crdm.nomenclature.entity.Privilege;
+import crdm.nomenclature.entity.Role;
 import crdm.nomenclature.entity.User;
 
 @Service
@@ -40,5 +44,5 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return userDAO.all();
 	}
-
+	
 }

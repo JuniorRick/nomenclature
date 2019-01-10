@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,6 +20,8 @@
 		<div class="row ">
 
 			<div class=" mt-3 col-sm-7">
+			
+				<c:if test="${privileges.contains(\"PURCHASE_REQUEST_PRIVILEGE\") }">
 				<a href="${pageContext.request.contextPath}/request/list"
 					class="alert alert-info d-block"> <strong>${requestsCount}</strong>
 					<spring:message code="index.messages.purchases.requests" />
@@ -26,14 +29,17 @@
 					class="alert alert-success d-block"> <strong>${approvedCount}</strong>
 					<spring:message code="index.messages.purchases.approved" />
 				</a>
-
+				</c:if>
+			
 
 			</div>
 
 			<div class=" mt-3 col-sm ">
 				<div class="card" style="width: 18rem;">
 					<div class="card-body">
-						<h5 class="card-title"><spring:message code="login.header" /></h5>
+						<h5 class="card-title">
+							<spring:message code="login.header" />
+						</h5>
 						<h6 class="card-subtitle mb-2 text-muted">${user.getFirstName()}
 							${user.getFirstName()}</h6>
 						<%-- <p class="card-text">Roles:</p>
@@ -47,13 +53,12 @@
 							</select>
 						</div>
 						<div class="mt-3">
-						<a href="logout" class="btn btn-primary float-right">Logout</a>
+							<a href="logout" class="btn btn-primary float-right">Logout</a>
 						</div>
 					</div>
 				</div>
 
 			</div>
-
 
 		</div>
 	</div>

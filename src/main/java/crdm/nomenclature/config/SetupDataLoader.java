@@ -46,16 +46,24 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 		final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
 		final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
 		final Privilege settingsPrivilege = createPrivilegeIfNotFound("SETTINGS_PRIVILEGE");
+		final Privilege deletePrivilege = createPrivilegeIfNotFound("DELETE_PRIVILEGE");
+		final Privilege purchaseRequestPrivilege = createPrivilegeIfNotFound("PURCHASE_REQUEST_PRIVILEGE");
+		final Privilege approvePrivilege = createPrivilegeIfNotFound("APPROVE_PRIVILEGE");
 		
 		
-		final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, settingsPrivilege);
-		final List<Privilege> juristPrivileges = Arrays.asList(readPrivilege, writePrivilege);
-		
+		final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, deletePrivilege, purchaseRequestPrivilege, approvePrivilege, settingsPrivilege);
+		final List<Privilege> juristPrivileges = Arrays.asList(readPrivilege, writePrivilege, purchaseRequestPrivilege, approvePrivilege, deletePrivilege);
+		final List<Privilege> contabilPrivileges = Arrays.asList(readPrivilege, writePrivilege, purchaseRequestPrivilege, approvePrivilege, deletePrivilege);
+		final List<Privilege> doctorPrivileges = Arrays.asList(readPrivilege, purchaseRequestPrivilege);
+		final List<Privilege> sefPrivileges = Arrays.asList(readPrivilege, purchaseRequestPrivilege, approvePrivilege);
 		
 		createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
 		createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
 
 		createRoleIfNotFound("ROLE_JURIST", juristPrivileges);
+		createRoleIfNotFound("ROLE_CONTABIL", contabilPrivileges);
+		createRoleIfNotFound("ROLE_DOCTOR", doctorPrivileges);
+		createRoleIfNotFound("ROLE_SEF", sefPrivileges);
 
 		final Role adminRole = roleService.findByName("ROLE_ADMIN");
 		User user = userService.findByEmail("admin@admin.com");

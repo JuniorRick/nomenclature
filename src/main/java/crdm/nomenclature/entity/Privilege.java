@@ -56,7 +56,7 @@ public class Privilege {
 
 	@Override
 	public String toString() {
-		return "name=" + name + " ";
+		return "name";
 	}
     
     

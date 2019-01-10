@@ -62,11 +62,12 @@ public class SettingController {
 		
 		user.setRoles(Arrays.asList(roleService.findByName(role_name)));
 		
-		if(user.getPassword() != userService.findByEmail(user.getEmail()).getPassword()) {			
+		if(userService.findByEmail(user.getEmail()) == null || user.getPassword() != userService.findByEmail(user.getEmail()).getPassword()) {			
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
 		}
 		userService.save(user);
-		
+
+		 
 		return "redirect:/settings/users";
 	}
 	

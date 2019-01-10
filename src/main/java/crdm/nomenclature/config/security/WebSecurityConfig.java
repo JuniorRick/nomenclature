@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 
@@ -25,6 +27,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
         .authorizeRequests()
+        	.antMatchers("/contract/**", "/provider/**").hasAnyRole("ADMIN", "JURIST", "CONTABIL")
+        	.antMatchers("/request/**").hasAnyRole("ADMIN", "JURIST", "CONTABIL", "SEF")
+        	.antMatchers("/section/**").hasAnyRole("ADMIN", "JURIST")
+        	.antMatchers("/settings/**").hasRole("ADMIN")
         	.anyRequest()
         	.authenticated()
         	.and()
@@ -55,5 +61,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 	}
 	
+	protected UserDetailsService userDetailService() {
+		
+		UserDetailsService userDetails =  (UserDetailsService)SecurityContextHolder.getContext().getAuthentication();
+		
+		return userDetails;
+	}
 	
 }
