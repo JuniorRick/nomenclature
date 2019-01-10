@@ -43,4 +43,10 @@ public class RoleDAOImpl implements RoleDAO {
 		return role;
 	}
 
+	@Override
+	public List<Role> all() {
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("from Role order by name", Role.class).getResultList();
+	}
+
 }

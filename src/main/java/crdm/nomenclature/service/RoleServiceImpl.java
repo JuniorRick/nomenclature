@@ -1,5 +1,7 @@
 package crdm.nomenclature.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,13 @@ public class RoleServiceImpl implements RoleService {
 	public Role save(Role role) {
 
 		return roleDAO.save(role);
+	}
+
+	@Override
+	@Transactional
+	public List<Role> all() {
+		// TODO Auto-generated method stub
+		return roleDAO.all();
 	}
 
 }

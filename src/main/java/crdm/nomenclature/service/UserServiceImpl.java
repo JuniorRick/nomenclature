@@ -1,5 +1,7 @@
 package crdm.nomenclature.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +32,13 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public User save(User user) {
 		return userDAO.save(user);
+	}
+
+	@Override
+	@Transactional
+	public List<User> all() {
+		// TODO Auto-generated method stub
+		return userDAO.all();
 	}
 
 }

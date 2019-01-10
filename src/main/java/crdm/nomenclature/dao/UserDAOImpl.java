@@ -38,9 +38,15 @@ public class UserDAOImpl implements UserDAO {
 	@Override
 	public User save(User user) {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(user);
+		session.saveOrUpdate(user);
 		
 		return user;
+	}
+
+	@Override
+	public List<User> all() {
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("from User u order by email", User.class).getResultList();
 	}
 
 }

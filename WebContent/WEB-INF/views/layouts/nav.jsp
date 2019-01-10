@@ -6,7 +6,7 @@
 
 <link href="https://fonts.googleapis.com/css?family=Niramit" rel="stylesheet"> 
 
-<nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg nav-top">
 	<a class="navbar-brand" href="#">
 	<img src="<c:url value="/resources/images/IMSP_CRDM.png" />"
 	style="	width: 40px; height: auto;"alt="" />
@@ -40,13 +40,13 @@
 				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 				role="button" data-toggle="dropdown" aria-haspopup="true"
 				aria-expanded="false"> <spring:message code="nav.more" /> ... </a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				<div class="dropdown-menu" style="background-color: #669fa1;" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item"
 						href="${pageContext.request.contextPath}/provider/list"><spring:message code="nav.providers" /></a>
 					<a class="dropdown-item"
 						href="${pageContext.request.contextPath}/section/list"><spring:message code="nav.sections" /></a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#"><spring:message code="nav.settings" /></a>
+					<a class="dropdown-item" href="${pageContext.request.contextPath}/settings"><spring:message code="nav.settings" /></a>
 				</div></li>
 
 		</ul>

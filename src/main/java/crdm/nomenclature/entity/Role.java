@@ -78,7 +78,7 @@ public class Role {
 
 	@Override
 	public String toString() {
-		return name + ", privileges=" + privileges + " ";
+		return name;
 	} 
 	
 	

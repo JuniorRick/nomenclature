@@ -24,6 +24,8 @@ public class User {
  
     private String firstName;
     private String lastName;
+    
+    @Column(unique=true)
     private String email;
     private String password;
     private boolean enabled;
@@ -110,7 +112,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [roles=" + roles + "]";
+		return roles.toString();
 	}
     
     

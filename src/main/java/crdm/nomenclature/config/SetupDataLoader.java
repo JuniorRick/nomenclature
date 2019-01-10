@@ -45,10 +45,17 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
 		final Privilege readPrivilege = createPrivilegeIfNotFound("READ_PRIVILEGE");
 		final Privilege writePrivilege = createPrivilegeIfNotFound("WRITE_PRIVILEGE");
-
-		final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege);
+		final Privilege settingsPrivilege = createPrivilegeIfNotFound("SETTINGS_PRIVILEGE");
+		
+		
+		final List<Privilege> adminPrivileges = Arrays.asList(readPrivilege, writePrivilege, settingsPrivilege);
+		final List<Privilege> juristPrivileges = Arrays.asList(readPrivilege, writePrivilege);
+		
+		
 		createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
 		createRoleIfNotFound("ROLE_USER", Arrays.asList(readPrivilege));
+
+		createRoleIfNotFound("ROLE_JURIST", juristPrivileges);
 
 		final Role adminRole = roleService.findByName("ROLE_ADMIN");
 		User user = userService.findByEmail("admin@admin.com");

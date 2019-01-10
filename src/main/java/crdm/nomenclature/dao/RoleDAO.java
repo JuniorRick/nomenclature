@@ -1,5 +1,7 @@
 package crdm.nomenclature.dao;
 
+import java.util.List;
+
 import crdm.nomenclature.entity.Role;
 
 public interface RoleDAO {
@@ -8,4 +10,6 @@ public interface RoleDAO {
 	void delete(Role role);
 
 	Role save(Role role);
+
+	List<Role> all();
 }

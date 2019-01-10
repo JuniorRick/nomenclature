@@ -125,7 +125,7 @@
 													<spring:message code="cancel" />
 												</button>
 												<a href="${delete}" class="btn btn-danger"><spring:message
-														code="cancel" /></a>
+														code="confirm" /></a>
 											</div>
 										</div>
 									</div>
