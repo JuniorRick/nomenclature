@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,18 +19,26 @@
 	<div class="container">
 		<div class="row ">
 
-			<div class=" mt-3 col-sm-7">
-			
-				<c:if test="${privileges.contains(\"PURCHASE_REQUEST_PRIVILEGE\") }">
-				<a href="${pageContext.request.contextPath}/request/list"
-					class="alert alert-info d-block"> <strong>${requestsCount}</strong>
-					<spring:message code="index.messages.purchases.requests" />
-				</a> <a href="${pageContext.request.contextPath}/request/approved"
-					class="alert alert-success d-block"> <strong>${approvedCount}</strong>
-					<spring:message code="index.messages.purchases.approved" />
-				</a>
+			<c:set var="contains" value="false" />
+			<c:forEach var="item" items="${privileges}">
+				<c:if test="${item eq \"APPROVE_PRIVILEGE\"}">
+					<c:set var="contains" value="true" />
 				</c:if>
-			
+			</c:forEach>
+
+
+			<div class=" mt-3 col-sm-7">
+				<c:if test="${contains}">
+					<a href="${pageContext.request.contextPath}/request/list"
+						class="alert alert-info d-block"> <strong>${requestsCount}</strong>
+						<spring:message code="index.messages.purchases.requests" />
+					</a>
+					<a href="${pageContext.request.contextPath}/request/approved"
+						class="alert alert-success d-block"> <strong>${approvedCount}</strong>
+						<spring:message code="index.messages.purchases.approved" />
+					</a>
+				</c:if>
+
 
 			</div>
 

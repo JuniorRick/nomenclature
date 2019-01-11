@@ -17,7 +17,10 @@ import javax.persistence.Table;
 @Table(name="users")
 public class User {
   
-    @Id
+    public User() {
+	}
+
+	@Id
     @Column(unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -39,12 +42,6 @@ public class User {
         inverseJoinColumns = @JoinColumn(
           name = "role_id", referencedColumnName = "id")) 
     private Collection<Role> roles;
-
-    
-    
-	public User() {
-		this.enabled = false;
-	}
 
 	public Integer getId() {
 		return id;

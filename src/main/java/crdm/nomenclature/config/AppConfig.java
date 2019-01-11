@@ -1,9 +1,6 @@
 package crdm.nomenclature.config;
 
 import java.beans.PropertyVetoException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -21,7 +18,6 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -39,11 +35,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-import crdm.nomenclature.dao.UserDAO;
-import crdm.nomenclature.entity.Privilege;
-import crdm.nomenclature.entity.Role;
-import crdm.nomenclature.entity.User;
-
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement
@@ -54,8 +45,6 @@ public class AppConfig implements WebMvcConfigurer {
 	@Autowired
 	private Environment env;
 
-	@Autowired
-	private UserDAO userDAO;
 	
 	private Logger logger = Logger.getLogger(getClass().getName());
 

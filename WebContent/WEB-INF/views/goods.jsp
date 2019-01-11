@@ -137,26 +137,38 @@
 									<c:param name="Id" value="${good.id}" />
 								</c:url>
 
-								<c:url var="delete" value="/good/delete">
-									<c:param name="Id" value="${good.id}" />
-								</c:url>
+								<c:set var="contains" value="false" />
+								<c:forEach var="item" items="${privileges}">
+									<c:if test="${item eq \"DELETE_PRIVILEGE\"}">
+										<c:set var="contains" value="true" />
+									</c:if>
+								</c:forEach>
+
+								<c:if test="${contains}">
+									<c:url var="delete" value="/good/delete">
+										<c:param name="Id" value="${good.id}" />
+									</c:url>
+								</c:if>
 
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
 
 									<td data-toggle="tooltip" data-placement="top"
-										title="${good.contract.name}">${good.contract.abbr} 
+										title="${good.contract.name}">${good.contract.abbr}
 										[${good.contract.number} ]</td>
 									<td>${good.good}</td>
-									<td>${good.quantity } (${good.unit})</td>
-									<td>${good.remainder} (${good.unit})</td>
+									<td>${good.quantity }(${good.unit})</td>
+									<td>${good.remainder}(${good.unit})</td>
 
 									<td class=""><a href="${update}"
 										class="btn btn-warning btn-sm"><spring:message code="edit" /></a>
-										<button class="btn btn-danger btn-sm" data-toggle="modal"
-											data-target="#confirmModal${good.id}">
-											<spring:message code="delete" />
-										</button></td>
+
+										<c:if test="${contains}">
+											<button class="btn btn-danger btn-sm" data-toggle="modal"
+												data-target="#confirmModal${good.id}">
+												<spring:message code="delete" />
+											</button>
+										</c:if></td>
 								</tr>
 
 
@@ -183,6 +195,7 @@
 													data-dismiss="modal">
 													<spring:message code="cancel" />
 												</button>
+
 												<a href="${delete}" class="btn btn-danger"><spring:message
 														code="confirm" /></a>
 											</div>

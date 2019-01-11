@@ -1,8 +1,5 @@
 package crdm.nomenclature.controller;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,33 +31,20 @@ public class HomeController {
 		
 		model.addAttribute("approvedCount", approvedCount);
 		model.addAttribute("requestsCount", requestsCount);
-//		model.addAttribute("privileges", privilegeNames);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		model.addAttribute("privileges", authentication.getAuthorities());
 		
 		User user = userService.findByEmail(authentication.getName());
 		
 		model.addAttribute("user", user);
 		System.out.println("");
 		
+		
+		
+		
 		return "index";
 	}
 	
-	
-		public List<String> privilegeNames() {
-		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-//		User currentUser = userDAO.findByEmail(email);		
-//		List<Role> roles = new ArrayList<Role>(currentUser.getRoles());
-//		List<Privilege> privileges = new ArrayList<Privilege>(roles.get(0).getPrivileges());
-//		
-//		List<String> privilegeNames = new ArrayList<>();
-//		for(Privilege privilege: privileges) {
-//			privilegeNames.add(privilege.getName());
-//		}
-		
-//		return privilegeNames;
-		return Arrays.asList("TEST");
-		
-	}
 	
 }
