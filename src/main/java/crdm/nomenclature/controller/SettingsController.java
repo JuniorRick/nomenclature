@@ -15,13 +15,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import crdm.nomenclature.entity.Role;
+import crdm.nomenclature.entity.Settings;
 import crdm.nomenclature.entity.User;
 import crdm.nomenclature.service.RoleService;
+import crdm.nomenclature.service.SettingsService;
 import crdm.nomenclature.service.UserService;
 
 @Controller
 @RequestMapping("settings")
-public class SettingController {
+public class SettingsController {
 	
 	@Autowired
 	private UserService userService;
@@ -31,6 +33,9 @@ public class SettingController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private SettingsService settingsService;
 	
 	@GetMapping("")
 	public String settings() {
@@ -53,9 +58,27 @@ public class SettingController {
 	
 	
 	@GetMapping("pdf")
-	public String pdf() {
+	public String pdf(Model model) {
+		
+		Settings settings = settingsService.all();
+		if(settings == null) {
+			settings = new Settings();
+			settings.setId(1);
+		}
+		model.addAttribute("settings", settings);
+		
 		return "settings/pdf";
 	}
+	
+	@PostMapping("pdf/store")
+	public String store(@ModelAttribute("settings") Settings settings) {
+		
+		settings.setId(1);
+		settingsService.save(settings);
+
+		return "redirect:/settings/pdf";
+	}
+	
 	
 	@PostMapping("user/store")
 	public String save(@ModelAttribute("user") User user, @RequestParam("role_name") String role_name) {

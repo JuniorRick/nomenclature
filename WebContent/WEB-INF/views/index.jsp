@@ -37,8 +37,16 @@
 						class="alert alert-success d-block"> <strong>${approvedCount}</strong>
 						<spring:message code="index.messages.purchases.approved" />
 					</a>
-				</c:if>
 
+
+					<c:if test="${empty settings.director || empty settings.executor || empty settings.tel}">
+						<a href="${pageContext.request.contextPath}/settings/pdf"
+							class="alert alert-danger d-block"> <spring:message
+								code="index.messages.settings.pdf" />
+						</a>
+					</c:if>
+
+				</c:if>
 
 			</div>
 

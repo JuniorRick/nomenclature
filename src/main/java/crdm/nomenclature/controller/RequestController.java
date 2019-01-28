@@ -209,10 +209,15 @@ public class RequestController {
 			int index = wrapper.getIds().indexOf(purchase.getId());
 
 			Float quantity = wrapper.getQuantities().get(index);
-			purchase.setQuantity(quantity);
-
+			
 			Float remainder = purchase.getGood().getRemainder() - quantity;			
 			Good good = purchase.getGood();
+			if(remainder < 0 ) {
+				remainder = 0.0f;
+				quantity = purchase.getQuantity();
+			}
+
+			purchase.setQuantity(purchase.getGood().getRemainder());
 			good.setRemainder(remainder);
 			goodService.save(good);
 			purchase.setGood(good);

@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -26,6 +27,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import crdm.nomenclature.entity.Purchase;
+import crdm.nomenclature.entity.Settings;
+import crdm.nomenclature.service.SettingsService;
 
 public class PdfGenerator {
 
@@ -35,6 +38,9 @@ public class PdfGenerator {
 		this.purchases = purchases;
 	}
 
+	@Autowired
+	private SettingsService settingsService;
+	
 	public void generatePDF(String filePath) throws DocumentException, URISyntaxException, IOException {
 
         float left = 40;
@@ -99,6 +105,9 @@ public class PdfGenerator {
 	
 	private void addExecutor(Document document) throws DocumentException {
 		
+		Settings settings = settingsService.all();
+		
+		
 		document.add( new Paragraph("\n") );
 		
 		PdfPTable tbl = new PdfPTable(3);
@@ -113,7 +122,7 @@ public class PdfGenerator {
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
 		
-		cell = new PdfPCell(new Phrase("Andrei Testemitanu"));
+		cell = new PdfPCell(new Phrase(settings.getDirector()));
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
 		
@@ -128,11 +137,11 @@ public class PdfGenerator {
 		tbl.setHorizontalAlignment(Element.ALIGN_LEFT);
 
 		
-		cell = new PdfPCell(new Phrase("Ex. T. Cuznetov", FontFactory.getFont(FontFactory.HELVETICA, 8)));
+		cell = new PdfPCell(new Phrase("Ex. " + settings.getExecutor(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
 
-		cell = new PdfPCell(new Phrase("Tel. 022 888-416", FontFactory.getFont(FontFactory.HELVETICA, 8)));
+		cell = new PdfPCell(new Phrase("Tel. " + settings.getTel(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
 		

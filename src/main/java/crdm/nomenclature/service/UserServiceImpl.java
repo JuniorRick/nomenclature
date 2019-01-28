@@ -37,7 +37,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public List<User> all() {
-		// TODO Auto-generated method stub
 		return userDAO.all();
 	}
 	

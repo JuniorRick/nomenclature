@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import crdm.nomenclature.entity.Settings;
 import crdm.nomenclature.entity.User;
 import crdm.nomenclature.service.RequestService;
+import crdm.nomenclature.service.SettingsService;
 import crdm.nomenclature.service.UserService;
 
 @Controller
@@ -21,6 +23,8 @@ public class HomeController {
 	@Autowired 
 	private UserService userService;
 	
+	@Autowired
+	private SettingsService settingsService;
 	
 	@GetMapping("/")
 	public String index(Model model) {
@@ -28,6 +32,10 @@ public class HomeController {
 		Integer approvedCount = requestService.count(true);
 		Integer requestsCount = requestService.count(false);
 		
+		
+		Settings settings = settingsService.all();
+		
+		model.addAttribute("settings", settings);
 		
 		model.addAttribute("approvedCount", approvedCount);
 		model.addAttribute("requestsCount", requestsCount);
