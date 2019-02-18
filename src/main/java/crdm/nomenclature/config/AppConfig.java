@@ -65,7 +65,6 @@ public class AppConfig implements WebMvcConfigurer {
 		return messageResource;
 	}
 	
-
    @Override
    public void addViewControllers(ViewControllerRegistry registry) {
       registry.addViewController("/login").setViewName("login");

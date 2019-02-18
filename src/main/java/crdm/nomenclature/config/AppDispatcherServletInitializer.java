@@ -21,5 +21,5 @@ public class AppDispatcherServletInitializer extends AbstractAnnotationConfigDis
 		// TODO Auto-generated method stub
 		return new String[] { "/" };
 	}
-
+	
 }
