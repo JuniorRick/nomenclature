@@ -13,6 +13,7 @@ public class CharacterSetFilter implements Filter {
 	 
     // ...
  
+	@Override
     public void doFilter(
       ServletRequest request, 
       ServletResponse response, 
@@ -21,7 +22,6 @@ public class CharacterSetFilter implements Filter {
         response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
         next.doFilter(request, response);
-        System.out.println("entering filter");
     }
 
 	@Override

@@ -9,7 +9,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Stream;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -28,18 +27,18 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Settings;
-import crdm.nomenclature.service.SettingsService;
 
 public class PdfGenerator {
 
 	private List<Purchase> purchases;
-
-	public PdfGenerator(List<Purchase> purchases) {
+	private Settings settings;
+	
+	public PdfGenerator(List<Purchase> purchases, Settings settings) {
 		this.purchases = purchases;
+		this.settings = settings;
 	}
 
-	@Autowired
-	private SettingsService settingsService;
+
 	
 	public void generatePDF(String filePath) throws DocumentException, URISyntaxException, IOException {
 
@@ -54,7 +53,7 @@ public class PdfGenerator {
 
 		document.open();
 		addPageHeader(document);
-		document.add( new Paragraph("") );
+		document.add( new Paragraph("Testing pdf generation") );
 		Paragraph paragraph1 = new Paragraph(new Phrase(purchases.get(0).getGood().getContract().getProvider().getName()));
 		paragraph1.setAlignment(Element.ALIGN_RIGHT);
 	    document.add(paragraph1);
@@ -105,8 +104,6 @@ public class PdfGenerator {
 	
 	private void addExecutor(Document document) throws DocumentException {
 		
-		Settings settings = settingsService.all();
-		
 		
 		document.add( new Paragraph("\n") );
 		
@@ -128,8 +125,7 @@ public class PdfGenerator {
 		
 		document.add(tbl);
 		
-		
-		
+				
 		document.add( new Paragraph("\n") );
 		
 		tbl = new PdfPTable(1);

@@ -32,11 +32,13 @@ import crdm.nomenclature.entity.Good;
 import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Request;
 import crdm.nomenclature.entity.Section;
+import crdm.nomenclature.entity.Settings;
 import crdm.nomenclature.rest.exception.NotFoundException;
 import crdm.nomenclature.service.GoodService;
 import crdm.nomenclature.service.PurchaseService;
 import crdm.nomenclature.service.RequestService;
 import crdm.nomenclature.service.SectionService;
+import crdm.nomenclature.service.SettingsService;
 
 @Controller
 @RequestMapping("/request")
@@ -51,7 +53,11 @@ public class RequestController {
 	@Autowired 
 	private GoodService goodService;
 
-	@Autowired PurchaseService purchaseService;
+	@Autowired 
+	private PurchaseService purchaseService;
+	
+	@Autowired
+	private SettingsService settingsService;
 	
 	@GetMapping("list")
 	public String list(@ModelAttribute("request") Purchase purchase, Model model) throws ParseException {
@@ -110,9 +116,9 @@ public class RequestController {
 	public String pdf(@PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response)
 			throws ParseException, DocumentException, URISyntaxException, IOException {
 
-		
+		Settings settings = settingsService.all();
 		PdfGenerator pdfGenerator = new PdfGenerator(requestService.find(id).getPurchases()
-				.stream().filter(o -> o.getQuantity() > 0.0f).collect(Collectors.toList()));
+				.stream().filter(o -> o.getQuantity() > 0.0f).collect(Collectors.toList()), settings);
 		
 		
 		JFrame parentFrame = new JFrame();
