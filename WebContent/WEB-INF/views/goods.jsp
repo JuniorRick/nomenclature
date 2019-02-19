@@ -155,7 +155,7 @@
 
 									<td data-toggle="tooltip" data-placement="top"
 										title="${good.contract.name}">${good.contract.abbr}
-										[${good.contract.number} ]</td>
+										[${good.contract.number}]</td>
 									<td>${good.good}</td>
 									<td>${good.quantity }(${good.unit})</td>
 									<td>${good.remainder}(${good.unit})</td>
@@ -216,5 +216,21 @@
 
 	<!-- Page footer -->
 	<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
+	
+	<script>
+	$(document).ready(function() {
+		$('#contract_id').change( function() {
+			
+			var contracts = ${contractsList}
+			for(let i = 0; i < contracts.length; i++) {
+				if($('#contract_id').val() == contracts[i].id) {
+					$('#search').val('[' + contracts[i].number + ']');
+					$("#search").trigger("keydown");
+				}
+			}
+		});
+	});
+	</script>
+	
 </body>
 </html>

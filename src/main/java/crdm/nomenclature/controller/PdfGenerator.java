@@ -77,7 +77,9 @@ public class PdfGenerator {
 	    document.add( new Paragraph("\n") );
 	    
 		PdfPTable table = new PdfPTable(4);
-		table.setWidthPercentage(100);
+		table.setTotalWidth(new float[]{ 40, 230, 60, 60});
+//		table.setLockedWidth(true);
+		
 		addTableHeader(table);
 		addRows(table);
 		document.add(table);
