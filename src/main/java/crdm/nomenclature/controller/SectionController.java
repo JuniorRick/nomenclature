@@ -1,5 +1,6 @@
 package crdm.nomenclature.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +40,8 @@ public class SectionController {
 	
 	
 	@PostMapping("/store")
-	public String save(@ModelAttribute("section") Section section) {
-		
+	public String save(@ModelAttribute("section") Section section) throws IOException {
+		    
 		sectionService.save(section);
 		
 		return "redirect:/section/list";

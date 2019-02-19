@@ -1,8 +1,15 @@
 package crdm.nomenclature.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.net.URLConnection;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.text.ParseException;
 import java.util.List;
@@ -10,12 +17,11 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,7 +41,6 @@ import crdm.nomenclature.entity.Section;
 import crdm.nomenclature.entity.Settings;
 import crdm.nomenclature.rest.exception.NotFoundException;
 import crdm.nomenclature.service.GoodService;
-import crdm.nomenclature.service.PurchaseService;
 import crdm.nomenclature.service.RequestService;
 import crdm.nomenclature.service.SectionService;
 import crdm.nomenclature.service.SettingsService;
@@ -52,9 +57,6 @@ public class RequestController {
 	
 	@Autowired 
 	private GoodService goodService;
-
-	@Autowired 
-	private PurchaseService purchaseService;
 	
 	@Autowired
 	private SettingsService settingsService;
@@ -112,33 +114,68 @@ public class RequestController {
 	
 	}
 
+//	@GetMapping("/pdf/{id}")
+//	public String pdf(@PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response)
+//			throws ParseException, DocumentException, URISyntaxException, IOException {
+//
+//		Settings settings = settingsService.all();
+//		PdfGenerator pdfGenerator = new PdfGenerator(requestService.find(id).getPurchases()
+//				.stream().filter(o -> o.getQuantity() > 0.0f).collect(Collectors.toList()), settings);
+//		
+//		
+//		JFrame parentFrame = new JFrame();
+//		 
+//		JFileChooser fileChooser = new JFileChooser();
+//		fileChooser.setDialogTitle("Specify a file to save");   
+//		 
+//		int userSelection = fileChooser.showSaveDialog(parentFrame);
+//		 
+//		if (userSelection == JFileChooser.APPROVE_OPTION) {
+//		    File fileToSave = fileChooser.getSelectedFile();
+//		    if(!fileToSave.getAbsolutePath().endsWith(".pdf"))
+//		    	pdfGenerator.generatePDF(fileToSave.getAbsolutePath() + ".pdf");
+//		    else pdfGenerator.generatePDF(fileToSave.getAbsolutePath());
+//		}
+//		
+//		return "redirect:/request/approved";
+//
+//	}
+
+	
 	@GetMapping("/pdf/{id}")
-	public String pdf(@PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response)
+	public void pdf(@PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response)
 			throws ParseException, DocumentException, URISyntaxException, IOException {
 
 		Settings settings = settingsService.all();
-		PdfGenerator pdfGenerator = new PdfGenerator(requestService.find(id).getPurchases()
-				.stream().filter(o -> o.getQuantity() > 0.0f).collect(Collectors.toList()), settings);
+		List <Purchase> purchases = requestService.find(id).getPurchases()
+				.stream().filter(o -> o.getQuantity() > 0.0f).collect(Collectors.toList());
+				
+		PdfGenerator pdfGenerator = new PdfGenerator(purchases, settings);
 		
+		String filePath = "/var/www/estinca/data/public/contract.pdf";
+		pdfGenerator.generatePDF(filePath); 
+	
 		
-		JFrame parentFrame = new JFrame();
-		 
-		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.setDialogTitle("Specify a file to save");   
-		 
-		int userSelection = fileChooser.showSaveDialog(parentFrame);
-		 
-		if (userSelection == JFileChooser.APPROVE_OPTION) {
-		    File fileToSave = fileChooser.getSelectedFile();
-		    if(!fileToSave.getAbsolutePath().endsWith(".pdf"))
-		    	pdfGenerator.generatePDF(fileToSave.getAbsolutePath() + ".pdf");
-		    else pdfGenerator.generatePDF(fileToSave.getAbsolutePath());
+		File file = new File("/var/www/estinca/data/public/contract.pdf");
+		
+		InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+		
+		String mimeType = URLConnection.guessContentTypeFromStream(inputStream);
+		
+		if(mimeType == null) {
+			mimeType = "application/octet-stream";
 		}
+		response.setContentType(mimeType);
+		response.setContentLength((int) file.length());
+		response.setHeader( "Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
 		
-		return "redirect:/request/approved";
+		
+		FileCopyUtils.copy(inputStream, response.getOutputStream());
+		
 
 	}
-
+	
+	
 	@GetMapping("{id}")
 	public String request(@PathVariable("id") Integer id, Model model) throws ParseException {
 
@@ -215,6 +252,7 @@ public class RequestController {
 			int index = wrapper.getIds().indexOf(purchase.getId());
 
 			Float quantity = wrapper.getQuantities().get(index);
+			purchase.setQuantity(quantity);
 			
 			Float remainder = purchase.getGood().getRemainder() - quantity;			
 			Good good = purchase.getGood();
@@ -223,7 +261,6 @@ public class RequestController {
 				quantity = purchase.getQuantity();
 			}
 
-			purchase.setQuantity(purchase.getGood().getRemainder());
 			good.setRemainder(remainder);
 			goodService.save(good);
 			purchase.setGood(good);

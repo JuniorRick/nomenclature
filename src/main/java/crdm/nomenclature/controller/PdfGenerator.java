@@ -15,14 +15,18 @@ import org.springframework.core.io.Resource;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import crdm.nomenclature.entity.Purchase;
@@ -49,11 +53,11 @@ public class PdfGenerator {
         Document document = new Document(PageSize.A4, left, right, top, bottom);
         
 		PdfWriter.getInstance(document, new FileOutputStream(filePath));
-
+//		/writer.setPageEvent(new MyFooter());
 
 		document.open();
 		addPageHeader(document);
-		document.add( new Paragraph("Testing pdf generation") );
+		document.add( new Paragraph("") );
 		Paragraph paragraph1 = new Paragraph(new Phrase(purchases.get(0).getGood().getContract().getProvider().getName()));
 		paragraph1.setAlignment(Element.ALIGN_RIGHT);
 	    document.add(paragraph1);
@@ -124,7 +128,6 @@ public class PdfGenerator {
 		tbl.addCell(cell);
 		
 		document.add(tbl);
-		
 				
 		document.add( new Paragraph("\n") );
 		
@@ -192,4 +195,19 @@ public class PdfGenerator {
 
 	}
 
+}
+
+//TODO use this class to add footer
+class MyFooter extends PdfPageEventHelper {
+    public void onEndPage(PdfWriter writer, Document document) {
+        PdfContentByte cb = writer.getDirectContent();
+        ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, footer(),
+            (document.right() - document.left()) / 2 + document.leftMargin(),
+            document.top() + 10, 0);
+    }
+    private Phrase footer() {
+        Font ffont = new Font(Font.FontFamily.UNDEFINED, 5, Font.ITALIC);
+        Phrase p = new Phrase("this is a footer");
+        return p;
+    }
 }

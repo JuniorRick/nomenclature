@@ -1,5 +1,9 @@
 package crdm.nomenclature.config;
 
+import javax.servlet.Filter;
+
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppDispatcherServletInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
@@ -21,5 +25,17 @@ public class AppDispatcherServletInitializer extends AbstractAnnotationConfigDis
 		// TODO Auto-generated method stub
 		return new String[] { "/" };
 	}
+	
+	@Override
+	protected Filter[] getServletFilters()
+	  {
+	    CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+	    characterEncodingFilter.setEncoding("UTF-8");
+	    characterEncodingFilter.setForceEncoding(true);
+	    
+
+	    HiddenHttpMethodFilter httpMethodFilter = new HiddenHttpMethodFilter();
+	    return new Filter[] { characterEncodingFilter, httpMethodFilter };
+	  }
 	
 }
