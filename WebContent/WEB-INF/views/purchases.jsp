@@ -54,7 +54,7 @@
 									<option value="NONE"><spring:message
 											code="contract.select" /></option>
 									<c:forEach items="${contracts}" var="contract">
-										<option value="${contract.id}">${contract.name}</option>
+										<option value="${contract.id}">${contract.name} [${contract.number}]</option>
 									</c:forEach>
 								</select>
 							</div>

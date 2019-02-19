@@ -122,8 +122,8 @@ public class RequestController {
 		PdfGenerator pdfGenerator = new PdfGenerator(purchases, settings);
 		
 
-//		String filePath = "/var/www/estinca/data/public/contract.pdf";
-		String filePath = "/home/estinca/contract.pdf";
+		String filePath = "/var/www/estinca/data/public/contract.pdf";
+//		String filePath = "/home/estinca/contract.pdf";
 		pdfGenerator.generatePDF(filePath); 
 	
 		

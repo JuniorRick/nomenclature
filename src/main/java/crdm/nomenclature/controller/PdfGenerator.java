@@ -36,108 +36,101 @@ public class PdfGenerator {
 
 	private List<Purchase> purchases;
 	private Settings settings;
-	
+
 	public PdfGenerator(List<Purchase> purchases, Settings settings) {
 		this.purchases = purchases;
 		this.settings = settings;
 	}
 
-
-	
 	public void generatePDF(String filePath) throws DocumentException, URISyntaxException, IOException {
 
-        float left = 40;
-        float right = 20;
-        float top = 20;
-        float bottom = 20;
-        Document document = new Document(PageSize.A4, left, right, top, bottom);
-        
+		float left = 40;
+		float right = 20;
+		float top = 20;
+		float bottom = 20;
+		Document document = new Document(PageSize.A4, left, right, top, bottom);
+
 		PdfWriter.getInstance(document, new FileOutputStream(filePath));
 //		/writer.setPageEvent(new MyFooter());
 
 		document.open();
 		addPageHeader(document);
-		document.add( new Paragraph("") );
-		Paragraph paragraph1 = new Paragraph(new Phrase(purchases.get(0).getGood().getContract().getProvider().getName()));
+		document.add(new Paragraph(""));
+		Paragraph paragraph1 = new Paragraph(
+				new Phrase(purchases.get(0).getGood().getContract().getProvider().getName()));
 		paragraph1.setAlignment(Element.ALIGN_RIGHT);
-	    document.add(paragraph1);
-		document.add( new Paragraph("\n\n") );
-		
+		document.add(paragraph1);
+		document.add(new Paragraph("\n\n"));
+
 		Date date = purchases.get(0).getRequest().getDate();
-		
-	    final String title = "IMSP Centrul Republican de Diagnosticare "
-	    		+ "Medicala solicita livrearea urmatoarelor consumabile, "
-	    		+ "conform contractului " + purchases.get(0).getGood().getContract().getNumber() 
-	    		+ " din " + formatDate(date);
-	    		
-	    Phrase phrase = new Phrase(title);
-	    Paragraph paragraph2 = new Paragraph(phrase);
-	    paragraph1.setAlignment(Element.ALIGN_CENTER);
-	    document.add(paragraph2);
-	    document.add( new Paragraph("\n") );
-	    
+
+		final String title = "IMSP Centrul Republican de Diagnosticare "
+				+ "Medicala solicita livrearea urmatoarelor consumabile, " + "conform contractului "
+				+ purchases.get(0).getGood().getContract().getNumber() + " din " + formatDate(date);
+
+		Phrase phrase = new Phrase(title);
+		Paragraph paragraph2 = new Paragraph(phrase);
+		paragraph1.setAlignment(Element.ALIGN_CENTER);
+		document.add(paragraph2);
+		document.add(new Paragraph("\n"));
+
 		PdfPTable table = new PdfPTable(4);
-		table.setTotalWidth(new float[]{ 40, 230, 60, 60});
+		table.setTotalWidth(new float[] { 40, 230, 60, 60 });
 //		table.setLockedWidth(true);
-		
+
 		addTableHeader(table);
 		addRows(table);
 		document.add(table);
-		document.add( new Paragraph("\n") );
-		
+		document.add(new Paragraph("\n"));
+
 		addExecutor(document);
-		
+
 		document.close();
 	}
 
-	
 	private String formatDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		
+
 		String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
 		day = day.length() > 1 ? day : '0' + day;
-		
+
 		String month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
-		month = month.length() > 1 ? month : '0' + month;		
-		
-		String year = Integer.toString(calendar.get(Calendar.YEAR) );
-		
-		
+		month = month.length() > 1 ? month : '0' + month;
+
+		String year = Integer.toString(calendar.get(Calendar.YEAR));
+
 		return day + "." + month + "." + year;
-		
+
 	}
-	
+
 	private void addExecutor(Document document) throws DocumentException {
-		
-		
-		document.add( new Paragraph("\n") );
-		
+
+		document.add(new Paragraph("\n"));
+
 		PdfPTable tbl = new PdfPTable(3);
 		tbl.setHorizontalAlignment(Element.ALIGN_CENTER);
-		
 
-		PdfPCell cell = new PdfPCell(new Phrase(""));
+		PdfPCell cell = new PdfPCell(new Phrase("Presedintele gr. de lucru"));
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
 		
-		cell = new PdfPCell(new Phrase("Director"));
+		cell = new PdfPCell(new Phrase(""));
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
 		
 		cell = new PdfPCell(new Phrase(settings.getDirector()));
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
-		
+
 		document.add(tbl);
-				
-		document.add( new Paragraph("\n") );
-		
+
+		document.add(new Paragraph("\n"));
+
 		tbl = new PdfPTable(1);
 		tbl.setTotalWidth(400);
 		tbl.setHorizontalAlignment(Element.ALIGN_LEFT);
 
-		
 		cell = new PdfPCell(new Phrase("Ex. " + settings.getExecutor(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
@@ -145,16 +138,15 @@ public class PdfGenerator {
 		cell = new PdfPCell(new Phrase("Tel. " + settings.getTel(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
 		cell.disableBorderSide(Rectangle.BOX);
 		tbl.addCell(cell);
-		
+
 		document.add(tbl);
 	}
-	
-	
+
 	private void addPageHeader(Document document)
 			throws MalformedURLException, IOException, DocumentException, URISyntaxException {
-		
+
 		Resource resource = new ClassPathResource("pdf-images/Antet-CRDM.png");
-		
+
 		Image image = Image.getInstance(resource.getURL().getPath());
 		float docW = PageSize.A4.getWidth() - 2 * PageSize.A4.getBorder();
 		float docH = PageSize.A4.getHeight() - 2 * PageSize.A4.getBorder();
@@ -180,15 +172,15 @@ public class PdfGenerator {
 			PdfPCell cell = new PdfPCell(new Phrase((count++).toString()));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(purchase.getGood().getGood()));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(purchase.getQuantity().toString()));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
-			
+
 			cell = new PdfPCell(new Phrase(purchase.getGood().getUnit()));
 			cell.setHorizontalAlignment(Element.ALIGN_CENTER);
 			table.addCell(cell);
@@ -201,15 +193,15 @@ public class PdfGenerator {
 
 //TODO use this class to add footer
 class MyFooter extends PdfPageEventHelper {
-    public void onEndPage(PdfWriter writer, Document document) {
-        PdfContentByte cb = writer.getDirectContent();
-        ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, footer(),
-            (document.right() - document.left()) / 2 + document.leftMargin(),
-            document.top() + 10, 0);
-    }
-    private Phrase footer() {
-        Font ffont = new Font(Font.FontFamily.UNDEFINED, 5, Font.ITALIC);
-        Phrase p = new Phrase("this is a footer");
-        return p;
-    }
+	public void onEndPage(PdfWriter writer, Document document) {
+		PdfContentByte cb = writer.getDirectContent();
+		ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, footer(),
+				(document.right() - document.left()) / 2 + document.leftMargin(), document.top() + 10, 0);
+	}
+
+	private Phrase footer() {
+		Font ffont = new Font(Font.FontFamily.UNDEFINED, 5, Font.ITALIC);
+		Phrase p = new Phrase("this is a footer");
+		return p;
+	}
 }

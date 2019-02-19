@@ -37,13 +37,13 @@
 					<form:form action="store" modelAttribute="good" method="POST">
 
 						<form:hidden path="id" />
-						<form:hidden path="old_quantity" />
 						<form:hidden path="remainder" />
 
 
 						<spring:message code="contract" var="contractName" />
 						<spring:message code="good" var="goodName" />
 						<spring:message code="quantity" var="quantity" />
+						<spring:message code="quantity.remaining" var="remainder" />
 						<spring:message code="unit" var="unit" />
 
 
@@ -124,7 +124,7 @@
 								<th scope="col">${contractName}</th>
 								<th scope="col">${goodName}</th>
 								<th scope="col">${quantity}</th>
-								<th scope="col">${unit}</th>
+								<th scope="col">${remainder}</th>
 
 								<th class="" scope="col"><spring:message code="actions" /></th>
 							</tr>

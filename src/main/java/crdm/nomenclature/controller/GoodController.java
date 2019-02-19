@@ -66,18 +66,13 @@ public class GoodController {
 
 		Contract contract = contractService.find(contract_id);
 
-		if (good.getId() == null) {
-			good.setOld_quantity(good.getQuantity());
+		if(good.getId() == null) {
 			good.setRemainder(good.getQuantity());
 		} else {
-			Float remainder = good.getOld_quantity() - good.getQuantity();
-			if (good.getRemainder() - remainder < 0) {
-				throw new NotFoundException("Invalid update:  " + (good.getOld_quantity() - good.getRemainder())
-						+ " already purchaseed. " + "Set quantity at least " + good.getRemainder());
-			}
-			good.setRemainder(good.getRemainder() - remainder);
-			good.setOld_quantity(good.getQuantity());
+			Good g = goodService.find(good.getId());
+			good.setRemainder(good.getQuantity() - g.getQuantity() + g.getRemainder());
 		}
+		
 		contract.add(good);
 		redirectAttributes.addFlashAttribute("contract", contract);
 

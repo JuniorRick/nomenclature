@@ -26,8 +26,6 @@ public class Good {
 
 	private Float remainder;
 
-	private Float old_quantity;
-
 	private String unit;
 
 	public Good() {
@@ -63,14 +61,6 @@ public class Good {
 
 	public void setQuantity(Float quantity) {
 		this.quantity = quantity;
-	}
-	
-	public Float getOld_quantity() {
-		return old_quantity;
-	}
-
-	public void setOld_quantity(Float old_quantity) {
-		this.old_quantity = old_quantity;
 	}
 
 	public Float getRemainder() {

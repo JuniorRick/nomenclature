@@ -40,7 +40,7 @@
 							<form:hidden path="id" />
 							
 							<div class=" form-group row">
-								<label class="col-sm-2 col-form-label" for="">Director</label>
+								<label class="col-sm-2 col-form-label" for="">Președintele gr. de lucru</label>
 								<div class="col-sm-6">
 									<form:input path="director" class="form-control"
 										placeholder="director general" required="required" />
