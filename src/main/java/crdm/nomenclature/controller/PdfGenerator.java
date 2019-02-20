@@ -12,7 +12,6 @@ import java.util.stream.Stream;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
-import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -28,7 +27,6 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Settings;
@@ -66,7 +64,7 @@ public class PdfGenerator {
 		document.add(paragraph1);
 		document.add(new Paragraph("\n\n"));
 
-		Date date = purchases.get(0).getRequest().getDate();
+		Date date = purchases.get(0).getGood().getContract().getStartDate();
 
 		final String title = "IMSP Centrul Republican de Diagnosticare "
 				+ "Medicala solicita livrearea urmatoarelor consumabile, " + "conform contractului "
@@ -129,22 +127,6 @@ public class PdfGenerator {
 		tbl.addCell(cell);
 
 		document.add(tbl);
-
-//		document.add(new Paragraph("\n"));
-//
-//		tbl = new PdfPTable(1);
-//		tbl.setTotalWidth(400);
-//		tbl.setHorizontalAlignment(Element.ALIGN_LEFT);
-//
-//		cell = new PdfPCell(new Phrase("Ex. " + settings.getExecutor(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-//		cell.disableBorderSide(Rectangle.BOX);
-//		tbl.addCell(cell);
-//
-//		cell = new PdfPCell(new Phrase("Tel. " + settings.getTel(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-//		cell.disableBorderSide(Rectangle.BOX);
-//		tbl.addCell(cell);
-//
-//		document.add(tbl);
 	}
 
 	private void addPageHeader(Document document)
