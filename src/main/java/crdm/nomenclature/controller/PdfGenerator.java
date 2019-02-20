@@ -12,10 +12,10 @@ import java.util.stream.Stream;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.PageSize;
@@ -28,6 +28,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.LineSeparator;
 
 import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Settings;
@@ -50,10 +51,13 @@ public class PdfGenerator {
 		float bottom = 20;
 		Document document = new Document(PageSize.A4, left, right, top, bottom);
 
-		PdfWriter.getInstance(document, new FileOutputStream(filePath));
-//		/writer.setPageEvent(new MyFooter());
-
+		PdfWriter writer = PdfWriter.getInstance(document, new FileOutputStream(filePath));
+		writer.setPageEvent(new MyFooter());
+		
 		document.open();
+		MyFooter footer = new MyFooter();
+		footer.onEndPage(writer, document, settings);
+		
 		addPageHeader(document);
 		document.add(new Paragraph(""));
 		Paragraph paragraph1 = new Paragraph(
@@ -75,7 +79,8 @@ public class PdfGenerator {
 		document.add(new Paragraph("\n"));
 
 		PdfPTable table = new PdfPTable(4);
-		table.setTotalWidth(new float[] { 40, 230, 60, 60 });
+		table.setWidths(new float[] { 1, 4, 2, 2 });
+		table.setWidthPercentage(100);
 //		table.setLockedWidth(true);
 
 		addTableHeader(table);
@@ -125,21 +130,21 @@ public class PdfGenerator {
 
 		document.add(tbl);
 
-		document.add(new Paragraph("\n"));
-
-		tbl = new PdfPTable(1);
-		tbl.setTotalWidth(400);
-		tbl.setHorizontalAlignment(Element.ALIGN_LEFT);
-
-		cell = new PdfPCell(new Phrase("Ex. " + settings.getExecutor(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-		cell.disableBorderSide(Rectangle.BOX);
-		tbl.addCell(cell);
-
-		cell = new PdfPCell(new Phrase("Tel. " + settings.getTel(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
-		cell.disableBorderSide(Rectangle.BOX);
-		tbl.addCell(cell);
-
-		document.add(tbl);
+//		document.add(new Paragraph("\n"));
+//
+//		tbl = new PdfPTable(1);
+//		tbl.setTotalWidth(400);
+//		tbl.setHorizontalAlignment(Element.ALIGN_LEFT);
+//
+//		cell = new PdfPCell(new Phrase("Ex. " + settings.getExecutor(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+//		cell.disableBorderSide(Rectangle.BOX);
+//		tbl.addCell(cell);
+//
+//		cell = new PdfPCell(new Phrase("Tel. " + settings.getTel(), FontFactory.getFont(FontFactory.HELVETICA, 8)));
+//		cell.disableBorderSide(Rectangle.BOX);
+//		tbl.addCell(cell);
+//
+//		document.add(tbl);
 	}
 
 	private void addPageHeader(Document document)
@@ -193,15 +198,24 @@ public class PdfGenerator {
 
 //TODO use this class to add footer
 class MyFooter extends PdfPageEventHelper {
-	public void onEndPage(PdfWriter writer, Document document) {
+	private Settings settings;
+	public void onEndPage(PdfWriter writer, Document document, Settings settings) {
+		this.settings = settings;
+		
 		PdfContentByte cb = writer.getDirectContent();
-		ColumnText.showTextAligned(cb, Element.ALIGN_CENTER, footer(),
-				(document.right() - document.left()) / 2 + document.leftMargin(), document.top() + 10, 0);
+		
+		ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, footer()[0],
+				document.left() + document.leftMargin(), document.bottom() + 10, 0);
+		ColumnText.showTextAligned(cb, Element.ALIGN_LEFT, footer()[1],
+				document.left() + document.leftMargin(), document.bottom(), 0);
 	}
 
-	private Phrase footer() {
-		Font ffont = new Font(Font.FontFamily.UNDEFINED, 5, Font.ITALIC);
-		Phrase p = new Phrase("this is a footer");
+	private Phrase[] footer() {
+		
+		Phrase[] p = new Phrase[2];
+		p[0] = new Phrase("Ex. " + settings.getExecutor(), FontFactory.getFont(FontFactory.HELVETICA, 8));
+		p[1] = new Phrase("Tel. " + settings.getTel(), FontFactory.getFont(FontFactory.HELVETICA, 8));
+		
 		return p;
 	}
 }
