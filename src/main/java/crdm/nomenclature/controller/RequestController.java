@@ -103,13 +103,14 @@ public class RequestController {
 //			purchaseService.save(purchase);
 			
 		}
-
+			
 		requestService.save(request);
 		
 
 		return "redirect:/request/approved";
 	
 	}
+	
 	
 	@GetMapping("/pdf/{id}")
 	public void pdf(@PathVariable("id") Integer id, HttpServletRequest request, HttpServletResponse response)
@@ -166,7 +167,56 @@ public class RequestController {
 
 		return "approvedList";
 	}
+	
+	
+	@GetMapping("/deposit")
+	public String depositList(@ModelAttribute("purchase") Purchase purchase, Model model) throws ParseException {
 
+		List<Request> requests = requestService.depositedList();
+
+		model.addAttribute("requests", requests);
+
+		return "depositList";
+	}
+	
+	@GetMapping("/depositing/{id}")
+	public String depositing(@PathVariable("id") Integer id, Model model) throws ParseException {
+
+		Request request = requestService.find(id);
+
+		request.setDeposited(true);
+		request.setApproved(false);
+			
+		requestService.save(request);
+
+		return "redirect:/request/approved";
+	
+	}
+	
+	@GetMapping("/deposit/view/{id}")
+	public String deposited(@PathVariable("id") Integer id, Model model) throws ParseException {
+
+		Request request = requestService.find(id);
+
+		model.addAttribute("request", request);
+
+		return "deposit";
+	}
+	
+	@GetMapping("/deposit/cancel/{id}")
+	public String cancelDepositing(@PathVariable("id") Integer id, Model model) throws ParseException {
+
+		Request request = requestService.find(id);
+
+		request.setDeposited(false);
+		request.setApproved(true);
+			
+		requestService.save(request);
+
+		return "redirect:/request/approved";
+	
+	}
+	
 	@CrossOrigin
 	@ResponseBody
 	@PostMapping("send/{id}")

@@ -41,7 +41,20 @@ public class Request {
 	@Column(nullable = false, columnDefinition = "boolean default false")
 	private Boolean approved;
 
+	@Column(nullable = false, columnDefinition = "boolean default false")
+	private Boolean deposited;
+
 	private Date date;
+
+	
+	
+	public Boolean getDeposited() {
+		return deposited;
+	}
+
+	public void setDeposited(Boolean deposited) {
+		this.deposited = deposited;
+	}
 
 	public Request() {
 	}

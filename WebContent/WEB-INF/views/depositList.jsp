@@ -16,7 +16,7 @@
 	<jsp:include page="/WEB-INF/views/layouts/nav.jsp" />
 
 	<div class="generic-container">
-	
+
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">
@@ -32,28 +32,24 @@
 								<th scope="col"><spring:message code="contract" /></th>
 								<th scope="col"><spring:message code="section" /></th>
 								<th scope="col"><spring:message code="date" /></th>
-								
+
 								<th class="" scope="col">Actions</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="request" items="${requests}" varStatus="loop">
 
-								<c:url var="delete" value="/request/delete">
-									<c:param name="Id" value="${request.id}" />
-								</c:url>
-
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
-									
+
 									<td>${request.contract.abbr} <b>[${request.contract.provider.name} | ${request.contract.number}]</b></td>
 									<td>${request.section.name }</td>
 									<td>${request.date}</td>
-									<td class="">
-										<a class="btn btn-primary btn-sm" 
-											href="${pageContext.request.contextPath}/request/view/${request.id}"> <spring:message code="view" /></a>
-										<button class="btn btn-danger btn-sm" data-toggle="modal"
-											data-target="#confirmModal${request.id}"><spring:message code="delete" /></button></td>
+									<td class=""><a class="btn btn-primary btn-sm"
+										href="${pageContext.request.contextPath}/request/deposit/view/${request.id}">
+											<spring:message code="view" />
+									</a>
+										</button></td>
 								</tr>
 
 
@@ -69,12 +65,16 @@
 												</button>
 											</div>
 											<div class="modal-body">
-												<spring:message code="requests.modal.text" /><span class="text-danger font-weight-bold">${request.contract.name}</span>
+												<spring:message code="requests.modal.text" />
+												<span class="text-danger font-weight-bold">${request.contract.name}</span>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
-													data-dismiss="modal"><spring:message code="cancel" /></button>
-												<a href="${delete}" class="btn btn-danger"><spring:message code="confirm" /></a>
+													data-dismiss="modal">
+													<spring:message code="cancel" />
+												</button>
+												<a href="${delete}" class="btn btn-danger"><spring:message
+														code="confirm" /></a>
 											</div>
 										</div>
 									</div>

@@ -20,7 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.entity.Good;
-import crdm.nomenclature.rest.exception.NotFoundException;
 import crdm.nomenclature.service.ContractService;
 import crdm.nomenclature.service.GoodService;
 

@@ -11,45 +11,45 @@ import crdm.nomenclature.entity.Request;
 
 
 @Service
+@Transactional
 public class RequestServiceImpl implements RequestService {
 
 	@Autowired
 	private RequestDAO requestDAO;
 	
 	@Override
-	@Transactional
 	public List<Request> requestList() {
 		return requestDAO.requestList();
 	}
 
 	@Override
-	@Transactional
 	public Request save(Request request) {
 		return requestDAO.save(request);
 	}
 
 	@Override
-	@Transactional
 	public Request find(Integer id) {
 		return requestDAO.find(id);
 	}
 
 	@Override
-	@Transactional
 	public void delete(Integer id) {
 		requestDAO.delete(id);
 	}
 
 	@Override
-	@Transactional
 	public List<Request> approvedList() {
 		return requestDAO.approvedList();
 	}
 
 	@Override
-	@Transactional
 	public Integer count(Boolean approved) {
 		return requestDAO.count(approved);
+	}
+
+	@Override
+	public List<Request> depositedList() {
+		return requestDAO.depositedList();
 	}
 
 }

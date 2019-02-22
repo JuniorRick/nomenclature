@@ -21,14 +21,9 @@
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">
 				${request.contract.abbr} <b>[${request.contract.provider.name} | ${request.contract.number}] </b> | ${request.section.name } <a
-					href="${pageContext.request.contextPath}/request/cancel/${request.id}"
+					href="${pageContext.request.contextPath}/request/deposit/cancel/${request.id}"
 					class="btn btn-danger btn-sm float-right pl-3 pr-3 mr-3"><spring:message
-						code="request.approved.cancel" /></a> <a
-					href="${pageContext.request.contextPath}/request/depositing/${request.id}"
-					class="btn btn-primary btn-sm float-right pl-3 pr-3 mr-3"><spring:message
-						code="request.depositing" /></a> <a
-					href="${pageContext.request.contextPath}/request/pdf/${request.id}"
-					class="btn btn-info btn-sm float-right pl-3 pr-3 mr-3">PDF</a>
+						code="request.deposited.cancel" /></a> 
 			</div>
 			<div class="card-body">
 
@@ -40,7 +35,6 @@
 								<th scope="col"><spring:message code="good" /></th>
 								<th scope="col"><spring:message code="quantity.remaining" /></th>
 								<th scope="col"><spring:message code="quantity.request" /></th>
-
 							</tr>
 						</thead>
 						<tbody>
@@ -53,7 +47,6 @@
 										<td>${purchase.good.good}</td>
 										<td>${purchase.good.remainder} (${purchase.good.unit})</td>
 										<td>${purchase.quantity} (${purchase.good.unit})</td>
-
 									</tr>
 								</c:if>
 

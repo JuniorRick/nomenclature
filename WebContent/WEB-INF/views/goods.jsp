@@ -157,8 +157,8 @@
 										title="${good.contract.name}">${good.contract.abbr}
 										[${good.contract.number}]</td>
 									<td>${good.good}</td>
-									<td>${good.quantity }(${good.unit})</td>
-									<td>${good.remainder}(${good.unit})</td>
+									<td>${good.quantity } (${good.unit})</td>
+									<td>${good.remainder} (${good.unit})</td>
 
 									<td class=""><a href="${update}"
 										class="btn btn-warning btn-sm"><spring:message code="edit" /></a>

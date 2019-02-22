@@ -61,4 +61,10 @@ public class RequestDAOImpl implements RequestDAO {
 				.uniqueResult()).intValue();
 	}
 
+	@Override
+	public List<Request> depositedList() {
+		Session session = sessionFactory.getCurrentSession();
+		return session.createQuery("from Request where deposited = true", Request.class).getResultList();
+	}
+
 }

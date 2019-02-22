@@ -73,6 +73,9 @@
 			<li class="nav-item" id="lab-link"><a class="nav-link"
 				href="${pageContext.request.contextPath}/request/approved"><spring:message
 						code="nav.purchases.approved" /></a></li>
+			<li class="nav-item" id="lab-link"><a class="nav-link"
+				href="${pageContext.request.contextPath}/request/deposit"><spring:message
+						code="nav.purchases.deposit" /></a></li>
 			<%
 				}
 			%>
