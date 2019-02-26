@@ -45,7 +45,6 @@ public class Request {
 	private Boolean deposited;
 
 	private Date date;
-
 	
 	
 	public Boolean getDeposited() {

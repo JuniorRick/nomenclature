@@ -20,7 +20,7 @@ public class RequestDAOImpl implements RequestDAO {
 	public List<Request> requestList() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Request where approved = false", Request.class).getResultList();
+		return session.createQuery("from Request where approved = false and deposited = false", Request.class).getResultList();
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class RequestDAOImpl implements RequestDAO {
 	public List<Request> approvedList() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Request where approved = true", Request.class).getResultList();
+		return session.createQuery("from Request where approved = true and deposited = false", Request.class).getResultList();
 	}
 
 	@Override

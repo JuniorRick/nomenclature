@@ -126,7 +126,6 @@ public class RequestController {
 		String filePath = "/var/www/estinca/data/public/contract.pdf";
 //		String filePath = "/home/estinca/contract.pdf";
 		pdfGenerator.generatePDF(filePath); 
-	
 		
 		File file = new File(filePath);
 		
@@ -185,8 +184,8 @@ public class RequestController {
 		Request request = requestService.find(id);
 
 		request.setDeposited(true);
-		request.setApproved(false);
-			
+		request.setApproved(true);
+		
 		requestService.save(request);
 
 		return "redirect:/request/approved";
