@@ -232,6 +232,7 @@ public class RequestController {
 		java.util.Date curDate = new java.util.Date();
 		request.setDate(new Date(curDate.getTime()));
 		request.setApproved(false);
+		request.setDeposited(false);
 		
 		Good good = goodService.find(wrapper.getIds().get(0));
 		request.setContract(good.getContract());
@@ -246,7 +247,6 @@ public class RequestController {
 			good = goodService.find(wrapper.getIds().get(ii));
 			purchase.setGood(good);
 			purchase.setRequest(request);
-			
 			request.add(purchase);
 		}
 

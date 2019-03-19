@@ -54,10 +54,11 @@ public class RequestDAOImpl implements RequestDAO {
 	}
 
 	@Override
-	public Integer count(Boolean approved) {
+	public Integer count(Boolean approved, Boolean deposited) {
 		Session session = sessionFactory.getCurrentSession();
-		return ((Long)session.createQuery("select count(*) from Request where approved = :approved")
+		return ((Long)session.createQuery("select count(*) from Request where approved = :approved and deposited = :deposited")
 				.setParameter("approved", approved)
+				.setParameter("deposited", deposited)
 				.uniqueResult()).intValue();
 	}
 

@@ -43,8 +43,8 @@ public class RequestServiceImpl implements RequestService {
 	}
 
 	@Override
-	public Integer count(Boolean approved) {
-		return requestDAO.count(approved);
+	public Integer count(Boolean approved, Boolean deposited) {
+		return requestDAO.count(approved, deposited);
 	}
 
 	@Override

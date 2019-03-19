@@ -29,8 +29,9 @@ public class HomeController {
 	@GetMapping("/")
 	public String index(Model model) {
 		
-		Integer approvedCount = requestService.count(true);
-		Integer requestsCount = requestService.count(false);
+		Integer approvedCount = requestService.count(true, false);
+		Integer requestsCount = requestService.count(false, false);
+		Integer depositedCount = requestService.count(true, true);
 		
 		
 		Settings settings = settingsService.all();
@@ -39,6 +40,7 @@ public class HomeController {
 		
 		model.addAttribute("approvedCount", approvedCount);
 		model.addAttribute("requestsCount", requestsCount);
+		model.addAttribute("depositedCount", depositedCount);
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("privileges", authentication.getAuthorities());

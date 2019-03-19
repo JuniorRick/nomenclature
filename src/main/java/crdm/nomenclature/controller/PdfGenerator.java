@@ -53,8 +53,6 @@ public class PdfGenerator {
 		writer.setPageEvent(new MyFooter());
 		
 		document.open();
-		MyFooter footer = new MyFooter();
-		footer.onEndPage(writer, document, settings);
 		
 		addPageHeader(document);
 		document.add(new Paragraph(""));
@@ -87,7 +85,10 @@ public class PdfGenerator {
 		document.add(new Paragraph("\n"));
 
 		addExecutor(document);
-
+		
+		MyFooter footer = new MyFooter();
+		footer.onEndPage(writer, document, settings);
+		
 		document.close();
 	}
 
@@ -178,7 +179,6 @@ public class PdfGenerator {
 
 }
 
-//TODO use this class to add footer
 class MyFooter extends PdfPageEventHelper {
 	private Settings settings;
 	public void onEndPage(PdfWriter writer, Document document, Settings settings) {

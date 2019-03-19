@@ -28,6 +28,7 @@ public class PurchaseDAOImpl implements PurchaseDAO{
 		Session session = sessionFactory.getCurrentSession();
 		
 		session.saveOrUpdate(purchase);
+        
 		return purchase;
 	}
 

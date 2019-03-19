@@ -37,6 +37,10 @@
 						class="alert alert-success d-block"> <strong>${approvedCount}</strong>
 						<spring:message code="index.messages.purchases.approved" />
 					</a>
+					<a href="${pageContext.request.contextPath}/request/deposit"
+						class="alert alert-primary d-block"> <strong>${depositedCount}</strong>
+						<spring:message code="index.messages.purchases.deposited" />
+					</a>
 
 
 					<c:if test="${empty settings.director || empty settings.executor || empty settings.tel}">

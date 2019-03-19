@@ -16,7 +16,7 @@ public interface RequestDAO {
 
 	public List<Request> approvedList();
 	
-	public Integer count(Boolean approved);
+	public Integer count(Boolean approved, Boolean deposited);
 
 	public List<Request> depositedList();
 }

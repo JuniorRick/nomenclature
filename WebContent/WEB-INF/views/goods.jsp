@@ -56,7 +56,7 @@
 									<c:forEach items="${contracts}" var="c">
 										<option value="${c.id}"
 											${contract.id != null && contract.id == c.id ? 'selected' : good.contract.id == c.id ? 'selected' : '' }>
-											${c.name} [${c.number}]</option>
+											${c.abbr} [${c.provider.name} | ${c.number}]</option>
 									</c:forEach>
 								</select>
 							</div>
