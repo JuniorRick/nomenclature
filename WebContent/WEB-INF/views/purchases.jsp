@@ -82,7 +82,7 @@
 				<span style="font-size: 1.2em; font-style: italic; color: #03f">
 					<c:choose>
 						<c:when test="${section_name != null}">
-							${section_name}  |  ${goods[0].contract.name }
+							${section_name}  |  ${goods[0].contract.name} <b>[${goods[0].contract.provider.name}]</b>
 						</c:when>
 						<c:otherwise>
 							<spring:message code="purchase.table.header" />
@@ -108,12 +108,12 @@
 						<tbody>
 							<c:forEach var="good" items="${goods}" varStatus="loop">
 
-								<tr>
+								<tr id="${good.id}">
 									<th class="" scope="row">${loop.index + 1}</th>
 									<td>${good.good}</td>
 									<td>${good.remainder} (${good.unit})</td>
-									<td><input type="text"
-										${section_id != null ? '' : 'disabled' } name="${good.id}" />
+									<td><input type="text" class="purchase-quantity-input" 
+										${section_id == null ? 'disabled' : ( good.remainder > 0 ? '' : 'disabled') } name="${good.id}" />
 										(${good.unit})</td>
 
 								</tr>

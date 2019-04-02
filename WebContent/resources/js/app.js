@@ -41,5 +41,15 @@ $(document).ready(
 				}
 
 			})
+			
+			$('.purchase-quantity-input').change(function() {
+				if ($(this).val() == '' || $(this).val() == '0') {
+					$('#' + $(this).attr('name')).css('background', '#fff');
+				} else {
+					$('#' + $(this).attr('name')).css('background', '#f003');
+				}
+
+			})
+			
 
 		})

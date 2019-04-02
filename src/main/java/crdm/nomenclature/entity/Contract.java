@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
-import org.hibernate.annotations.Where;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -47,7 +46,6 @@ public class Contract {
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@OneToMany( mappedBy = "contract")
 	@JsonIgnore
-	@Where(clause="remainder > 0")
 	private List<Good> goods;
 
 	public Contract() {
