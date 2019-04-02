@@ -50,7 +50,7 @@
 									<td>${request.section.name }</td>
 									<td>${request.date}</td>
 									
-									<td class="">
+									<td class="btn-group">
 										<a class="btn btn-primary btn-sm" 
 											href="${pageContext.request.contextPath}/request/${request.id}"> <spring:message code="view" /></a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"

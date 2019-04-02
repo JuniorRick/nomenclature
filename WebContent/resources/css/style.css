@@ -7,6 +7,11 @@ body {
 
 }
 
+
+table tr:hover {
+	background: #ddd !important;
+}
+
 .loading {
 	position: fixed;
 	top: 0;
@@ -49,11 +54,6 @@ body {
 }
 
 
-.custom-action-width {
-	width: 25%;
-}
-
-
 /* buttons style */
 .btn-primary {
 	background-color: #137c5c;
@@ -72,6 +72,10 @@ body {
  */	bpurchase: 1px solid #137c5c;
 }
 
+
+.btn-group {
+	white-space: nowrap;
+}
 
 /* tables style */
 table > thead {

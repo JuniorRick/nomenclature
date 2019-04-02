@@ -155,7 +155,7 @@ public class AppConfig implements WebMvcConfigurer {
 		props.setProperty("hibernate.c3p0.max_statements", env.getProperty("hibernate.c3p0.max_statements"));
 		props.setProperty("hibernate.c3p0.timeout", env.getProperty("hibernate.c3p0.timeout"));
 		props.setProperty("hibernate.c3p0.idle_test_period", env.getProperty("hibernate.c3p0.idle_test_period"));
-
+		props.setProperty("hibernate.c3p0.preferredTestQuery", env.getProperty("hibernate.c3p0.preferredTestQuery"));
 		
 		return props;
 	}

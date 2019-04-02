@@ -25,7 +25,7 @@
 			<div class="card-body">
 
 				<div class="row">
-					<table class="table ">
+					<table class="table">
 						<thead class=" col-6">
 							<tr>
 								<th scope="col">#</th>
@@ -47,12 +47,12 @@
 									<c:param name="Id" value="${purchase.id}" />
 								</c:url>
 
-								<tr>
+								<tr  id="${purchase.id}" ${purchase.quantity > 0.0 ? 'style="background:#f003;"' : ''}>
 									<th class="" scope="row">${loop.index + 1}</th>
 
 									<td>${purchase.good.good}</td>
 									<td>${purchase.good.remainder} (${purchase.good.unit})</td>
-									<td><input type="text" name="${purchase.id}"
+									<td><input type="text" class="request-quantity-input" name="${purchase.id}" 
 										value="${purchase.quantity}" /> (${purchase.good.unit})</td>
 
 									<td class="">
@@ -120,8 +120,11 @@
 						});
 		
 		
+
 		function clearQuantity(id) {
-			$('input[name="'+ id + '"]').val('0.0');
+			$('input[name="' + id + '"]').val('0.0');
+			$('#' + id).css('background', '#fff');
+			
 		}
 	</script>
 

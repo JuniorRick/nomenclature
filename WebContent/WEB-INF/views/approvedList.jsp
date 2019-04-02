@@ -49,11 +49,12 @@
 									<td>${request.contract.abbr} <b>[${request.contract.provider.name} | ${request.contract.number}]</b></td>
 									<td>${request.section.name }</td>
 									<td>${request.date}</td>
-									<td class="">
+									<td class="btn-group">
 										<a class="btn btn-primary btn-sm" 
 											href="${pageContext.request.contextPath}/request/view/${request.id}"> <spring:message code="view" /></a>
-										<button class="btn btn-danger btn-sm" data-toggle="modal"
-											data-target="#confirmModal${request.id}"><spring:message code="delete" /></button></td>
+										<%-- <button class="btn btn-danger btn-sm" data-toggle="modal"
+											data-target="#confirmModal${request.id}"><spring:message code="delete" /></button> --%>
+									</td>
 								</tr>
 
 

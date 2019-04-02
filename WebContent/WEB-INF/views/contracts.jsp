@@ -173,12 +173,15 @@
 									<td>${contract.startDate}</td>
 									<td>${contract.expiryDate}</td>
 
-									<td class=""><a href="${update}"
-										class="btn btn-warning btn-sm"><spring:message code="edit" /></a>
+									<td class="btn-group">
+										<a href="${update}"	class="btn btn-warning btn-sm">
+											<spring:message code="edit" />
+										</a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
 											data-target="#confirmModal${contract.id}">
 											<spring:message code="delete" />
-										</button></td>
+										</button>
+									</td>
 								</tr>
 
 

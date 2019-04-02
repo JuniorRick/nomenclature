@@ -160,7 +160,7 @@
 									<td>${good.quantity } (${good.unit})</td>
 									<td>${good.remainder} (${good.unit})</td>
 
-									<td class=""><a href="${update}"
+									<td class="btn-group"><a href="${update}"
 										class="btn btn-warning btn-sm"><spring:message code="edit" /></a>
 
 										<c:if test="${contains}">

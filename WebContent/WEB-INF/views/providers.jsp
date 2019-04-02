@@ -96,7 +96,7 @@
 									<th class="custom-action-width" scope="row">${loop.index + 1}</th>
 									<td>${provider.name}</td>
 
-									<td class="custom-action-width"><a href="${update}"
+									<td class="btn-group"><a href="${update}"
 										class="btn btn-warning btn-sm"><spring:message code="edit" /></a>
 										<button class="btn btn-danger btn-sm" data-toggle="modal"
 											data-target="#confirmModal${provider.id}">
