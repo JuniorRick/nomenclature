@@ -3,6 +3,9 @@ package crdm.nomenclature.controller;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,9 +57,12 @@ public class PurchaseController {
 	
 	
 	@GetMapping("/list/{contract_id}/{section_id}")
-	public String contractGoods(@PathVariable("contract_id") Integer contract_id,
+	public String contractGoods(@PathVariable("contract_id") Integer contract_id, HttpServletRequest request,
 			@PathVariable("section_id") Integer section_id
 			, Model model) throws ParseException {
+		
+		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(2 * 60 * 60);
 		
 		String section_name = sectionService.find(section_id).getName();
 		

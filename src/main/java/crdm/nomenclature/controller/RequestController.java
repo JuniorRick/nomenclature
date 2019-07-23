@@ -123,8 +123,8 @@ public class RequestController {
 		PdfGenerator pdfGenerator = new PdfGenerator(purchases, settings);
 		
 
-		String filePath = "/var/www/estinca/data/public/contract.pdf";
-//		String filePath = "/home/estinca/contract.pdf";
+		String filePath = "/var/www/crdm/data/public/contract_" + System.currentTimeMillis() + ".pdf";
+//		String filePath = "/home/estinca/contract_" + System.currentTimeMillis() + ".pdf";
 		pdfGenerator.generatePDF(filePath); 
 		
 		File file = new File(filePath);
@@ -179,12 +179,13 @@ public class RequestController {
 	}
 	
 	@GetMapping("/depositing/{id}")
-	public String depositing(@PathVariable("id") Integer id, Model model) throws ParseException {
+	public String depositing(@PathVariable("id") Integer id, @RequestParam("details") String details, Model model) throws ParseException {
 
 		Request request = requestService.find(id);
 
 		request.setDeposited(true);
 		request.setApproved(true);
+		request.setDetails(details);
 		
 		requestService.save(request);
 

@@ -131,7 +131,7 @@ public class AppConfig implements WebMvcConfigurer {
 		dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
 		dataSource.setMinPoolSize(getIntProperty("connection.pool.maxPoolSize"));
 		dataSource.setMinPoolSize(getIntProperty("connection.pool.maxIdleTime"));
-//		dataSource.setTestConnectionOnCheckin(testConnectionOnCheckin);
+		dataSource.setTestConnectionOnCheckin(true);
 		return dataSource;
 	}
 
@@ -156,6 +156,7 @@ public class AppConfig implements WebMvcConfigurer {
 		props.setProperty("hibernate.c3p0.timeout", env.getProperty("hibernate.c3p0.timeout"));
 		props.setProperty("hibernate.c3p0.idle_test_period", env.getProperty("hibernate.c3p0.idle_test_period"));
 		props.setProperty("hibernate.c3p0.preferredTestQuery", env.getProperty("hibernate.c3p0.preferredTestQuery"));
+		props.setProperty("hibernate.c3p0.autoReconnect", env.getProperty("hibernate.c3p0.autoReconnect"));
 		
 		return props;
 	}

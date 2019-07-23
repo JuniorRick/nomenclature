@@ -44,9 +44,20 @@ public class Request {
 	@Column(nullable = false, columnDefinition = "boolean default false")
 	private Boolean deposited;
 
+	private String details;
+	
 	private Date date;
 	
 	
+	
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
+	}
+
 	public Boolean getDeposited() {
 		return deposited;
 	}

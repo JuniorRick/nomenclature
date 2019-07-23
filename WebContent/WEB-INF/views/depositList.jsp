@@ -20,7 +20,7 @@
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">
-				<spring:message code="requests.approved.table.header" />
+				<spring:message code="requests.deposit.table.header" />
 			</div>
 			<div class="card-body">
 
@@ -32,6 +32,7 @@
 								<th scope="col"><spring:message code="contract" /></th>
 								<th scope="col"><spring:message code="section" /></th>
 								<th scope="col"><spring:message code="date" /></th>
+								<th scope="col"><spring:message code="details" /></th>
 
 								<th class="" scope="col">Actions</th>
 							</tr>
@@ -42,14 +43,16 @@
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
 
-									<td>${request.contract.abbr} <b>[${request.contract.provider.name} | ${request.contract.number}]</b></td>
+									<td><b>[${request.contract.provider.name} | ${request.contract.number}]</b></td>
 									<td>${request.section.name }</td>
 									<td>${request.date}</td>
-									<td class=""><a class="btn btn-primary btn-sm"
-										href="${pageContext.request.contextPath}/request/deposit/view/${request.id}">
-											<spring:message code="view" />
-									</a>
-										</button></td>
+									<td>${request.details }</td>
+									<td class="">
+										<a class="btn btn-primary btn-sm"
+											href="${pageContext.request.contextPath}/request/deposit/view/${request.id}">
+												<spring:message code="view" />
+										</a>
+									</td>
 								</tr>
 
 

@@ -20,10 +20,13 @@
 
 		<div class="card">
 			<div class="card-header" data-toggle="collapse">
-				${request.contract.abbr} <b>[${request.contract.provider.name} | ${request.contract.number}] </b> | ${request.section.name } <a
-					href="${pageContext.request.contextPath}/request/deposit/cancel/${request.id}"
+				<b>[${request.contract.provider.name} | ${request.contract.number}] </b> | ${request.section.name } 
+				<a href="${pageContext.request.contextPath}/request/deposit/cancel/${request.id}"
 					class="btn btn-danger btn-sm float-right pl-3 pr-3 mr-3"><spring:message
 						code="request.deposited.cancel" /></a> 
+				
+				<br />		
+				<i>${request.details }</i>
 			</div>
 			<div class="card-body">
 

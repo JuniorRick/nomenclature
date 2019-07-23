@@ -46,7 +46,7 @@
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
 									
-									<td>${request.contract.name}</td>
+									<td>${request.contract.abbr} <b>[${request.contract.provider.name} | ${request.contract.number}]</b></td>
 									<td>${request.section.name }</td>
 									<td>${request.date}</td>
 									
