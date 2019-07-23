@@ -134,6 +134,7 @@
 						class="btn float-right mr-2 btn-info"><spring:message
 							code="cancel" /></a>
 				</div>
+				<div></div>
 			</div>
 
 		</div>

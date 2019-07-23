@@ -1,6 +1,5 @@
 package crdm.nomenclature.config;
 
-import java.beans.PropertyVetoException;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -9,6 +8,7 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -32,8 +32,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableWebMvc
@@ -112,36 +110,22 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Bean
 	public DataSource dataSource() {
-		ComboPooledDataSource dataSource = new ComboPooledDataSource();
+//		ComboPooledDataSource dataSource = new ComboPooledDataSource();
+		DataSourceBuilder dataSource = DataSourceBuilder.create();
+		
+		dataSource.driverClassName("com.mysql.jdbc.Driver");
 
-		try {
-			dataSource.setDriverClass("com.mysql.jdbc.Driver");
-		} catch (PropertyVetoException e) {
-			throw new RuntimeException(e);
-		}
 
-		logger.info("jdbc.url=" + env.getProperty("jrdc.url"));
-		logger.info("jdbc.user=" + env.getProperty("jrdc.user"));
+		logger.info("jdbc.url=" + env.getProperty("jdbc.url"));
+		logger.info("jdbc.user=" + env.getProperty("jdbc.user"));
 
-		dataSource.setJdbcUrl(env.getProperty("jdbc.url"));
-		dataSource.setUser(env.getProperty("jdbc.user"));
-		dataSource.setPassword(env.getProperty("jdbc.password"));
+		dataSource.url(env.getProperty("jdbc.url"));
+		dataSource.username(env.getProperty("jdbc.user"));
+		dataSource.password(env.getProperty("jdbc.password"));
 
-		dataSource.setInitialPoolSize(getIntProperty("connection.pool.initialPoolSize"));
-		dataSource.setMinPoolSize(getIntProperty("connection.pool.minPoolSize"));
-		dataSource.setMinPoolSize(getIntProperty("connection.pool.maxPoolSize"));
-		dataSource.setMinPoolSize(getIntProperty("connection.pool.maxIdleTime"));
-		dataSource.setTestConnectionOnCheckin(true);
-		return dataSource;
+		return dataSource.build();
 	}
 
-	private int getIntProperty(String propName) {
-		String propValue = env.getProperty(propName);
-
-		int intPropValue = Integer.parseInt(propValue);
-
-		return intPropValue;
-	}
 
 	private Properties getHibernateProperties() {
 		Properties props = new Properties();
@@ -149,14 +133,6 @@ public class AppConfig implements WebMvcConfigurer {
 		props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
 		props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
 		props.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-		
-		props.setProperty("hibernate.c3p0.min_size", env.getProperty("hibernate.c3p0.min_size"));
-		props.setProperty("hibernate.c3p0.max_size", env.getProperty("hibernate.c3p0.max_size"));
-		props.setProperty("hibernate.c3p0.max_statements", env.getProperty("hibernate.c3p0.max_statements"));
-		props.setProperty("hibernate.c3p0.timeout", env.getProperty("hibernate.c3p0.timeout"));
-		props.setProperty("hibernate.c3p0.idle_test_period", env.getProperty("hibernate.c3p0.idle_test_period"));
-		props.setProperty("hibernate.c3p0.preferredTestQuery", env.getProperty("hibernate.c3p0.preferredTestQuery"));
-		props.setProperty("hibernate.c3p0.autoReconnect", env.getProperty("hibernate.c3p0.autoReconnect"));
 		
 		return props;
 	}
