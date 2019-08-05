@@ -24,18 +24,19 @@ import crdm.nomenclature.entity.Purchase;
 public class XLSGenerator {
 
 	public ByteArrayInputStream depositToXLS(List<Purchase> list, Contract contract) throws IOException {
-		String[] columns = {"Bun", "Cantitatea ramasa in contract", "Cantitatea depozitata"};
+		String[] columns = {"Bun", "Cantitatea totala in contract", "Cantitatea ramasa in contract", "Cantitatea depozitata"};
 		try (
 				Workbook workbook = new XSSFWorkbook();
 				ByteArrayOutputStream outByteStream = new ByteArrayOutputStream();
 		) {
-
+			
 			Sheet sheet = workbook.createSheet("Deposit");
 			sheet.setColumnWidth(0, 10000);
-			sheet.addMergedRegion(new CellRangeAddress(0,0,0,2));
+			sheet.addMergedRegion(new CellRangeAddress(0,0,0,3));
 			sheet.setHorizontallyCenter(true);
 			sheet.setColumnWidth(1, 10000); 
 			sheet.setColumnWidth(2, 10000);
+			sheet.setColumnWidth(3, 10000);
 			
 			Row header = sheet.createRow(0);
 			
@@ -76,6 +77,9 @@ public class XLSGenerator {
 				Row row = sheet.createRow(rowIndex++);
 				Cell cell = row.createCell(cellIndex++);
 				cell.setCellValue(entry.getKey());
+				
+				cell = row.createCell(cellIndex++);
+				cell.setCellValue(entry.getValue().get(0).getGood().getQuantity());
 				
 				cell = row.createCell(cellIndex++);
 				cell.setCellValue(entry.getValue().get(0).getGood().getRemainder());
