@@ -100,7 +100,6 @@ public class RequestController {
 			goodService.save(good);
 			
 			purchase.setGood(good);
-//			purchaseService.save(purchase);
 			
 		}
 			

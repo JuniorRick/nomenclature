@@ -86,7 +86,7 @@
 				<div class="modal-body">
 					<div class="input-group">
 
-					  <textarea class="form-control" placeholder="..." id='text-details'></textarea>
+					  <textarea class="form-control" placeholder="..." id='text-details'>${ request.details }</textarea>
 					</div>
 				</div>
 				<div class="modal-footer">

@@ -162,6 +162,10 @@
 								<c:url var="delete" value="/contract/delete">
 									<c:param name="Id" value="${contract.id}" />
 								</c:url>
+								
+								<c:url var="generate" value="/contract/xls/deposit.xlsx">
+									<c:param name="Id" value="${contract.id}" />
+								</c:url>
 
 								<tr>
 									<th class="" scope="row">${loop.index + 1}</th>
@@ -181,6 +185,9 @@
 											data-target="#confirmModal${contract.id}">
 											<spring:message code="delete" />
 										</button>
+										<a href="${generate}"	class="btn btn-primary btn-sm">
+											<spring:message code="report" /> (xlsx)
+										</a>
 									</td>
 								</tr>
 
