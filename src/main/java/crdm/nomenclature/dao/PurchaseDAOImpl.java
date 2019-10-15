@@ -7,6 +7,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import crdm.nomenclature.component.YearComponent;
 import crdm.nomenclature.entity.Purchase;
 
 
@@ -16,11 +17,15 @@ public class PurchaseDAOImpl implements PurchaseDAO{
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@Autowired
+	private YearComponent year;
+	
 	@Override
 	public List<Purchase> all() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Command", Purchase.class).getResultList();
+		return session.createQuery("from Command c where year(c.request.date) = :year", Purchase.class)
+				.setParameter("year", year.getYear()).getResultList();
 	}
 	
 	@Override
@@ -52,7 +57,8 @@ public class PurchaseDAOImpl implements PurchaseDAO{
 	public List<Purchase> requests() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Command where approved != true", Purchase.class).getResultList();
+		return session.createQuery("from Command c where year(c.request.date) = :year and c.approved != true", Purchase.class)
+				.setParameter("year", year.getYear()).getResultList();
 	}
 
 

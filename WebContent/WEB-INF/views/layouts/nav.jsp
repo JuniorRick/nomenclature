@@ -131,7 +131,9 @@
 				aria-label="Search" type="search" id="search">
 			<!-- 			<button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button> -->
 		</form>
-
+		
+		
+		<a href="${pageContext.request.contextPath}/" style="color: #fff; font-size: 1.3em">${year.year}</a>
 	</div>
 </nav>
 

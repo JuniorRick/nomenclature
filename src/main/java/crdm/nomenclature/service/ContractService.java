@@ -11,6 +11,8 @@ public interface ContractService {
 
 	public Contract find(Integer id);
 
-	void delete(Integer id);
+	public void delete(Integer id);
+	
+	public List<Integer> years();
 
 }

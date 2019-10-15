@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import crdm.nomenclature.component.YearComponent;
 import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.entity.Good;
 import crdm.nomenclature.service.ContractService;
@@ -33,6 +34,9 @@ public class GoodController {
 	@Autowired
 	private ContractService contractService;
 
+	@Autowired
+	private YearComponent year;
+	
 	@GetMapping("/list")
 	public String all(@ModelAttribute("good") Good good, @ModelAttribute("contract") Contract contract, Model model)
 			throws ParseException, JsonProcessingException {
@@ -46,6 +50,7 @@ public class GoodController {
 		}
 		model.addAttribute("goods", goods);
 		model.addAttribute("good", good);
+		model.addAttribute("year", year);
 
 		List<Contract> contracts = contractService.all();
 		ObjectMapper om = new ObjectMapper();

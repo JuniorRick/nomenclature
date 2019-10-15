@@ -9,6 +9,12 @@
 <head>
 <jsp:include page="/WEB-INF/views/layouts/header.jsp" />
 <title>purchases</title>
+
+<style>
+	.clearfix:after {
+		content: "";
+	}
+</style>
 </head>
 <body>
 
@@ -134,7 +140,7 @@
 						class="btn float-right mr-2 btn-info"><spring:message
 							code="cancel" /></a>
 				</div>
-				<div></div>
+				<div ></div>
 			</div>
 
 		</div>

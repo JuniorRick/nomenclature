@@ -51,6 +51,25 @@
 					</c:if>
 
 				</c:if>
+				
+				<div>
+					<div class=" mt-3 col-sm" style="border: 2px solid white; padding: 5px;">
+						<div class="row">
+							<div class="col-sm-2" style="font-size: 1.5em;">
+								Filter: 
+							</div>
+							
+							<div class="col-sm-10">
+								<select id="year" name="year" class="form-control">
+									<c:forEach items="${years}" var="y">
+										<option value="${y}" ${ year.year == y ? 'selected="selected"' : '' }>${y}</option>
+									</c:forEach>
+									
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
 
 			</div>
 
@@ -82,7 +101,7 @@
 
 		</div>
 	</div>
-
+	
 	<!-- Page footer -->
 	<jsp:include page="/WEB-INF/views/layouts/footer.jsp" />
 
@@ -94,7 +113,16 @@
 					window.location.replace('?lang=' + selectedOption);
 				}
 			});
+			
+			$("#year").change(function() {
+				var selectedOption = $('#year').val();
+				if (selectedOption != '') {
+					window.location.replace('?year=' + selectedOption);
+				}
+			});
+			
 		});
+		
 	</script>
 
 </body>

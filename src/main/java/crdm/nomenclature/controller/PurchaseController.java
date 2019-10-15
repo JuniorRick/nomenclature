@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import crdm.nomenclature.component.YearComponent;
 import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.entity.Good;
 import crdm.nomenclature.entity.Section;
@@ -39,6 +40,9 @@ public class PurchaseController {
 	@Autowired
 	private ContractService contractService;
 	
+	@Autowired
+	private YearComponent year;
+	
 	@GetMapping("/list")
 	public String all(Model model) throws ParseException {
 		
@@ -52,6 +56,7 @@ public class PurchaseController {
 		List<Section> sections = sectionService.all();
 		model.addAttribute("sections", sections);
 		
+		model.addAttribute("year", year);
 		return "purchases";
 	}
 	

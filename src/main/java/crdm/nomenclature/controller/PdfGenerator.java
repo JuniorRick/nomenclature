@@ -65,7 +65,7 @@ public class PdfGenerator {
 		Date date = purchases.get(0).getGood().getContract().getStartDate();
 
 		final String title = "IMSP Centrul Republican de Diagnosticare "
-				+ "Medicala solicita livrearea urmatoarelor consumabile, " + "conform contractului "
+				+ "Medicala solicita livrarea urmatoarelor consumabile, " + "conform contractului "
 				+ purchases.get(0).getGood().getContract().getNumber() + " din " + formatDate(date);
 
 		Phrase phrase = new Phrase(title);

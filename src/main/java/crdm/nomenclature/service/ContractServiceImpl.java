@@ -41,4 +41,10 @@ public class ContractServiceImpl implements ContractService {
 
 	}
 
+	@Override
+	@Transactional
+	public List<Integer> years() {
+		return contractDAO.years();
+	}
+
 }

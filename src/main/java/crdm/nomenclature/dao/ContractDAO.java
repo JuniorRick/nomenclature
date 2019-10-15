@@ -13,4 +13,6 @@ public interface ContractDAO {
 	public Contract find(Integer id);
 	
 	void delete(Integer id);
+	
+	public List<Integer> years();
 }

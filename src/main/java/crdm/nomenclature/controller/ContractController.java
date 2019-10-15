@@ -9,6 +9,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import crdm.nomenclature.component.YearComponent;
 import crdm.nomenclature.entity.Contract;
 import crdm.nomenclature.entity.Good;
 import crdm.nomenclature.entity.Provider;
@@ -47,6 +50,9 @@ public class ContractController {
 	@Autowired
 	private RequestService requestService;
 	
+	@Autowired
+	private YearComponent year;
+	
 	@GetMapping("/list")
 	public String all(@ModelAttribute("contract") Contract contract, Model model) throws ParseException {
 		
@@ -62,6 +68,7 @@ public class ContractController {
 		
 		model.addAttribute("contracts", contracts);
 		model.addAttribute("contract", contract);
+		model.addAttribute("year", year);
 		
 		List<Provider> providers = providerService.all();
 		model.addAttribute("providers", providers);
@@ -78,7 +85,6 @@ public class ContractController {
 		
 		List<Request> listByContract = requestService.depositedList()
 				.stream().filter(item -> item.getContract().getId() == contract.getId())
-//		.filter(item -> item.getContract().getNumber() == contract.getNumber())
 				.collect(Collectors.toList());
 		
 		System.out.println("getting contract");

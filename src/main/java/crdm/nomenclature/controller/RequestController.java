@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itextpdf.text.DocumentException;
 
+import crdm.nomenclature.component.YearComponent;
 import crdm.nomenclature.entity.Good;
 import crdm.nomenclature.entity.Purchase;
 import crdm.nomenclature.entity.Request;
@@ -58,13 +59,18 @@ public class RequestController {
 	@Autowired
 	private SettingsService settingsService;
 	
+	@Autowired
+	private YearComponent year;
+	
+	
 	@GetMapping("list")
 	public String list(@ModelAttribute("request") Purchase purchase, Model model) throws ParseException {
 
 		List<Request> requests = requestService.requestList();
 
 		model.addAttribute("requests", requests);
-
+		model.addAttribute("year", year);
+		
 		return "requestList";
 	}
 
@@ -74,7 +80,8 @@ public class RequestController {
 		Request request = requestService.find(id);
 
 		model.addAttribute("request", request);
-
+		model.addAttribute("year", year);
+		
 		return "approved";
 	}
 	
@@ -152,7 +159,7 @@ public class RequestController {
 		Request request = requestService.find(id);
 
 		model.addAttribute("request", request);
-
+		
 		return "request";
 	}
 

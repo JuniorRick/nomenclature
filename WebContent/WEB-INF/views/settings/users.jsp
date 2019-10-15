@@ -235,7 +235,7 @@
 			</div>
 
 		</div>
-	</div>
+	</div> <!-- generic container -->
 
 
 
