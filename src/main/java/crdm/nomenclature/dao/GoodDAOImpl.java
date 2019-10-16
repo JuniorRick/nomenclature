@@ -24,7 +24,7 @@ public class GoodDAOImpl implements GoodDAO{
 	public List<Good> all() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Good g where year(g.contract.startDate) = :year order by good", Good.class)
+		return session.createQuery("from Good g where year(g.contract.expiryDate) = :year order by good", Good.class)
 				.setParameter("year", year.getYear()).getResultList();
 	}
 

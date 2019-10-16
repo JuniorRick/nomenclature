@@ -1,6 +1,11 @@
 package crdm.nomenclature.dao;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.TypedQuery;
 
@@ -26,7 +31,7 @@ public class ContractDAOImpl implements ContractDAO{
 	public List<Contract> all() {
 		Session session = sessionFactory.getCurrentSession();
 		
-		return session.createQuery("from Contract where year(startDate) = :year order by name", Contract.class)
+		return session.createQuery("from Contract where year(expiryDate) = :year order by name", Contract.class)
 				.setParameter("year", year.getYear()).getResultList();
 	}
 
@@ -58,11 +63,13 @@ public class ContractDAOImpl implements ContractDAO{
 		
 		Session session = sessionFactory.getCurrentSession();
 		
-		TypedQuery<Integer> query =
-			      session.createQuery("select distinct(Year(startDate)) as year from Contract order by year desc", Integer.class);
-			  List<Integer> results = query.getResultList();
+		TypedQuery<Integer> query = session.createQuery("select distinct(Year(startDate)) as year from Contract order by year desc", Integer.class);
+		List<Integer> results = query.getResultList();
+
+		query =  session.createQuery("select distinct(Year(expiryDate)) as year from Contract order by year desc", Integer.class);
+		results.addAll(query.getResultList());
 		
-		return results;
+		return results.stream().sorted(Comparator.reverseOrder()).distinct().collect(Collectors.toList());
 	}
 	
 
